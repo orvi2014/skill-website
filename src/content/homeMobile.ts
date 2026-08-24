@@ -158,8 +158,8 @@ export const MOBILE_SERVICES_HTML = `
     <video autoPlay muted loop playsInline data-no-lazy data-no-fullscreen poster="/assets/hero-poster.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;"><source src="/assets/hero.mp4" type="video/mp4"></video>
     <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(12,12,14,.55),rgba(12,12,14,.25) 42%,rgba(12,12,14,.9));"></div>
     <div style="position:relative;z-index:3;padding:0 22px 26px;">
-      <h1 style="margin:0;font-family:'Archivo';font-weight:800;text-transform:uppercase;line-height:.94;letter-spacing:-.02em;font-size:clamp(2.6rem,13vw,4rem);color:#fff;">AI-Powered<br>Post-Production<br><span style="color:transparent;-webkit-text-stroke:1.4px rgba(255,255,255,.85);">Partner</span></h1>
-      <p style="font:400 15px/1.5 'Space Grotesk';color:rgba(255,255,255,.82);margin:18px 0 0;max-width:30ch;">From raw files to final frame &mdash; image &amp; video post-production, refined by experts.</p>
+      <h1 style="margin:0;font-family:'Archivo';font-weight:800;text-transform:uppercase;line-height:.94;letter-spacing:-.02em;font-size:clamp(2.1rem,10.5vw,3.2rem);color:#fff;">Visual Content for<br>E-commerce by<br><span style="color:transparent;-webkit-text-stroke:1.4px rgba(255,255,255,.85);">Human and AI</span></h1>
+      <p style="font:400 15px/1.5 'Space Grotesk';color:rgba(255,255,255,.82);margin:18px 0 0;max-width:34ch;">AI-powered creativity. Human expertise. Built for scale.</p>
       <div style="display:flex;gap:10px;margin-top:20px;">
         <a href="#usp" class="mtap" style="font:600 12px 'Space Grotesk';letter-spacing:.04em;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(6px);padding:10px 18px;border-radius:100px;">Why Skill</a>
         <a href="#contact" class="mtap" style="font:600 12px 'Space Grotesk';letter-spacing:.04em;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(6px);padding:10px 18px;border-radius:100px;">Get in touch</a>

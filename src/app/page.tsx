@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import HomeClient from "@/components/HomeClient";
 import { DEFAULT_OG_IMAGE } from "@/lib/site";
 
-const TITLE = "Skill Graphics — AI-Powered Post-Production Partner";
+const TITLE = "Skill Graphics — Visual Content for E-commerce by Human and AI";
 const DESCRIPTION =
-  "Skill Graphics is an AI-powered image & video post-production studio, part of Skill Ventures.";
+  "AI-powered creativity. Human expertise. Built for scale. Skill Graphics is part of Skill Ventures.";
 
 export const metadata: Metadata = {
   title: TITLE,
