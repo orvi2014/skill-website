@@ -3,7 +3,9 @@
    Mobile/iOS: do NOT move the in-page <video> (Safari keeps compositing it
    in the original card). Do NOT request native fullscreen on the video
    (letterboxed system player). Instead clone the source into a body-level
-   overlay sized to the visual viewport, object-fit:cover.
+   overlay sized to the visual viewport. Default object-fit:cover; hosts
+   with data-sg-fs-fit="contain" (or source object-fit:contain) keep the
+   full frame without cropping.
 
    Desktop: same overlay; optionally fullscreen the overlay element. */
 (function () {
@@ -60,7 +62,9 @@
       OVERLAY_Z +
       ";background:#000;-webkit-transform:translateZ(0);transform:translateZ(0)}" +
       "#sg-fs-overlay video,#sg-fs-player{position:absolute;top:0;left:0;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover!important;object-position:center!important;background:#000;border:0}" +
+      "#sg-fs-player.sg-fs-contain{object-fit:contain!important}" +
       "#sg-fs-player.sg-fs-rotate{top:50%!important;left:50%!important;transform:translate(-50%,-50%) rotate(90deg);object-fit:cover!important}" +
+      "#sg-fs-player.sg-fs-rotate.sg-fs-contain{object-fit:contain!important}" +
       ".sg-fs-hit{position:absolute;inset:0;z-index:6;border:0;padding:0;margin:0;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;appearance:none;-webkit-appearance:none;-webkit-transform:translateZ(1px);transform:translateZ(1px);pointer-events:auto;touch-action:pan-y}";
     document.head.appendChild(s);
   })();
@@ -213,6 +217,22 @@
     } catch (e) {}
   }
 
+  function preferredFit() {
+    var host = sourceVideo && sourceVideo.closest("[data-sg-fs-host]");
+    if (host) {
+      var fitAttr = (host.getAttribute("data-sg-fs-fit") || "").toLowerCase();
+      if (fitAttr === "contain") return "contain";
+      if (fitAttr === "cover") return "cover";
+    }
+    if (sourceVideo) {
+      try {
+        var of = window.getComputedStyle(sourceVideo).objectFit;
+        if (of === "contain") return "contain";
+      } catch (e) {}
+    }
+    return "cover";
+  }
+
   function applyPlayerFit() {
     if (!player) return;
     var size = videoSize();
@@ -220,7 +240,10 @@
     var vw = overlay ? overlay.clientWidth : window.innerWidth;
     var vh = overlay ? overlay.clientHeight : window.innerHeight;
     var portraitScreen = vh > vw;
-    player.style.setProperty("object-fit", "cover", "important");
+    var fit = preferredFit();
+    if (fit === "contain") player.classList.add("sg-fs-contain");
+    else player.classList.remove("sg-fs-contain");
+    player.style.setProperty("object-fit", fit, "important");
     player.style.setProperty("object-position", "center", "important");
     if (landscapeVid && portraitScreen) {
       player.classList.add("sg-fs-rotate");

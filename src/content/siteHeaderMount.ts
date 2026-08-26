@@ -94,13 +94,9 @@ export function mountSiteHeader(): () => void {
   document.addEventListener("click", onBookClick);
   cleanups.push(() => document.removeEventListener("click", onBookClick));
 
-  // ---- scroll to whichever Cases / Why Skill section is actually rendered ----
-  // The desktop and mobile home page layouts both live in the DOM at once
-  // (one hidden via CSS). Desktop and mobile Why Skill both use id="usp",
-  // so a native hash scroll hits the first (often hidden) copy. Cases uses
-  // id="cases" only on desktop — on mobile that element is display:none.
-  // Same fix pattern as the [data-nav-hero] lookup above: pick whichever
-  // candidate actually has layout.
+  // ---- scroll to whichever Cases section is actually rendered ----
+  // Desktop and mobile layouts both live in the DOM (one hidden via CSS).
+  // Cases uses id="cases" on desktop and id="mm-cases-section" on mobile.
   function scrollToVisible(ids: string[]) {
     const el = ids
       .flatMap((id) => Array.from(document.querySelectorAll<HTMLElement>(`#${id}`)))
@@ -110,17 +106,16 @@ export function mountSiteHeader(): () => void {
   const onHashSectionClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement | null;
     const link = target?.closest<HTMLAnchorElement>(
-      'a[href="#cases"], a[href="/#cases"], a[href="#usp"], a[href="/#usp"]'
+      'a[href="#cases"], a[href="/#cases"]'
     );
     if (!link) return;
     const href = link.getAttribute("href") || "";
-    const id = href.replace(/^\/?#/, "");
     // Only intercept when this resolves to staying on the current page —
     // otherwise let the browser navigate there first (handled on arrival
     // by the home page's own mount script).
     if (location.pathname !== "/" && !href.startsWith("#")) return;
     e.preventDefault();
-    scrollToVisible(id === "cases" ? ["cases", "mm-cases-section"] : ["usp"]);
+    scrollToVisible(["cases", "mm-cases-section"]);
   };
   document.addEventListener("click", onHashSectionClick);
   cleanups.push(() => document.removeEventListener("click", onHashSectionClick));

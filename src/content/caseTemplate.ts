@@ -61,17 +61,6 @@ function metricsHtml(metrics: CaseStudy["metrics"]): string {
   </section>`;
 }
 
-function splitImagesHtml(splitImages: CaseStudy["splitImages"]): string {
-  if (!splitImages) return "";
-  const [a, b] = splitImages;
-  return `
-  <!-- FULL-BLEED 2-UP SPLIT -->
-  <div class="sg-reveal" style="display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(6px,1vw,12px);background:#EDEDEB;padding-bottom:clamp(6px,1vw,12px);">
-    <div style="position:relative;overflow:hidden;aspect-ratio:4/5;background:#dcdcd7;"><img src="${a}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-    <div style="position:relative;overflow:hidden;aspect-ratio:4/5;background:#dcdcd7;"><img src="${b}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;"></div>
-  </div>`;
-}
-
 function galleryHtml(gallery: string[] | undefined): string {
   if (!gallery || !gallery.length) return "";
   const firstReal = gallery.find((src) => src);
@@ -90,7 +79,7 @@ function galleryHtml(gallery: string[] | undefined): string {
     .join("");
   return `
   <!-- STAGED GALLERY -->
-  <div class="sg-reveal" style="display:grid;grid-template-columns:clamp(84px,9vw,140px) 1fr;gap:clamp(8px,1.4vw,18px);padding:0 clamp(8px,1.4vw,18px) clamp(56px,9vh,120px);align-items:stretch;">
+  <div class="sg-reveal" style="display:grid;grid-template-columns:clamp(84px,9vw,140px) 1fr;gap:clamp(8px,1.4vw,18px);padding:clamp(40px,6vh,80px) clamp(8px,1.4vw,18px) clamp(56px,9vh,120px);align-items:stretch;background:#EDEDEB;">
     <div id="ng-rail" style="display:flex;flex-direction:column;gap:clamp(8px,1.2vw,14px);">${thumbs}</div>
     <div id="ng-stage" style="position:relative;height:min(88vh,940px);overflow:hidden;background:#e2e2de;display:flex;align-items:center;justify-content:center;">
       ${
@@ -98,6 +87,25 @@ function galleryHtml(gallery: string[] | undefined): string {
           ? `<img id="ng-main" src="${firstReal}" alt="Selected gallery image" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .55s ease;">`
           : `<img id="ng-main" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .55s ease;display:none;"><span style="font:600 12px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;color:#a7a7a1;">Looks coming soon</span>`
       }
+    </div>
+  </div>`;
+}
+
+function videoHtml(videoSrc: string | undefined): string {
+  if (!videoSrc) {
+    return `
+  <div class="sg-reveal" style="background:#EDEDEB;padding:clamp(40px,7vh,90px) 40px;display:flex;justify-content:center;">
+    <div style="width:min(420px,72vw);aspect-ratio:9/16;max-height:min(78vh,720px);overflow:hidden;background:#dcdcd7;border-radius:4px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#8f8f8a;text-align:center;padding:24px;">
+      <span style="font-size:30px;line-height:1;">&#9658;</span>
+      <span style="font:600 13px 'Space Grotesk';letter-spacing:.02em;">Case video</span>
+      <span style="font:400 12px 'Space Grotesk';color:#a7a7a1;">Coming soon</span>
+    </div>
+  </div>`;
+  }
+  return `
+  <div class="sg-reveal" style="background:#EDEDEB;padding:clamp(40px,7vh,90px) 40px;display:flex;justify-content:center;">
+    <div data-sg-fs-host data-sg-fs-fit="contain" style="width:min(420px,72vw);aspect-ratio:9/16;max-height:min(78vh,720px);overflow:hidden;background:#111;border-radius:6px;position:relative;">
+      <video src="${videoSrc}" playsinline preload="metadata" style="width:100%;height:100%;object-fit:contain;display:block;background:#111;"></video>
     </div>
   </div>`;
 }
@@ -111,13 +119,13 @@ export function caseHtml(data: CaseStudy): string {
 
   <div class="desktop-layout">${headerHtml({ subpage: true })}</div>
 
-  <!-- HERO -->
+  <!-- HERO / COVER -->
   <header id="main-content" tabindex="-1" data-nav-hero style="position:relative;height:74vh;min-height:520px;overflow:hidden;background:${data.comingSoon ? "linear-gradient(135deg,#1c1c1c,#0c0c0e)" : "#d7d7d2"};">
     ${
       data.comingSoon
         ? `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 24px;"><span style="font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,7vw,6rem);text-transform:uppercase;color:transparent;-webkit-text-stroke:1.6px rgba(255,255,255,.8);line-height:.95;">${data.name}</span></div>`
         : `<div class="ncase-slot" style="position:absolute;inset:0;overflow:hidden;">
-      <img src="${data.heroImg}" alt="${data.name}" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+      <img src="${data.heroImg}" alt="${data.name}" style="width:100%;height:100%;object-fit:cover;object-position:${data.coverPos ?? "center"};display:block;">
     </div>`
     }
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,18,20,.42),rgba(18,18,20,0) 34%);pointer-events:none;"></div>
@@ -136,16 +144,11 @@ export function caseHtml(data: CaseStudy): string {
     </div>
   </section>
 
-  ${metricsHtml(data.metrics)}
+  ${videoHtml(data.videoSrc)}
 
-  <!-- CENTERED VIDEO CANVAS -->
-  <div class="sg-reveal" style="background:#EDEDEB;padding:clamp(56px,9vh,120px) 40px;display:flex;justify-content:center;">
-    <div style="width:min(440px,84vw);aspect-ratio:4/5;overflow:hidden;background:#dcdcd7;border-radius:4px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#8f8f8a;text-align:center;padding:24px;">
-      <span style="font-size:30px;line-height:1;">&#9658;</span>
-      <span style="font:600 13px 'Space Grotesk';letter-spacing:.02em;">Detail / on-model video</span>
-      <span style="font:400 12px 'Space Grotesk';color:#a7a7a1;">Coming soon</span>
-    </div>
-  </div>
+  ${galleryHtml(data.gallery)}
+
+  ${metricsHtml(data.metrics)}
 
   <!-- STICKY INFO BAR -->
   <div id="nc-bar" style="position:sticky;bottom:0;z-index:55;display:flex;justify-content:center;padding:0 clamp(12px,3vw,40px) clamp(12px,3vw,28px);pointer-events:none;">
@@ -173,10 +176,6 @@ export function caseHtml(data: CaseStudy): string {
       <p style="font:400 clamp(15px,1.3vw,19px)/1.85 'Space Grotesk';color:#5b5b58;margin:0;max-width:52ch;">${data.staged}</p>
     </div>
   </section>
-
-  ${splitImagesHtml(data.splitImages)}
-
-  ${galleryHtml(data.gallery)}
 
   ${
     data.tags.length
@@ -247,7 +246,7 @@ export function mountCase(): () => void {
   }
 
   // staged gallery: click a thumb to feature it, auto-cycle through looks
-  const thumbs = Array.from(root.querySelectorAll<HTMLElement>(".ng-thumb"));
+  const thumbs = Array.from(root.querySelectorAll<HTMLElement>(".ng-thumb[data-src]"));
   const main = root.querySelector<HTMLImageElement>("#ng-main");
   if (thumbs.length && main) {
     let active = 0;

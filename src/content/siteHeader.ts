@@ -44,7 +44,6 @@ export function headerHtml(opts?: { backHref?: string; backLabel?: string; subpa
   const back = opts?.backHref
     ? `<a href="${opts.backHref}" class="nav-back"><span style="font-size:15px;">&#8592;</span> ${opts.backLabel ?? "Back"}</a>`
     : "";
-  const hash = (id: string) => (opts?.subpage ? `/#${id}` : `#${id}`);
   return `
   <a href="#main-content" class="skip-link">Skip to content</a>
   <a href="#contact" class="sg-contact-tab">Contact&nbsp;Us</a>
@@ -77,9 +76,7 @@ export function headerHtml(opts?: { backHref?: string; backLabel?: string; subpa
         <a href="/photo" class="sg-menu-link" style="text-decoration:none;color:#fff;font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;">Image Editing</a>
         <a href="/video" class="sg-menu-link" style="text-decoration:none;color:#fff;font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;">Video Editing</a>
         <a href="/#studio" class="sg-menu-link" style="text-decoration:none;color:#fff;font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;">AI Studio</a>
-        <a href="${hash("usp")}" class="sg-menu-link" style="text-decoration:none;color:#fff;font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;">Why Skill</a>
         <a href="/#cases" class="sg-menu-link" style="text-decoration:none;color:#fff;font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;">Cases</a>
-        <a href="/#journey" class="sg-menu-link" style="text-decoration:none;color:#fff;font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;">10 Years</a>
         <a href="/#faq" class="sg-menu-link" style="text-decoration:none;color:#fff;font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;">FAQ</a>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:center;margin-top:54px;padding-top:30px;border-top:1px solid rgba(255,255,255,.14);">

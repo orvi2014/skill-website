@@ -39,25 +39,19 @@ export function mountHome(): () => void {
   // ---- shared header (nav scroll behavior + mobile menu) ----
   cleanups.push(mountSiteHeader());
 
-  // ---- correct #cases / #usp arrivals from other pages (e.g. a case
-  // study's "More cases" or a subpage's Why Skill link). Desktop and
-  // mobile trees both live in the DOM (one hidden via CSS); native
-  // hash-scroll runs before this script and can land on the hidden copy.
-  // Re-scroll to whichever tree is actually rendered once layout has
-  // settled. ----
-  const arrivalHash = window.location.hash;
-  if (arrivalHash === "#cases" || arrivalHash === "#usp") {
+  // ---- correct #cases arrivals from other pages. Desktop and mobile
+  // trees both live in the DOM (one hidden via CSS); native hash-scroll
+  // can land on the hidden copy — re-scroll to the visible one. ----
+  if (window.location.hash === "#cases") {
     window.setTimeout(() => {
-      const ids =
-        arrivalHash === "#cases" ? ["cases", "mm-cases-section"] : ["usp"];
-      const el = ids
+      const el = ["cases", "mm-cases-section"]
         .flatMap((id) => Array.from(document.querySelectorAll<HTMLElement>(`#${id}`)))
         .find((c) => c.offsetHeight > 0);
       el?.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "start" });
     }, 50);
   }
 
-  // ---- mobile-specific layout (nav, AI Studio, journey story deck, etc.) ----
+  // ---- mobile-specific layout (nav, AI Studio, etc.) ----
   cleanups.push(mountHomeMobile());
 
   // ---- keep videos playing ----
@@ -111,167 +105,63 @@ export function mountHome(): () => void {
   // ---- AI Studio (embedded) ----
   cleanups.push(mountAiStudio());
 
-  // ---- Why Skill: scroll-driven word colour reveal ----
-  const DIM = [203, 203, 198];
-  const WHITE = [22, 22, 22];
-  const PUR = [123, 44, 142];
-  const lerp = (a: number, b: number, t: number) => Math.round(a + (b - a) * t);
-  let cwi: number[] | null = null;
+  // ---- Future Vision: scroll-zoom globe (after Operations) ----
+  function visionZoom() {
+    if (window.innerWidth < 820) return;
+    const wrap = document.getElementById("vision");
+    const pin = document.getElementById("vision-pin");
+    const stage = document.getElementById("vision-stage");
+    const globe = document.getElementById("vision-globe");
+    if (!wrap || !pin || !stage || !globe) return;
 
-  function uspReveal() {
-    const sc = document.getElementById("usp-scroll");
-    const st = document.getElementById("usp-statement");
-    if (!sc || !st) return;
-    const words = Array.from(st.querySelectorAll<HTMLElement>(".usp-rw"));
-    if (!words.length) return;
-
-    if (window.innerWidth <= 768) {
-      if (sc.dataset.m !== "1") {
-        sc.dataset.m = "1";
-        words.forEach((w) => {
-          const key = w.getAttribute("data-k") === "1";
-          const t = key ? PUR : WHITE;
-          w.style.color = `rgb(${t[0]},${t[1]},${t[2]})`;
-        });
-        const mprog = document.getElementById("usp-prog");
-        if (mprog) mprog.style.width = "100%";
-        document.querySelectorAll<HTMLElement>(".usp-m").forEach((c) => {
-          c.dataset.lit = "0";
-          c.style.borderColor = "";
-          c.style.boxShadow = "";
-        });
-      }
-      return;
-    }
-    sc.dataset.m = "";
-    const travel = sc.offsetHeight - window.innerHeight;
-    const r = sc.getBoundingClientRect();
-    const p = travel > 0 ? Math.min(Math.max(-r.top / travel, 0), 1) : 0;
-    if (sc.dataset.p === p.toFixed(3)) return;
-    sc.dataset.p = p.toFixed(3);
-    const prog = document.getElementById("usp-prog");
-    if (prog) prog.style.width = `${(p * 100).toFixed(1)}%`;
-    const N = words.length;
-    const active = (p / 0.85) * N;
-    for (let i = 0; i < N; i++) {
-      const wp = Math.min(Math.max(active - i, 0), 1);
-      const w = words[i];
-      const key = w.getAttribute("data-k") === "1";
-      const tgt = key ? PUR : WHITE;
-      w.style.color = `rgb(${lerp(DIM[0], tgt[0], wp)},${lerp(DIM[1], tgt[1], wp)},${lerp(DIM[2], tgt[2], wp)})`;
-    }
-    const cards = document.querySelectorAll<HTMLElement>(".usp-m");
-    if (cards.length === 3) {
-      if (!cwi) {
-        let qi = -1,
-          pi = -1,
-          di = -1;
-        words.forEach((w, i) => {
-          const t = (w.textContent || "").toLowerCase();
-          if (qi < 0 && t.indexOf("quality") >= 0) qi = i;
-          if (pi < 0 && t.indexOf("pricing") >= 0) pi = i;
-          if (di < 0 && t.indexOf("delivery") >= 0) di = i;
-        });
-        cwi = [qi, pi, di];
-      }
-      for (let c = 0; c < 3; c++) {
-        const on = cwi[c] >= 0 && active >= cwi[c] + 0.5 ? "1" : "0";
-        if (cards[c].dataset.lit !== on) {
-          cards[c].dataset.lit = on;
-          cards[c].style.background = "#fff";
-          cards[c].style.borderColor = on === "1" ? "#7B2C8E" : "";
-          cards[c].style.boxShadow =
-            on === "1" ? "0 0 0 1.5px #7B2C8E, 0 22px 50px rgba(123,44,142,.16)" : "";
-        }
-      }
-    }
-  }
-
-  // ---- journey timeline + vision globe ----
-  function journey() {
-    const isMobile = window.innerWidth < 820;
-    const wrap = document.getElementById("journey");
-    const track = document.getElementById("journey-track");
-    const vp = document.getElementById("journey-vp");
-    const pin = document.getElementById("journey-pin");
-    const prog = document.getElementById("journey-prog");
-    if (!wrap || !track || !vp) return;
-    if (isMobile) {
-      if (wrap.style.height !== "") wrap.style.height = "";
-      if (pin) {
-        pin.style.position = "static";
-        pin.style.height = "auto";
-      }
-      track.style.transform = "none";
-      track.style.flexWrap = "wrap";
-      vp.style.overflow = "visible";
-      return;
-    }
-    if (pin) {
-      pin.style.position = "sticky";
-      pin.style.height = "100vh";
-    }
-    vp.style.overflow = "hidden";
-    track.style.flexWrap = "nowrap";
-    const maxX = Math.max(0, track.scrollWidth - vp.clientWidth);
-    const globeDist = Math.round(window.innerHeight * 2.0);
-    const wanted = Math.round(maxX + globeDist + window.innerHeight);
+    const globeDist = Math.round(window.innerHeight * 2.2);
+    const wanted = Math.round(globeDist + window.innerHeight);
     if (wrap.dataset.h !== String(wanted)) {
       wrap.style.height = `${wanted}px`;
       wrap.dataset.h = String(wanted);
     }
+    pin.style.position = "sticky";
+    pin.style.height = "100vh";
+
     const rect = wrap.getBoundingClientRect();
     if (rect.bottom < -40 || rect.top > window.innerHeight + 40) return;
     const total = wrap.offsetHeight - window.innerHeight;
     const scrolled = Math.min(Math.max(-rect.top, 0), total);
-    const cardP = maxX > 0 ? Math.min(scrolled / maxX, 1) : 1;
-    const tx = (-maxX * cardP).toFixed(1);
-    if (track.dataset.tx !== tx) {
-      track.style.transform = `translate3d(${tx}px,0,0)`;
-      track.dataset.tx = tx;
-      if (prog) prog.style.width = `${(cardP * 100).toFixed(1)}%`;
-    }
-    const gp = globeDist > 0 ? Math.min(Math.max((scrolled - maxX) / globeDist, 0), 1) : 0;
-    const tl = document.getElementById("journey-tl");
-    const stage = document.getElementById("vision-stage");
-    const globe = document.getElementById("vision-globe");
+    const gp = total > 0 ? scrolled / total : 0;
+    if (wrap.dataset.gp === gp.toFixed(3)) return;
+    wrap.dataset.gp = gp.toFixed(3);
+
     const head = document.getElementById("vision-head");
-    const bd = document.getElementById("vision-backdrop");
     const env = document.getElementById("vision-env");
     const stars = document.getElementById("vision-stars");
-    if (stage) {
-      stage.style.opacity = vSmooth(0, 0.02, gp).toFixed(2);
-      stage.style.pointerEvents = gp > 0.34 ? "auto" : "none";
-      const emerge = vSmooth(0.0, 0.32, gp);
-      const shrink = vSmooth(0.9, 1, gp);
-      const gs = (0.07 + 0.95 * emerge) * (1 - 0.94 * shrink);
-      if (globe) {
-        (globe as HTMLElement).style.transform = `scale(${gs.toFixed(3)})`;
-        (globe as HTMLElement).style.opacity = (
-          vSmooth(0.02, 0.1, gp) * (1 - vSmooth(0.94, 1, gp))
-        ).toFixed(2);
-      }
-      const dark = vSmooth(0.34, 0.46, gp);
-      if (bd) (bd as HTMLElement).style.opacity = dark.toFixed(2);
-      if (tl) (tl as HTMLElement).style.opacity = (1 - dark).toFixed(2);
-      const envA = vSmooth(0.48, 0.58, gp) * (1 - vSmooth(0.84, 0.92, gp));
-      if (env) (env as HTMLElement).style.opacity = envA.toFixed(2);
-      if (stars) (stars as HTMLElement).style.opacity = (0.75 * envA).toFixed(2);
-      if (head) (head as HTMLElement).style.opacity = envA.toFixed(2);
-      const wins = [
-        [0.52, 0.6],
-        [0.6, 0.68],
-        [0.68, 0.76],
-      ];
-      const pts = document.querySelectorAll<HTMLElement>(".vpoint");
-      const outAll = 1 - vSmooth(0.84, 0.92, gp);
-      pts.forEach((el, i) => {
-        const w = wins[i] || [0, 0.1];
-        const a = vSmooth(w[0], w[1], gp);
-        el.style.opacity = (a * outAll).toFixed(2);
-        el.style.transform = `translateY(${((1 - a) * 22).toFixed(1)}px)`;
-      });
-    }
+
+    // Zoom in from Operations → hold → soft exit into Join
+    const emerge = vSmooth(0.0, 0.28, gp);
+    const shrink = vSmooth(0.88, 1, gp);
+    const gs = (0.07 + 0.95 * emerge) * (1 - 0.92 * shrink);
+    globe.style.transform = `scale(${gs.toFixed(3)})`;
+    globe.style.opacity = (
+      vSmooth(0.02, 0.12, gp) * (1 - vSmooth(0.92, 1, gp))
+    ).toFixed(2);
+
+    const envA = vSmooth(0.3, 0.42, gp) * (1 - vSmooth(0.86, 0.94, gp));
+    if (env) env.style.opacity = envA.toFixed(2);
+    if (stars) stars.style.opacity = (0.75 * envA).toFixed(2);
+    if (head) head.style.opacity = envA.toFixed(2);
+
+    const wins = [
+      [0.38, 0.48],
+      [0.48, 0.58],
+      [0.58, 0.68],
+    ];
+    const pts = document.querySelectorAll<HTMLElement>("#vision-stage .vpoint");
+    const outAll = 1 - vSmooth(0.86, 0.94, gp);
+    pts.forEach((el, i) => {
+      const w = wins[i] || [0, 0.1];
+      const a = vSmooth(w[0], w[1], gp);
+      el.style.opacity = (a * outAll).toFixed(2);
+      el.style.transform = `translateY(${((1 - a) * 22).toFixed(1)}px)`;
+    });
   }
 
   // ---- cases: infinite marquee ----
@@ -311,9 +201,8 @@ export function mountHome(): () => void {
   // ---- rAF loop ----
   let raf = 0;
   const loop = () => {
-    journey();
-    uspReveal();
     casesMarq();
+    visionZoom();
     raf = requestAnimationFrame(loop);
   };
   raf = requestAnimationFrame(loop);

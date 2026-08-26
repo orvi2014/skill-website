@@ -104,7 +104,7 @@ export default function RootLayout({
         <Script src="/scripts/sg-lazyvideo.js" strategy="afterInteractive" />
         <Script src="/scripts/sg-tool-cursor.js" strategy="lazyOnload" />
         <Script src="/scripts/sg-vhero.js" strategy="afterInteractive" />
-        <Script src="/scripts/sg-video-fullscreen.js?v=20260814g" strategy="afterInteractive" />
+        <Script src="/scripts/sg-video-fullscreen.js?v=20260827a" strategy="afterInteractive" />
         <Script id="microsoft-clarity" strategy="afterInteractive">{`
           (function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};

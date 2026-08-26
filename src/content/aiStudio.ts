@@ -47,6 +47,7 @@ function panel(
   raw: [string?, string?, string?],
   still: [string?, string?, string?],
   onmodel: string | undefined,
+  videoSrc: string | undefined,
   accentColor: string
 ): string {
   const rawCol = raw
@@ -55,6 +56,12 @@ function panel(
   const stillCol = still
     .map((src) => frame(src ? img(src) : ph("Retouched")))
     .join("");
+  const videoInner = videoSrc
+    ? `<video class="ais-video" src="${videoSrc}" muted loop playsinline autoplay preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>`
+    : `<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#cfcfd4;text-align:center;padding:16px;">
+            <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.24);font-size:16px;">▶</span>
+            <span style="font:600 11px 'Space Grotesk';letter-spacing:.04em;line-height:1.5;">Video<br>coming soon</span>
+          </div>`;
   return `
     <div class="ais-panel${cat === "relaxed" ? " active" : ""}" data-cat="${cat}" style="grid-template-columns:128px 128px auto auto auto;grid-template-rows:1fr;column-gap:clamp(12px,1.6vw,24px);align-items:stretch;justify-content:center;width:100%;height:min(56vh,500px);">
       <div style="grid-column:1;position:relative;display:flex;flex-direction:column;gap:10px;height:100%;min-height:0;">
@@ -68,20 +75,17 @@ function panel(
       <div aria-hidden="true" style="grid-column:3;align-self:center;justify-self:center;color:#7B2C8E;font-size:clamp(18px,2vw,28px);line-height:1;">→</div>
       <div style="grid-column:4;position:relative;height:100%;aspect-ratio:9/16;">
         <div style="position:absolute;inset:0;border-radius:18px;overflow:hidden;background:#fff;border:1px solid #ececE7;box-shadow:0 24px 60px rgba(20,10,30,.12);">
-          ${onmodel ? `<img src="${onmodel}" alt="On-model result" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">` : ph("On-model result")}
+          ${onmodel ? `<img src="${onmodel}" alt="On Model result" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">` : ph("On Model result")}
           <div style="position:absolute;left:12px;top:12px;display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.86);backdrop-filter:blur(6px);padding:6px 12px;border-radius:100px;pointer-events:none;">
             <span style="width:7px;height:7px;border-radius:50%;background:${accentColor};"></span>
-            <span style="font:600 10px 'Space Grotesk';letter-spacing:.08em;text-transform:uppercase;color:#161616;">On-model</span>
+            <span style="font:600 10px 'Space Grotesk';letter-spacing:.08em;text-transform:uppercase;color:#161616;">On Model</span>
           </div>
         </div>
         <svg viewBox="0 0 90 160" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:6;overflow:visible;"><path d="M3 20 L3 3 L20 3" fill="none" stroke="${accentColor}" stroke-width="1.4"/><path d="M87 20 L87 3 L70 3" fill="none" stroke="${accentColor}" stroke-width="1.4"/><path d="M3 140 L3 157 L20 157" fill="none" stroke="${accentColor}" stroke-width="1.4"/><path d="M87 140 L87 157 L70 157" fill="none" stroke="${accentColor}" stroke-width="1.4"/></svg>
       </div>
       <div style="grid-column:5;position:relative;height:100%;aspect-ratio:9/16;">
         <div style="position:absolute;inset:0;border-radius:18px;overflow:hidden;background:#161616;border:1px solid #ececE7;box-shadow:0 24px 60px rgba(20,10,30,.12);">
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#cfcfd4;text-align:center;padding:16px;">
-            <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.24);font-size:16px;">▶</span>
-            <span style="font:600 11px 'Space Grotesk';letter-spacing:.04em;line-height:1.5;">Video<br>coming soon</span>
-          </div>
+          ${videoInner}
           <div style="position:absolute;left:12px;top:12px;display:flex;align-items:center;gap:7px;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);padding:6px 12px;border-radius:100px;pointer-events:none;z-index:2;">
             <span style="width:7px;height:7px;border-radius:50%;background:${accentColor};"></span>
             <span style="font:600 10px 'Space Grotesk';letter-spacing:.08em;text-transform:uppercase;color:#fff;">Video</span>
@@ -101,7 +105,7 @@ export const AI_STUDIO_HTML = `
     <div class="ais-blob" aria-hidden="true" style="bottom:-20%;right:-4%;width:42%;height:66%;background:radial-gradient(circle,rgba(224,34,46,.06),transparent 68%);animation:ais-drift2 27s ease-in-out infinite;"></div>
     <div class="ais-blob" aria-hidden="true" style="top:20%;right:24%;width:34%;height:52%;background:radial-gradient(circle,rgba(123,44,142,.07),transparent 70%);animation:ais-drift3 19s ease-in-out infinite;"></div>
     <div style="position:relative;flex:0 1 360px;min-width:250px;max-width:380px;display:flex;flex-direction:column;justify-content:center;">
-      <p style="font:600 12px 'Space Grotesk';letter-spacing:.22em;text-transform:uppercase;color:#7B2C8E;margin:0 0 16px;">AI Studio · Styling</p>
+      <p style="font:600 12px 'Space Grotesk';letter-spacing:.22em;text-transform:uppercase;color:#7B2C8E;margin:0 0 16px;">AI visuals &amp; Virtual try on</p>
       <h2 style="font-family:'Archivo';font-weight:800;font-size:clamp(1.7rem,2.6vw,3rem);line-height:1.03;letter-spacing:-.02em;margin:0 0 18px;color:#161616;">The right look<br>for <span id="aisb-headword" style="display:inline-block;transform-origin:center;backface-visibility:hidden;transform:perspective(440px) rotateX(0deg);color:transparent;-webkit-text-stroke:1.4px #7B2C8E;transition:transform .52s cubic-bezier(.2,.75,.25,1),opacity .42s ease;">E-commerce</span></h2>
       <p id="aisb-detail" style="font:400 15px/1.62 'Space Grotesk';color:#5b5b58;margin:0 0 26px;max-width:40ch;height:7.9em;min-height:7.9em;transition:opacity .4s ease;">Your customers aren't all the same — your content shouldn't be either. One product set becomes the right look for every channel, all from your existing images.</p>
       <div id="aisb-chips" style="display:flex;gap:4px;flex-wrap:wrap;">
@@ -115,11 +119,26 @@ export const AI_STUDIO_HTML = `
         "relaxed",
         ["/assets/ecom-raw-2.webp", "/assets/ecom-raw-1.webp", "/assets/ecom-raw-3.webp"],
         ["/assets/ecom-still-3.webp", "/assets/ecom-still-2.webp", "/assets/ecom-still-1.webp"],
-        "/assets/ai-result-model.webp",
+        "/assets/ecom-onmodel.webp",
+        "/assets/ecom-video.mp4",
         "#7B2C8E"
       )}
-      ${panel("casual", [undefined, undefined, undefined], [undefined, undefined, undefined], undefined, "#7B2C8E")}
-      ${panel("formal", [undefined, undefined, undefined], [undefined, undefined, undefined], undefined, "#7B2C8E")}
+      ${panel(
+        "casual",
+        ["/assets/ed-raw-1.webp", "/assets/ed-raw-2.webp", "/assets/ed-raw-3.webp"],
+        ["/assets/ed-edit-1.webp", "/assets/ed-edit-2.webp", "/assets/ed-edit-3.webp"],
+        "/assets/editorial-onmodel.webp",
+        "/assets/editorial-video.mp4",
+        "#7B2C8E"
+      )}
+      ${panel(
+        "formal",
+        ["/assets/cmp-raw-1.webp", "/assets/cmp-raw-2.webp", "/assets/cmp-raw-3.webp"],
+        ["/assets/cmp-edit-1.webp", "/assets/cmp-edit-2.webp", "/assets/cmp-edit-3.webp"],
+        "/assets/cmp-onmodel.webp",
+        "/assets/cmp-video.mp4",
+        "#7B2C8E"
+      )}
     </div>
   </div>
 </section>`;
@@ -193,6 +212,25 @@ export function mountAiStudio(): () => void {
   }
 
   let ci = 0;
+  let catTimer = 0;
+
+  const syncVideos = (key: string) => {
+    panels.forEach((p) => {
+      const active = p.getAttribute("data-cat") === key;
+      p.querySelectorAll<HTMLVideoElement>("video.ais-video").forEach((v) => {
+        if (active) {
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+          try {
+            v.currentTime = 0;
+          } catch {
+            /* ignore */
+          }
+        }
+      });
+    });
+  };
 
   const setCat = (key: string) => {
     panels.forEach((p) => p.classList.toggle("active", p.getAttribute("data-cat") === key));
@@ -231,15 +269,31 @@ export function mountAiStudio(): () => void {
         (detailEl as HTMLElement).style.opacity = "1";
       }, 200);
     }
+    syncVideos(key);
     ci = Math.max(0, ORDER.indexOf(key));
   };
 
-  let catTimer = 0;
+  chips.forEach((c) => {
+    const onClick = () => {
+      const key = c.getAttribute("data-cat");
+      if (!key) return;
+      setCat(key);
+      window.clearInterval(catTimer);
+      catTimer = window.setInterval(() => {
+        ci = (ci + 1) % ORDER.length;
+        setCat(ORDER[ci]);
+      }, 3500);
+    };
+    c.addEventListener("click", onClick);
+    cleanups.push(() => c.removeEventListener("click", onClick));
+  });
+
   catTimer = window.setInterval(() => {
     ci = (ci + 1) % ORDER.length;
     setCat(ORDER[ci]);
   }, 3500);
   cleanups.push(() => window.clearInterval(catTimer));
+  syncVideos(ORDER[0]);
 
   return () => cleanups.forEach((fn) => fn());
 }

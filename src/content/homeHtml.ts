@@ -1,6 +1,5 @@
 import { AI_STUDIO_HTML } from "./aiStudio";
 import { headerHtml } from "./siteHeader";
-import { JOURNEY_DATA } from "./journeyData";
 import {
   MOBILE_SERVICES_HTML,
   MOBILE_WHY_HTML,
@@ -23,7 +22,6 @@ const BRAND_MARQUEE_ITEMS = [
   "Walmart",
   "Uniqlo",
   "The&nbsp;North&nbsp;Face",
-  "Chanel",
   "Burberry",
   "FTKR",
   "Avi&nbsp;&amp;&nbsp;Co",
@@ -37,62 +35,41 @@ const BRAND_MARQUEE_ITEMS = [
 
 const CASES_MARQUEE = [
   { slug: "nike", name: "Nike", src: "/assets/cases-nike.webp" },
-  { slug: "prada", name: "Prada", src: "/assets/cases-prada.webp" },
+  { slug: "prada", name: "Prada", src: "/assets/cases-prada.webp", pos: "18% 42%" },
   { slug: "dkny", name: "DKNY", src: "/assets/cases-dkny.webp" },
   { slug: "cmp", name: "CMP", src: "/assets/cases-cmp.webp" },
-  { slug: "adidas", name: "Adidas", src: "/assets/cases-adidas.webp" },
+  { slug: "adidas", name: "Adidas", src: "/assets/cases-adidas.webp", pos: "right center" },
   { slug: "tommy-hilfiger", name: "Tommy Hilfiger", src: "/assets/cases-tommy.webp" },
   { slug: "replay", name: "Replay", src: "/assets/cases-replay.webp" },
   { slug: "elvine", name: "Elvine", src: "/assets/cases-elvine.webp" },
   { slug: "kappahl", name: "KappAhl", src: "/assets/cases-kappahl.webp" },
   { slug: "guess", name: "Guess", src: "/assets/cases-guess.webp" },
-  { slug: "amazon", name: "Amazon" },
-  { slug: "walmart", name: "Walmart" },
-  { slug: "uniqlo", name: "Uniqlo" },
-  { slug: "the-north-face", name: "The North Face" },
-  { slug: "chanel", name: "Chanel" },
-  { slug: "burberry", name: "Burberry" },
-  { slug: "ftkr", name: "FTKR" },
-  { slug: "avi-co", name: "Avi & Co" },
-  { slug: "champion", name: "Champion" },
-  { slug: "vans", name: "Vans" },
-  { slug: "mango", name: "Mango" },
+  { slug: "amazon", name: "Amazon", src: "/assets/cases-amazon.webp" },
+  { slug: "walmart", name: "Walmart", src: "/assets/cases-walmart.webp" },
+  { slug: "uniqlo", name: "Uniqlo", src: "/assets/cases-uniqlo.webp" },
+  { slug: "the-north-face", name: "The North Face", src: "/assets/cases-the-north-face.webp" },
+  { slug: "burberry", name: "Burberry", src: "/assets/cases-burberry.webp" },
+  { slug: "ftkr", name: "FTKR", src: "/assets/cases-ftkr.webp" },
+  { slug: "avi-co", name: "Avi & Co", src: "/assets/cases-avi-co.webp" },
+  { slug: "champion", name: "Champion", src: "/assets/cases-champion.webp" },
+  { slug: "vans", name: "Vans", src: "/assets/cases-vans.webp" },
+  { slug: "mango", name: "Mango", src: "/assets/cases-mango.webp" },
 ]
   .map(
     (c) => `
           <a class="cases-card" href="/cases/${c.slug}" aria-label="${c.name}" style="flex:0 0 auto;width:clamp(300px,20vw,380px);height:83%;position:relative;overflow:hidden;background:#e7e7e4;transition:transform .55s cubic-bezier(.2,.72,.2,1),box-shadow .55s ease;will-change:transform;cursor:pointer;display:block;">
             ${
               "src" in c
-                ? `<img src="${c.src}" alt="${c.name} e-com shot" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" loading="lazy">`
+                ? `<img src="${c.src}" alt="${c.name} e-com shot" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:${"pos" in c && c.pos ? c.pos : "center"};" loading="lazy">`
                 : `<div style="position:absolute;inset:0;background:linear-gradient(135deg,#1c1c1c,#0c0c0e);"></div>`
             }
             <div style="position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.55) 100%);"></div>
-            <div class="cases-card-logo" aria-hidden="true" style="position:absolute;right:24px;bottom:24px;z-index:5;pointer-events:none;display:flex;align-items:flex-end;justify-content:flex-end;width:128px;height:44px;">
-              <img src="/assets/brand-logos/${c.slug}.png" alt="" loading="lazy" style="max-width:128px;max-height:44px;width:auto;height:auto;object-fit:contain;filter:brightness(0) invert(1);display:block;" onerror="this.style.display='none';">
+            <div class="cases-card-logo" aria-hidden="true" style="position:absolute;right:24px;bottom:24px;z-index:5;pointer-events:none;display:flex;align-items:flex-end;justify-content:flex-end;max-width:200px;height:32px;">
+              <img src="/assets/brand-logos/${c.slug}.png" alt="" loading="lazy" style="height:32px;width:auto;max-width:200px;object-fit:contain;object-position:right bottom;filter:brightness(0) invert(1);display:block;" onerror="this.style.display='none';">
             </div>
           </a>`
   )
   .join("");
-
-const JOURNEY_CARDS = JOURNEY_DATA.map(
-  (c) => `
-        <div class="jcard" style="flex:0 0 clamp(440px,50vw,640px);height:100%;display:flex;flex-direction:column;justify-content:flex-start;gap:clamp(12px,2vh,20px);padding:clamp(14px,3vh,30px) 0;">
-          <div style="display:flex;align-items:center;gap:16px;">
-            <span style="font:700 12px 'Space Grotesk';letter-spacing:.16em;color:${c.accent};">${c.n}</span>
-            <span style="height:1px;flex:1;background:linear-gradient(90deg,rgba(20,20,20,.16),transparent);"></span>
-            <span class="jyear" style="font-family:'Archivo';font-weight:900;font-size:clamp(2.2rem,4.4vw,3.6rem);color:#d6d6d0;line-height:1;">${c.year}</span>
-          </div>
-          <div class="jframe" style="position:relative;flex:1 1 auto;min-height:clamp(160px,26vh,420px);border-radius:16px;overflow:hidden;background:#deded9;">
-            <img class="jcard-img" src="${c.img}" alt="${c.title}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-          </div>
-          <div style="flex:0 0 auto;min-height:clamp(64px,10vh,108px);">
-            <h3 style="font-family:'Archivo';font-weight:800;font-size:clamp(19px,1.9vw,25px);margin:0 0 8px;color:#161616;letter-spacing:-.01em;">${c.title}</h3>
-            <p style="font:400 15px/1.6 'Space Grotesk';color:#5b5b58;margin:0;max-width:46ch;">${c.body}</p>
-          </div>
-        </div>`
-)
-  .join("");
-
 
 const OPS_NODES = [
   {
@@ -245,74 +222,6 @@ export const HOME_HTML = `
     ${AI_STUDIO_HTML}
   </section>
 
-  <!-- WHY SKILL -->
-  <section id="usp" data-screen-label="Why Skill" style="background:#EDEDEB;color:#161616;position:relative;">
-    <div id="usp-scroll" style="position:relative;height:240vh;">
-      <div id="usp-pin" style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,3vh,36px);padding:clamp(84px,11vh,130px) 40px clamp(48px,7vh,80px);">
-        <div style="position:relative;z-index:2;max-width:1180px;margin:0 auto;width:100%;">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin:0 0 24px;">
-            <div style="display:flex;align-items:center;gap:12px;">
-              <span style="width:8px;height:8px;border-radius:50%;background:#7B2C8E;"></span>
-              <span style="font:600 12px 'Space Grotesk';letter-spacing:.2em;text-transform:uppercase;color:#6b6b68;">Why Skill</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:14px;">
-              <span style="font:500 11px 'Space Grotesk';letter-spacing:.16em;text-transform:uppercase;color:#9a9a95;white-space:nowrap;">Scroll</span>
-              <div style="width:150px;max-width:28vw;height:2px;background:rgba(20,20,20,.12);border-radius:2px;overflow:hidden;"><div id="usp-prog" style="height:100%;width:0%;background:linear-gradient(90deg,#7B2C8E,#c86ad8);"></div></div>
-            </div>
-          </div>
-          <h2 id="usp-statement" style="font-family:'Archivo';font-weight:800;font-size:clamp(1.3rem,2.7vw,2.5rem);line-height:1.26;letter-spacing:-.005em;margin:0;max-width:40ch;"><span class="usp-rw" data-k="1">Produce</span> <span class="usp-rw" data-k="1">more</span> <span class="usp-rw">—</span> <span class="usp-rw">without</span> <span class="usp-rw">compromising</span> <span class="usp-rw">standards.</span> <span class="usp-rw">From</span> <span class="usp-rw" data-k="1">quality</span> <span class="usp-rw">assurance</span> <span class="usp-rw">to</span> <span class="usp-rw" data-k="1">fair</span> <span class="usp-rw" data-k="1">pricing</span> <span class="usp-rw">and</span> <span class="usp-rw" data-k="1">rapid</span> <span class="usp-rw" data-k="1">delivery,</span> <span class="usp-rw">our</span> <span class="usp-rw">workflow</span> <span class="usp-rw">is</span> <span class="usp-rw">engineered</span> <span class="usp-rw">around</span> <span class="usp-rw">your</span> <span class="usp-rw">brand</span> <span class="usp-rw">and</span> <span class="usp-rw">enhanced</span> <span class="usp-rw">by</span> <span class="usp-rw" data-k="1">AI.</span></h2>
-        </div>
-
-        <div style="position:relative;z-index:2;max-width:1180px;margin:0 auto;width:100%;">
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.8vw,24px);flex:1 1 auto;min-height:0;">
-            <div class="usp-m" style="position:relative;display:flex;flex-direction:column;justify-content:space-between;background:#fff;border:1px solid #e9e4ee;border-radius:20px;padding:clamp(20px,3vh,30px);overflow:hidden;">
-              <span class="usp-line" aria-hidden="true" style="position:absolute;top:0;left:0;height:3px;width:100%;background:#7B2C8E;"></span>
-              <div style="position:relative;flex:1 1 auto;min-height:clamp(78px,12vh,140px);">
-                <span aria-hidden="true" style="position:absolute;top:-6px;left:-2px;font-family:'Archivo';font-weight:900;font-size:clamp(2.6rem,4.4vw,4rem);line-height:.8;color:#f1ecf5;letter-spacing:-.02em;">01</span>
-                <div style="position:absolute;bottom:0;right:0;"><svg viewBox="0 0 100 100" fill="none" style="width:clamp(66px,7.5vw,96px);height:auto;overflow:visible;"><circle cx="50" cy="50" r="34" stroke="#e4dcec" stroke-width="2"/><circle cx="50" cy="50" r="34" stroke="#7B2C8E" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="40 200" style="transform-origin:50px 50px;animation:sg-sweep 4.5s linear infinite;"/><circle cx="50" cy="50" r="20" stroke="#1c1c1c" stroke-width="2"/><path d="M42 50 L48 56 L60 43" stroke="#1c1c1c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              </div>
-              <div>
-                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px;">
-                  <h3 style="font-family:'Archivo';font-weight:800;font-size:clamp(19px,1.7vw,24px);line-height:1.1;letter-spacing:-.01em;margin:0;color:#161616;">Upload-ready, every time</h3>
-                  <span class="usp-arrow" style="font-size:20px;line-height:1;color:#c3b4cf;flex:none;">&#8594;</span>
-                </div>
-                <p style="font:400 14px/1.55 'Space Grotesk';color:#5b5b58;margin:0;">Structured, multi-checkpoint Quality Control — brand-ready before delivery.</p>
-              </div>
-            </div>
-            <div class="usp-m" style="position:relative;display:flex;flex-direction:column;justify-content:space-between;background:#fff;border:1px solid #e9e4ee;border-radius:20px;padding:clamp(20px,3vh,30px);overflow:hidden;">
-              <span class="usp-line" aria-hidden="true" style="position:absolute;top:0;left:0;height:3px;width:100%;background:#7B2C8E;"></span>
-              <div style="position:relative;flex:1 1 auto;min-height:clamp(78px,12vh,140px);">
-                <span aria-hidden="true" style="position:absolute;top:-6px;left:-2px;font-family:'Archivo';font-weight:900;font-size:clamp(2.6rem,4.4vw,4rem);line-height:.8;color:#f1ecf5;letter-spacing:-.02em;">02</span>
-                <div style="position:absolute;bottom:0;right:0;"><svg viewBox="0 0 100 100" fill="none" style="width:clamp(66px,7.5vw,96px);height:auto;overflow:visible;"><line x1="16" y1="82" x2="84" y2="82" stroke="#e4dcec" stroke-width="2"/><rect x="24" y="52" width="12" height="30" rx="3" fill="#1c1c1c" style="transform-origin:30px 82px;animation:sg-bargrow 3s ease-in-out infinite;"/><rect x="44" y="38" width="12" height="44" rx="3" fill="#7B2C8E" style="transform-origin:50px 82px;animation:sg-bargrow 3s ease-in-out infinite .35s;"/><rect x="64" y="24" width="12" height="58" rx="3" fill="#1c1c1c" style="transform-origin:70px 82px;animation:sg-bargrow 3s ease-in-out infinite .7s;"/></svg></div>
-              </div>
-              <div>
-                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px;">
-                  <h3 style="font-family:'Archivo';font-weight:800;font-size:clamp(19px,1.7vw,24px);line-height:1.1;letter-spacing:-.01em;margin:0;color:#161616;">Competitive pricing</h3>
-                  <span class="usp-arrow" style="font-size:20px;line-height:1;color:#c3b4cf;flex:none;">&#8594;</span>
-                </div>
-                <p style="font:400 14px/1.55 'Space Grotesk';color:#5b5b58;margin:0;">Fair, transparent rates that scale with your volume.</p>
-              </div>
-            </div>
-            <div class="usp-m" style="position:relative;display:flex;flex-direction:column;justify-content:space-between;background:#fff;border:1px solid #e9e4ee;border-radius:20px;padding:clamp(20px,3vh,30px);overflow:hidden;">
-              <span class="usp-line" aria-hidden="true" style="position:absolute;top:0;left:0;height:3px;width:100%;background:#7B2C8E;"></span>
-              <div style="position:relative;flex:1 1 auto;min-height:clamp(78px,12vh,140px);">
-                <span aria-hidden="true" style="position:absolute;top:-6px;left:-2px;font-family:'Archivo';font-weight:900;font-size:clamp(2.6rem,4.4vw,4rem);line-height:.8;color:#f1ecf5;letter-spacing:-.02em;">03</span>
-                <div style="position:absolute;bottom:0;right:0;"><svg viewBox="0 0 100 100" fill="none" style="width:clamp(66px,7.5vw,96px);height:auto;overflow:visible;"><path d="M44 8 H56" stroke="#1c1c1c" stroke-width="3" stroke-linecap="round"/><line x1="50" y1="11" x2="50" y2="24" stroke="#1c1c1c" stroke-width="3"/><circle cx="50" cy="58" r="30" stroke="#1c1c1c" stroke-width="2.4"/><circle cx="50" cy="58" r="30" stroke="#e4dcec" stroke-width="2.4" stroke-dasharray="18 170" style="transform-origin:50px 58px;"/><g style="transform-origin:50px 58px;animation:sg-sweep 2s linear infinite;"><line x1="50" y1="58" x2="50" y2="36" stroke="#7B2C8E" stroke-width="3" stroke-linecap="round"/></g><circle cx="50" cy="58" r="3.4" fill="#1c1c1c"/></svg></div>
-              </div>
-              <div>
-                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px;">
-                  <h3 style="font-family:'Archivo';font-weight:800;font-size:clamp(19px,1.7vw,24px);line-height:1.1;letter-spacing:-.01em;margin:0;color:#161616;">Rapid delivery</h3>
-                  <span class="usp-arrow" style="font-size:20px;line-height:1;color:#c3b4cf;flex:none;">&#8594;</span>
-                </div>
-                <p style="font:400 14px/1.55 'Space Grotesk';color:#5b5b58;margin:0;">Fast turnaround without a drop in quality.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- CASES -->
   <section id="cases" data-screen-label="Cases" style="background:#EDEDEB;height:100vh;height:100dvh;padding:clamp(48px,6vh,84px) 0 clamp(40px,5vh,72px);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;">
     <div id="cases-intro" style="width:100%;padding:0 clamp(24px,4vw,60px);margin-bottom:clamp(10px,1.4vh,18px);flex:0 0 auto;opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);">
@@ -425,67 +334,51 @@ export const HOME_HTML = `
     <p style="position:relative;z-index:2;text-align:center;font:500 14px 'Space Grotesk';color:#6b6b72;margin:clamp(16px,2.5vh,36px) auto 0;">Powered by a state-of-the-art post-production research &amp; management team.</p>
   </section>
 
-  <!-- 10 YEARS -->
-  <section id="journey" data-screen-label="10 Years" style="position:relative;background:#EDEDEB;">
-    <div id="journey-pin" style="position:sticky;top:0;height:100vh;overflow:hidden;background:#EDEDEB;">
-      <div id="journey-tl" style="position:absolute;inset:0;display:flex;flex-direction:column;padding:clamp(56px,8vh,84px) 40px clamp(20px,3.5vh,42px);">
-      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:28px;flex-wrap:wrap;flex:0 0 auto;">
-        <div style="max-width:52ch;">
-          <p style="font:600 13px 'Space Grotesk';letter-spacing:.18em;text-transform:uppercase;color:#9a9a95;margin:0 0 8px;">Our journey · 2016 — present</p>
-          <h2 style="font-family:'Archivo';font-weight:900;font-size:clamp(2.1rem,5.2vw,4.2rem);line-height:.96;margin:0;color:#161616;">10 YEARS OF <span style="color:#7B2C8E;">SKILL</span></h2>
+  <!-- FUTURE VISION — zoom in after Operations -->
+  <section id="vision" data-screen-label="Future Vision" data-nav-bg="dark" style="position:relative;background:#000;">
+    <div id="vision-pin" style="position:sticky;top:0;height:100vh;overflow:hidden;background:#000;">
+      <div id="vision-stage" style="position:absolute;inset:0;z-index:5;opacity:1;">
+        <div id="vision-backdrop" aria-hidden="true" style="position:absolute;inset:0;background:#000000;opacity:1;"></div>
+        <div id="vision-env" aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(circle at 50% 46%,#0a0a16 0%,#050509 55%,#000000 100%);opacity:0;"></div>
+        <div id="vision-stars" aria-hidden="true" style="position:absolute;inset:0;opacity:0;background-image:radial-gradient(1.4px 1.4px at 12% 22%,#fff,transparent),radial-gradient(1.2px 1.2px at 82% 16%,#cbe,transparent),radial-gradient(1px 1px at 66% 30%,#fff,transparent),radial-gradient(1.4px 1.4px at 28% 72%,#fff,transparent),radial-gradient(1px 1px at 90% 62%,#dcf,transparent),radial-gradient(1.2px 1.2px at 44% 84%,#fff,transparent),radial-gradient(1px 1px at 8% 54%,#fff,transparent),radial-gradient(1.3px 1.3px at 74% 82%,#bcf,transparent);animation:sg-twinkle 4s ease-in-out infinite;"></div>
+        <div id="vision-head" style="position:absolute;top:8vh;left:0;right:0;text-align:center;z-index:6;opacity:0;">
+          <p style="font:600 12px 'Space Grotesk';letter-spacing:.28em;text-transform:uppercase;color:#b98cd0;margin:0 0 12px;">The next chapter begins</p>
+          <h2 style="font-family:'Archivo';font-weight:900;font-size:clamp(2.2rem,6vw,5rem);line-height:.95;margin:0;letter-spacing:-.01em;color:#fff;">FUTURE <span style="color:#7B2C8E;">VISION</span></h2>
         </div>
-        <div style="max-width:44ch;">
-          <p style="font:400 15px/1.55 'Space Grotesk';color:#5b5b58;margin:0;">What began in 2016 as a small image-editing team has evolved into a global, AI-powered post-production powerhouse — driven by scale, innovation, talent and a bold vision for the future of visual content.</p>
-          <div style="display:flex;align-items:center;gap:12px;margin-top:14px;"><span style="font:500 11px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#9a9a95;white-space:nowrap;">Scroll &#8594;</span><div style="flex:1;min-width:100px;height:3px;background:#dcdcd7;border-radius:2px;overflow:hidden;"><div id="journey-prog" style="height:100%;width:0%;background:#7B2C8E;"></div></div></div>
-        </div>
-      </div>
-      <div id="journey-vp" style="flex:1 1 auto;overflow:hidden;margin-top:clamp(12px,2vh,24px);min-height:0;">
-        <div id="journey-track" style="display:flex;gap:22px;height:100%;will-change:transform;transform:translate3d(0,0,0);">${JOURNEY_CARDS}
-        </div>
-      </div>
-      </div>
-        <div id="vision-stage" style="position:absolute;inset:0;z-index:5;opacity:0;pointer-events:none;">
-          <div id="vision-backdrop" aria-hidden="true" style="position:absolute;inset:0;background:#000000;opacity:0;"></div>
-          <div id="vision-env" aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(circle at 50% 46%,#0a0a16 0%,#050509 55%,#000000 100%);opacity:0;"></div>
-          <div id="vision-stars" aria-hidden="true" style="position:absolute;inset:0;opacity:0;background-image:radial-gradient(1.4px 1.4px at 12% 22%,#fff,transparent),radial-gradient(1.2px 1.2px at 82% 16%,#cbe,transparent),radial-gradient(1px 1px at 66% 30%,#fff,transparent),radial-gradient(1.4px 1.4px at 28% 72%,#fff,transparent),radial-gradient(1px 1px at 90% 62%,#dcf,transparent),radial-gradient(1.2px 1.2px at 44% 84%,#fff,transparent),radial-gradient(1px 1px at 8% 54%,#fff,transparent),radial-gradient(1.3px 1.3px at 74% 82%,#bcf,transparent);animation:sg-twinkle 4s ease-in-out infinite;"></div>
-          <div id="vision-head" style="position:absolute;top:8vh;left:0;right:0;text-align:center;z-index:6;opacity:0;">
-            <p style="font:600 12px 'Space Grotesk';letter-spacing:.28em;text-transform:uppercase;color:#b98cd0;margin:0 0 12px;">&#127758; The next chapter begins</p>
-            <h3 style="font-family:'Archivo';font-weight:900;font-size:clamp(2.2rem,6vw,5rem);line-height:.95;margin:0;letter-spacing:-.01em;color:#fff;">FUTURE <span style="color:#7B2C8E;">VISION</span></h3>
-          </div>
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;display:flex;align-items:center;justify-content:center;">
-            <div id="vision-globe" style="position:relative;width:min(60vh,86vw);aspect-ratio:1;">
-              <div aria-hidden="true" style="position:absolute;inset:-8%;border-radius:50%;background:radial-gradient(circle,transparent 58%,rgba(123,44,142,.16) 70%,transparent 80%);animation:sg-globepulse 5s ease-in-out infinite;"></div>
-              <div aria-hidden="true" style="position:absolute;inset:-13%;border-radius:50%;border:1px solid rgba(123,44,142,.28);transform:scaleY(.34);"></div>
-              <div aria-hidden="true" style="position:absolute;inset:-13%;transform:scaleY(.34);animation:sg-orbit 16s linear infinite;"><div style="position:absolute;top:50%;left:-4px;width:9px;height:9px;border-radius:50%;background:#c86ad8;box-shadow:0 0 14px #c86ad8;margin-top:-4px;"></div></div>
-              <div aria-hidden="true" style="position:absolute;inset:-13%;border-radius:50%;border:1px solid rgba(91,141,239,.22);transform:rotate(60deg) scaleY(.34);"></div>
-              <div aria-hidden="true" style="position:absolute;inset:-13%;transform:rotate(60deg) scaleY(.34);animation:sg-orbit-r 22s linear infinite;"><div style="position:absolute;top:50%;left:-4px;width:8px;height:8px;border-radius:50%;background:#5b8def;box-shadow:0 0 14px #5b8def;margin-top:-4px;"></div></div>
-              <div style="position:absolute;inset:0;border-radius:50%;overflow:hidden;background:#0a0a18;">
-                <div style="position:absolute;inset:-12%;background-image:radial-gradient(circle,rgba(160,100,220,.95) 1.1px,transparent 1.5px);background-size:20px 20px;animation:sg-globe-rot 18s linear infinite;opacity:.55;"></div>
-                <div style="position:absolute;inset:-12%;background-image:radial-gradient(circle,rgba(120,170,255,.7) 1px,transparent 1.4px);background-size:32px 32px;animation:sg-globe-rot 26s linear infinite;opacity:.4;"></div>
-              </div>
-              <div aria-hidden="true" style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.16),transparent 44%),radial-gradient(circle at 72% 76%,rgba(0,0,0,.72),transparent 60%);box-shadow:inset 10px 12px 44px rgba(123,44,142,.3),inset -34px -34px 90px rgba(0,0,0,.85);"></div>
-              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:2;">
-                <span style="font-family:'Archivo';font-weight:900;font-size:clamp(1.4rem,3vw,2.4rem);letter-spacing:.04em;color:#fff;">SKILL</span>
-                <span style="font:500 11px 'Space Grotesk';letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:4px;">Global Network</span>
-              </div>
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;display:flex;align-items:center;justify-content:center;">
+          <div id="vision-globe" style="position:relative;width:min(60vh,86vw);aspect-ratio:1;transform:scale(.07);opacity:0;">
+            <div aria-hidden="true" style="position:absolute;inset:-8%;border-radius:50%;background:radial-gradient(circle,transparent 58%,rgba(123,44,142,.16) 70%,transparent 80%);animation:sg-globepulse 5s ease-in-out infinite;"></div>
+            <div aria-hidden="true" style="position:absolute;inset:-13%;border-radius:50%;border:1px solid rgba(123,44,142,.28);transform:scaleY(.34);"></div>
+            <div aria-hidden="true" style="position:absolute;inset:-13%;transform:scaleY(.34);animation:sg-orbit 16s linear infinite;"><div style="position:absolute;top:50%;left:-4px;width:9px;height:9px;border-radius:50%;background:#c86ad8;box-shadow:0 0 14px #c86ad8;margin-top:-4px;"></div></div>
+            <div aria-hidden="true" style="position:absolute;inset:-13%;border-radius:50%;border:1px solid rgba(91,141,239,.22);transform:rotate(60deg) scaleY(.34);"></div>
+            <div aria-hidden="true" style="position:absolute;inset:-13%;transform:rotate(60deg) scaleY(.34);animation:sg-orbit-r 22s linear infinite;"><div style="position:absolute;top:50%;left:-4px;width:8px;height:8px;border-radius:50%;background:#5b8def;box-shadow:0 0 14px #5b8def;margin-top:-4px;"></div></div>
+            <div style="position:absolute;inset:0;border-radius:50%;overflow:hidden;background:#0a0a18;">
+              <div style="position:absolute;inset:-12%;background-image:radial-gradient(circle,rgba(160,100,220,.95) 1.1px,transparent 1.5px);background-size:20px 20px;animation:sg-globe-rot 18s linear infinite;opacity:.55;"></div>
+              <div style="position:absolute;inset:-12%;background-image:radial-gradient(circle,rgba(120,170,255,.7) 1px,transparent 1.4px);background-size:32px 32px;animation:sg-globe-rot 26s linear infinite;opacity:.4;"></div>
+            </div>
+            <div aria-hidden="true" style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.16),transparent 44%),radial-gradient(circle at 72% 76%,rgba(0,0,0,.72),transparent 60%);box-shadow:inset 10px 12px 44px rgba(123,44,142,.3),inset -34px -34px 90px rgba(0,0,0,.85);"></div>
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:2;">
+              <span style="font-family:'Archivo';font-weight:900;font-size:clamp(1.4rem,3vw,2.4rem);letter-spacing:.04em;color:#fff;">SKILL</span>
+              <span style="font:500 11px 'Space Grotesk';letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:4px;">Global Network</span>
             </div>
           </div>
-          <div class="vpoint" style="position:absolute;left:6%;top:23%;max-width:270px;z-index:5;opacity:0;">
-            <p style="font:700 12px 'Space Grotesk';letter-spacing:.16em;color:#c86ad8;margin:0 0 8px;">01</p>
-            <h4 style="font-family:'Archivo';font-weight:800;font-size:clamp(18px,1.8vw,23px);margin:0 0 8px;line-height:1.12;color:#fff;">1,000+ creative professionals</h4>
-            <p style="font:400 14px/1.55 'Space Grotesk';color:#d2d2de;margin:0;">A global network of talent. Limitless creativity.</p>
-          </div>
-          <div class="vpoint" style="position:absolute;right:6%;top:27%;max-width:280px;text-align:right;z-index:5;opacity:0;">
-            <p style="font:700 12px 'Space Grotesk';letter-spacing:.16em;color:#8fb4f6;margin:0 0 8px;">02</p>
-            <h4 style="font-family:'Archivo';font-weight:800;font-size:clamp(18px,1.8vw,23px);margin:0 0 8px;line-height:1.12;color:#fff;">Global leader in AI-powered image &amp; video production</h4>
-            <p style="font:400 14px/1.55 'Space Grotesk';color:#d2d2de;margin:0;">Intelligent technology. Smarter workflows.</p>
-          </div>
-          <div class="vpoint" style="position:absolute;left:0;right:0;bottom:11%;text-align:center;z-index:5;opacity:0;">
-            <p style="font:700 12px 'Space Grotesk';letter-spacing:.16em;color:#5cd6e0;margin:0 0 8px;">03</p>
-            <h4 style="font-family:'Archivo';font-weight:800;font-size:clamp(18px,1.8vw,23px);margin:0 auto 8px;line-height:1.12;max-width:26ch;color:#fff;">A fully connected, intelligent production ecosystem</h4>
-            <p style="font:400 14px/1.55 'Space Grotesk';color:#d2d2de;margin:0;">Seamless. Scalable. Future-ready.</p>
-          </div>
         </div>
+        <div class="vpoint" style="position:absolute;left:6%;top:23%;max-width:270px;z-index:5;opacity:0;">
+          <p style="font:700 12px 'Space Grotesk';letter-spacing:.16em;color:#c86ad8;margin:0 0 8px;">01</p>
+          <h3 style="font-family:'Archivo';font-weight:800;font-size:clamp(18px,1.8vw,23px);margin:0 0 8px;line-height:1.12;color:#fff;">1,000+ creative professionals</h3>
+          <p style="font:400 14px/1.55 'Space Grotesk';color:#d2d2de;margin:0;">A global network of talent. Limitless creativity.</p>
+        </div>
+        <div class="vpoint" style="position:absolute;right:6%;top:27%;max-width:280px;text-align:right;z-index:5;opacity:0;">
+          <p style="font:700 12px 'Space Grotesk';letter-spacing:.16em;color:#8fb4f6;margin:0 0 8px;">02</p>
+          <h3 style="font-family:'Archivo';font-weight:800;font-size:clamp(18px,1.8vw,23px);margin:0 0 8px;line-height:1.12;color:#fff;">Global leader in AI-powered image &amp; video production</h3>
+          <p style="font:400 14px/1.55 'Space Grotesk';color:#d2d2de;margin:0;">Intelligent technology. Smarter workflows.</p>
+        </div>
+        <div class="vpoint" style="position:absolute;left:0;right:0;bottom:11%;text-align:center;z-index:5;opacity:0;">
+          <p style="font:700 12px 'Space Grotesk';letter-spacing:.16em;color:#5cd6e0;margin:0 0 8px;">03</p>
+          <h3 style="font-family:'Archivo';font-weight:800;font-size:clamp(18px,1.8vw,23px);margin:0 auto 8px;line-height:1.12;max-width:26ch;color:#fff;">A fully connected, intelligent production ecosystem</h3>
+          <p style="font:400 14px/1.55 'Space Grotesk';color:#d2d2de;margin:0;">Seamless. Scalable. Future-ready.</p>
+        </div>
+      </div>
     </div>
   </section>
 

@@ -47,13 +47,6 @@ header#top,#photo,#video,#studio,section[data-screen-label="Cases"],section[data
 .ops-chip{transform-style:preserve-3d;}
 .ops-chip.flipping{animation:sg-chipflip .85s cubic-bezier(.5,0,.2,1);}
 @keyframes sg-amb{0%,100%{transform:translate(-8%,-6%) scale(1)}50%{transform:translate(10%,8%) scale(1.25)}}
-.usp-rw{transition:color .18s linear;}
-.usp-m{transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,border-color .5s ease;}
-.usp-m:hover{transform:translateY(-6px);box-shadow:0 26px 60px rgba(20,20,20,.1);border-color:#d9cfe2 !important;}
-.usp-m .usp-line{transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.2,.7,.2,1);}
-.usp-m:hover .usp-line{transform:scaleX(1);}
-.usp-m .usp-arrow{transition:transform .45s cubic-bezier(.2,.7,.2,1),color .45s ease;}
-.usp-m:hover .usp-arrow{transform:translateX(6px);color:#7B2C8E;}
 @keyframes sg-bargrow{0%,100%{transform:scaleY(.42)}50%{transform:scaleY(1)}}
 @keyframes sg-sweep{to{transform:rotate(360deg)}}
 details[open] .sg-faq-plus{transform:rotate(45deg);}
@@ -81,7 +74,6 @@ details summary::-webkit-details-marker{display:none;}
 .cases-card:hover .cases-card-logo img,.cases-card:focus-visible .cases-card-logo img{opacity:1;transform:scale(1.04);}
 
 @media (max-width:1024px){
-  #usp [style*="repeat(3,1fr)"]{grid-template-columns:repeat(2,1fr) !important;gap:16px !important;}
   #join [style*="1.15fr 0.85fr"]{grid-template-columns:1fr !important;gap:40px !important;}
   #contact [style*="1.5fr 1fr 1fr 1.2fr"]{grid-template-columns:1fr 1fr !important;gap:32px !important;}
 }
@@ -91,23 +83,14 @@ details summary::-webkit-details-marker{display:none;}
   header#top,#photo,#video,#studio,section[data-screen-label="Cases"],section[data-screen-label="Powering"],#join,#faq{scroll-snap-align:none !important;}
   header#top{min-height:100svh !important;height:auto !important;padding:96px 0 0 !important;}
   #photo [data-cursor="media"],#video [data-cursor="media"]{min-height:82svh !important;height:82svh !important;}
-  #usp-scroll{height:auto !important;}
-  #usp-pin{position:static !important;height:auto !important;overflow:visible !important;padding:96px 20px 64px !important;gap:26px !important;}
-  #usp-statement{font-size:1.45rem !important;line-height:1.34 !important;max-width:none !important;}
-  #usp [style*="repeat(3,1fr)"]{grid-template-columns:1fr !important;gap:16px !important;}
-  .usp-m{min-height:auto !important;}
-  section[data-screen-label="Powering"]{min-height:auto !important;padding:72px 20px !important;}
+    section[data-screen-label="Powering"]{min-height:auto !important;padding:72px 20px !important;}
   section[data-screen-label="Powering"] > svg{display:none !important;}
   section[data-screen-label="Powering"] > div[aria-hidden="true"]{display:none !important;}
   #ops-core{display:none !important;}
   .ops-node{position:static !important;transform:none !important;animation:none !important;flex-direction:row !important;align-items:center !important;justify-content:flex-start !important;gap:14px !important;width:100% !important;max-width:380px !important;margin:0 auto 10px !important;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px 16px !important;}
   .ops-node .ops-lab{max-width:none !important;text-align:left !important;font-size:14px !important;color:#e7e7ec !important;}
-  #journey-tl{position:static !important;height:auto !important;padding:90px 20px 40px !important;}
-  #journey-vp{height:auto !important;overflow:visible !important;margin-top:20px !important;}
-  #journey-track{flex-direction:column !important;height:auto !important;gap:34px !important;transform:none !important;}
   .jcard{flex:0 0 auto !important;width:100% !important;height:auto !important;}
   .jframe{min-height:0 !important;height:56vw !important;max-height:340px !important;}
-  #vision-stage{display:none !important;}
   #join{padding:84px 20px !important;}
   #join [style*="1.15fr 0.85fr"]{grid-template-columns:1fr !important;gap:30px !important;}
   #faq{padding:80px 20px !important;}

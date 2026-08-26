@@ -45,7 +45,8 @@ a{color:#7B2C8E;} a:hover{color:#5c1f6d;}
 .cc-lockup .cc-line{display:block;width:auto;margin:0;white-space:nowrap;text-align:center;}
 .ph-thumb.active{opacity:1;}
 .ph-thumb:hover{opacity:.85;}
-.onm-slot{overflow:hidden;background:#EDEDEB;}
+.onm-slot{position:relative;overflow:hidden;background:#EDEDEB;width:100%;aspect-ratio:2/3;height:auto;}
+.onm-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 12%;display:block;}
 .onm-slot .onm-ph{display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:#9a9a95;font:600 12px 'Space Grotesk';letter-spacing:.08em;text-transform:uppercase;background:repeating-linear-gradient(135deg,#e5e5e1,#e5e5e1 10px,#dedeD9 10px,#dedeD9 20px);}
 .ph-dot{cursor:pointer;transition:width .3s ease,background .3s ease;}
 .ph-thumb:focus-visible,.ph-dot:focus-visible,.ph-colour-dot:focus-visible{outline:2px solid #7B2C8E;outline-offset:2px;}
@@ -67,7 +68,7 @@ a{color:#7B2C8E;} a:hover{color:#5c1f6d;}
   .ph-ghost-row{flex-direction:column !important;height:auto !important;}
   .ph-ghost-row > div{aspect-ratio:4/5;}
   #onm-colL,#onm-colR{grid-template-columns:1fr 1fr;display:grid !important;gap:12px !important;}
-  .onm-slot{height:auto !important;aspect-ratio:3/4;}
+  .onm-slot{aspect-ratio:2/3;}
 }
 `;
 
@@ -77,6 +78,8 @@ const CAROUSEL = [
   "/assets/sl-shoes.webp",
   "/assets/sl-watch.webp",
   "/assets/sl-backpack.webp",
+  "/assets/sl-new-1.webp",
+  "/assets/sl-new-2.webp",
 ];
 
 const ALBUM = [
@@ -91,19 +94,22 @@ const ALBUM = [
 ];
 
 const COLOURS = [
-  { name: "Coral", dot: "#F5482A", src: "/assets/dress-coral.webp" },
-  { name: "Yellow", dot: "#EBD84B", src: "/assets/dress-yellow.webp" },
-  { name: "Olive", dot: "#9AA23C", src: "/assets/dress-olive.webp" },
-  { name: "Blue", dot: "#86A6CC", src: "/assets/dress-blue.webp" },
+  { name: "Coral", dot: "#FC3E2C", src: "/assets/dress-coral.webp" },
+  { name: "Yellow", dot: "#F9EB84", src: "/assets/dress-yellow.webp" },
+  { name: "Olive", dot: "#9E9339", src: "/assets/dress-olive.webp" },
+  { name: "Blue", dot: "#83A3C6", src: "/assets/dress-blue.webp" },
+  { name: "Cyan", dot: "#45B2C6", src: "/assets/dress-cyan.webp" },
+  { name: "Purple", dot: "#B26AFE", src: "/assets/dress-purple.webp" },
 ];
 
 const ONM_IMAGES = [
-  "/assets/nike-look-1.webp",
-  "/assets/nike-look-2.webp",
-  "/assets/nike-look-3.webp",
-  "/assets/nike-look-4.webp",
-  "/assets/nike-look-5.webp",
-  "/assets/nike-look-6.webp",
+  "/assets/photo-onm-1.webp",
+  "/assets/photo-onm-2.webp",
+  "/assets/photo-onm-3.webp",
+  "/assets/photo-onm-4.webp",
+  "/assets/photo-onm-5.webp",
+  "/assets/photo-onm-6.webp",
+  "/assets/photo-onm-7.webp",
 ];
 
 export const PHOTO_HTML = `
@@ -182,18 +188,18 @@ ${MOBILE_PHOTO_HTML}
       </div>
       <div class="onm-imgs" style="position:relative;flex:1 1 58%;overflow:hidden;">
         <div id="onm-colL" style="position:absolute;left:clamp(10px,2.4vw,34px);top:50%;width:calc(50% - clamp(16px,1.8vw,28px));display:flex;flex-direction:column;gap:16px;will-change:transform;transform:translateY(-50%);">
-          ${ONM_IMAGES.slice(0, 3)
+          ${ONM_IMAGES.filter((_, i) => i % 2 === 0)
             .map(
               (src) =>
-                `<div class="onm-slot" style="width:100%;height:clamp(300px,46vh,540px);"><img src="${src}" alt="Styled on model" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div>`
+                `<div class="onm-slot"><img src="${src}" alt="Styled on model" loading="lazy"></div>`
             )
             .join("")}
         </div>
         <div id="onm-colR" style="position:absolute;right:clamp(24px,4.4vw,84px);top:50%;width:calc(50% - clamp(16px,1.8vw,28px));display:flex;flex-direction:column;gap:16px;will-change:transform;transform:translateY(-50%);">
-          ${ONM_IMAGES.slice(3, 6)
+          ${ONM_IMAGES.filter((_, i) => i % 2 === 1)
             .map(
               (src) =>
-                `<div class="onm-slot" style="width:100%;height:clamp(300px,46vh,540px);"><img src="${src}" alt="Styled on model" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div>`
+                `<div class="onm-slot"><img src="${src}" alt="Styled on model" loading="lazy"></div>`
             )
             .join("")}
         </div>
@@ -249,8 +255,6 @@ ${MOBILE_PHOTO_HTML}
               i === 0 ? "3px rgba(20,20,20,.82)" : "1px rgba(20,20,20,.25)"
             };transition:width .3s ease,height .3s ease,box-shadow .3s ease;"></span>`
         ).join("")}
-        <span aria-hidden="true" title="More colours coming soon" style="width:26px;height:26px;border-radius:50%;background:transparent;border:1.5px dashed rgba(20,20,20,.3);"></span>
-        <span aria-hidden="true" title="More colours coming soon" style="width:26px;height:26px;border-radius:50%;background:transparent;border:1.5px dashed rgba(20,20,20,.3);"></span>
       </div>
       <span id="ph-colour-name" style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#161616;">${COLOURS[0].name}</span>
     </div>

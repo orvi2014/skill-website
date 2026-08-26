@@ -17,20 +17,25 @@ const CAROUSEL = [
   "/assets/sl-shoes.webp",
   "/assets/sl-watch.webp",
   "/assets/sl-backpack.webp",
+  "/assets/sl-new-1.webp",
+  "/assets/sl-new-2.webp",
 ];
 const ONMODEL = [
-  "/assets/photo-hero-1.webp",
-  "/assets/photo-hero-2.webp",
-  "/assets/photo-hero-3.webp",
-  "/assets/photo-hero-4.webp",
-  "/assets/photo-hero-5.webp",
-  "/assets/photo-hero-6.webp",
+  "/assets/photo-onm-1.webp",
+  "/assets/photo-onm-2.webp",
+  "/assets/photo-onm-3.webp",
+  "/assets/photo-onm-4.webp",
+  "/assets/photo-onm-5.webp",
+  "/assets/photo-onm-6.webp",
+  "/assets/photo-onm-7.webp",
 ];
 const COLOURS = [
-  { name: "Coral", dot: "#F5482A", src: "/assets/dress-coral.webp" },
-  { name: "Yellow", dot: "#EBD84B", src: "/assets/dress-yellow.webp" },
-  { name: "Olive", dot: "#9AA23C", src: "/assets/dress-olive.webp" },
-  { name: "Blue", dot: "#86A6CC", src: "/assets/dress-blue.webp" },
+  { name: "Coral", dot: "#FC3E2C", src: "/assets/dress-coral.webp" },
+  { name: "Yellow", dot: "#F9EB84", src: "/assets/dress-yellow.webp" },
+  { name: "Olive", dot: "#9E9339", src: "/assets/dress-olive.webp" },
+  { name: "Blue", dot: "#83A3C6", src: "/assets/dress-blue.webp" },
+  { name: "Cyan", dot: "#45B2C6", src: "/assets/dress-cyan.webp" },
+  { name: "Purple", dot: "#B26AFE", src: "/assets/dress-purple.webp" },
 ];
 
 export const MOBILE_PHOTO_HTML = `
@@ -110,7 +115,7 @@ export const MOBILE_PHOTO_HTML = `
     <div id="pm-onm" style="display:flex;gap:12px;overflow-x:auto;padding:0 18px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;">
       ${ONMODEL.map(
         (src) =>
-          `<div style="flex:0 0 74%;aspect-ratio:3/4;border-radius:8px;overflow:hidden;background:#e2e2de;scroll-snap-align:center;"><img src="${src}" alt="On model" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div>`
+          `<div style="position:relative;flex:0 0 72%;aspect-ratio:2/3;border-radius:8px;overflow:hidden;background:#e2e2de;scroll-snap-align:center;"><img src="${src}" alt="On model" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 12%;display:block;"></div>`
       ).join("")}
     </div>
   </section>
@@ -154,8 +159,6 @@ export const MOBILE_PHOTO_HTML = `
           (c, i) =>
             `<span class="pm-coldot" data-i="${i}" role="button" tabindex="0" aria-label="View in ${c.name}" title="${c.name}" style="width:${i === 0 ? "34px" : "26px"};height:${i === 0 ? "34px" : "26px"};border-radius:50%;cursor:pointer;background:${c.dot};box-shadow:0 0 0 ${i === 0 ? "3px rgba(20,20,20,.82)" : "1px rgba(20,20,20,.25)"};transition:all .3s ease;"></span>`
         ).join("")}
-        <span aria-hidden="true" title="More colours coming soon" style="width:26px;height:26px;border-radius:50%;background:transparent;border:1.5px dashed rgba(255,255,255,.3);"></span>
-        <span aria-hidden="true" title="More colours coming soon" style="width:26px;height:26px;border-radius:50%;background:transparent;border:1.5px dashed rgba(255,255,255,.3);"></span>
       </div>
       <span id="pm-colour-name" style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#fff;">${COLOURS[0].name}</span>
     </div>
@@ -275,7 +278,7 @@ export function mountPhotoMobile(): () => void {
   const colourImgs = Array.from(document.querySelectorAll<HTMLImageElement>(".pm-colimg"));
   const colourDots = Array.from(document.querySelectorAll<HTMLElement>(".pm-coldot"));
   const colourName = document.getElementById("pm-colour-name");
-  const COLOUR_NAMES = ["Coral", "Yellow", "Olive", "Blue"];
+  const COLOUR_NAMES = COLOURS.map((c) => c.name);
   const setColour = (i: number) => {
     colourImgs.forEach((img, k) => {
       img.style.opacity = k === i ? "1" : "0";

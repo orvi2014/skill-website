@@ -1,4 +1,3 @@
-import { JOURNEY_DATA } from "./journeyData";
 import { homeMobileFooterHtml } from "./homeFooter";
 
 const BRAND_LIST = [
@@ -15,7 +14,6 @@ const BRAND_LIST = [
   "Walmart",
   "Uniqlo",
   "The&nbsp;North&nbsp;Face",
-  "Chanel",
   "Burberry",
   "FTKR",
   "Avi&nbsp;&amp;&nbsp;Co",
@@ -33,26 +31,25 @@ function tickerHtml(): string {
 
 const MOBILE_CASES = [
   { slug: "nike", name: "Nike", src: "/assets/cases-nike.webp" },
-  { slug: "prada", name: "Prada", src: "/assets/cases-prada.webp" },
+  { slug: "prada", name: "Prada", src: "/assets/cases-prada.webp", pos: "18% 42%" },
   { slug: "dkny", name: "DKNY", src: "/assets/cases-dkny.webp" },
   { slug: "cmp", name: "CMP", src: "/assets/cases-cmp.webp" },
-  { slug: "adidas", name: "Adidas", src: "/assets/cases-adidas.webp" },
+  { slug: "adidas", name: "Adidas", src: "/assets/cases-adidas.webp", pos: "right center" },
   { slug: "tommy-hilfiger", name: "Tommy Hilfiger", src: "/assets/cases-tommy.webp" },
   { slug: "replay", name: "Replay", src: "/assets/cases-replay.webp" },
   { slug: "elvine", name: "Elvine", src: "/assets/cases-elvine.webp" },
   { slug: "kappahl", name: "KappAhl", src: "/assets/cases-kappahl.webp" },
   { slug: "guess", name: "Guess", src: "/assets/cases-guess.webp" },
-  { slug: "amazon", name: "Amazon" },
-  { slug: "walmart", name: "Walmart" },
-  { slug: "uniqlo", name: "Uniqlo" },
-  { slug: "the-north-face", name: "The North Face" },
-  { slug: "chanel", name: "Chanel" },
-  { slug: "burberry", name: "Burberry" },
-  { slug: "ftkr", name: "FTKR" },
-  { slug: "avi-co", name: "Avi & Co" },
-  { slug: "champion", name: "Champion" },
-  { slug: "vans", name: "Vans" },
-  { slug: "mango", name: "Mango" },
+  { slug: "amazon", name: "Amazon", src: "/assets/cases-amazon.webp" },
+  { slug: "walmart", name: "Walmart", src: "/assets/cases-walmart.webp" },
+  { slug: "uniqlo", name: "Uniqlo", src: "/assets/cases-uniqlo.webp" },
+  { slug: "the-north-face", name: "The North Face", src: "/assets/cases-the-north-face.webp" },
+  { slug: "burberry", name: "Burberry", src: "/assets/cases-burberry.webp" },
+  { slug: "ftkr", name: "FTKR", src: "/assets/cases-ftkr.webp" },
+  { slug: "avi-co", name: "Avi & Co", src: "/assets/cases-avi-co.webp" },
+  { slug: "champion", name: "Champion", src: "/assets/cases-champion.webp" },
+  { slug: "vans", name: "Vans", src: "/assets/cases-vans.webp" },
+  { slug: "mango", name: "Mango", src: "/assets/cases-mango.webp" },
 ];
 
 function caseCardsHtml(): string {
@@ -61,11 +58,11 @@ function caseCardsHtml(): string {
       <a href="/cases/${c.slug}" class="mtap" aria-label="${c.name}" style="flex:0 0 76%;position:relative;display:block;border-radius:18px;overflow:hidden;height:340px;background:#e0ded9;">
         ${
           "src" in c
-            ? `<img src="${c.src}" alt="${c.name} e-commerce" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">`
+            ? `<img src="${c.src}" alt="${c.name} e-commerce" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:${"pos" in c && c.pos ? c.pos : "center"};">`
             : `<div style="position:absolute;inset:0;background:linear-gradient(135deg,#1c1c1c,#0c0c0e);"></div>`
         }
         <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.6));"></div>
-        <img src="/assets/brand-logos/${c.slug}.png" alt="" loading="lazy" aria-hidden="true" style="position:absolute;right:16px;bottom:16px;max-width:96px;max-height:32px;width:auto;height:auto;object-fit:contain;filter:brightness(0) invert(1);display:block;opacity:.92;" onerror="this.style.display='none';">
+        <img src="/assets/brand-logos/${c.slug}.png" alt="" loading="lazy" aria-hidden="true" style="position:absolute;right:16px;bottom:16px;height:26px;width:auto;max-width:120px;object-fit:contain;object-position:right bottom;filter:brightness(0) invert(1);display:block;opacity:.92;" onerror="this.style.display='none';">
       </a>`
   ).join("");
 }
@@ -94,25 +91,9 @@ function opsTilesHtml(): string {
   ).join("");
 }
 
-function storyImgsHtml(): string {
-  return JOURNEY_DATA.map(
-    (j, i) => `
-      <img class="jm-simg" data-i="${i}" src="${j.img}" alt="${j.title}" loading="${i < 2 ? "eager" : "lazy"}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:${i === 0 ? 1 : 0};transition:opacity .6s ease;">`
-  ).join("");
-}
-
-function storyBarsHtml(): string {
-  return JOURNEY_DATA.map(
-    (_, i) => `
-      <div style="flex:1;height:2.5px;border-radius:3px;background:rgba(255,255,255,.3);overflow:hidden;"><div class="jm-barfill" data-i="${i}" style="height:100%;width:0%;background:#fff;border-radius:3px;"></div></div>`
-  ).join("");
-}
-
-// `subpage` controls whether the in-page anchors (AI Studio, Why Skill,
-// Cases, 10 Years, FAQ) point at sections on THIS page or need a leading
-// "/" to first navigate back to the home page where those sections
-// actually live — this component is reused as-is on Photo, Video, and
-// Case pages, none of which contain those sections themselves.
+// `subpage` controls whether in-page anchors (AI Studio, Cases, FAQ)
+// point at sections on THIS page or need a leading "/" to go home first.
+// Reused on Photo, Video, and Case pages.
 export function mobileNavHtml(subpage = false): string {
   const home = subpage ? "/" : "#top";
   const hash = (id: string) => (subpage ? `/#${id}` : `#${id}`);
@@ -138,9 +119,7 @@ export function mobileNavHtml(subpage = false): string {
       <a class="mnav-link" href="/photo" style="font-family:'Archivo';font-weight:800;font-size:32px;color:#fff;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);">Image Editing</a>
       <a class="mnav-link" href="/video" style="font-family:'Archivo';font-weight:800;font-size:32px;color:#fff;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);">Video Editing</a>
       <a class="mnav-link" href="${hash("studio")}" style="font-family:'Archivo';font-weight:800;font-size:32px;color:#fff;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);">AI Studio</a>
-      <a class="mnav-link" href="${hash("usp")}" style="font-family:'Archivo';font-weight:800;font-size:32px;color:#fff;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);">Why Skill</a>
       <a class="mnav-link" href="${hash("cases")}" style="font-family:'Archivo';font-weight:800;font-size:32px;color:#fff;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);">Cases</a>
-      <a class="mnav-link" href="${hash("journey")}" style="font-family:'Archivo';font-weight:800;font-size:32px;color:#fff;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);">10 Years</a>
       <a class="mnav-link" href="${hash("faq")}" style="font-family:'Archivo';font-weight:800;font-size:32px;color:#fff;padding:10px 0;">FAQ</a>
     </nav>
     <a href="#book" class="mnav-link" style="margin-top:26px;display:flex;align-items:center;justify-content:center;gap:10px;background:#7B2C8E;color:#fff;font:700 15px 'Space Grotesk';padding:16px;border-radius:14px;text-decoration:none;">Book a Meeting <span aria-hidden="true">&#8594;</span></a>
@@ -161,7 +140,7 @@ export const MOBILE_SERVICES_HTML = `
       <h1 style="margin:0;font-family:'Archivo';font-weight:800;text-transform:uppercase;line-height:.94;letter-spacing:-.02em;font-size:clamp(2.1rem,10.5vw,3.2rem);color:#fff;">Visual Content for<br>E-commerce by<br><span style="color:transparent;-webkit-text-stroke:1.4px rgba(255,255,255,.85);">Human and AI</span></h1>
       <p style="font:400 15px/1.5 'Space Grotesk';color:rgba(255,255,255,.82);margin:18px 0 0;max-width:34ch;">AI-powered creativity. Human expertise. Built for scale.</p>
       <div style="display:flex;gap:10px;margin-top:20px;">
-        <a href="#usp" class="mtap" style="font:600 12px 'Space Grotesk';letter-spacing:.04em;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(6px);padding:10px 18px;border-radius:100px;">Why Skill</a>
+        <a href="#mm-cases-section" class="mtap" style="font:600 12px 'Space Grotesk';letter-spacing:.04em;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(6px);padding:10px 18px;border-radius:100px;">Cases</a>
         <a href="#contact" class="mtap" style="font:600 12px 'Space Grotesk';letter-spacing:.04em;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(6px);padding:10px 18px;border-radius:100px;">Get in touch</a>
       </div>
     </div>
@@ -205,7 +184,7 @@ export function mobileAiStudioHtml(): string {
   return `
   <section id="mm-ais-section" style="background:#0C0C0E;padding:44px 18px 56px;">
     <div class="mm-reveal" style="margin-bottom:20px;">
-      <p style="font:600 11px 'Space Grotesk';letter-spacing:.22em;text-transform:uppercase;color:#7B2C8E;margin:0 0 8px;">AI Studio &middot; Styling</p>
+      <p style="font:600 11px 'Space Grotesk';letter-spacing:.22em;text-transform:uppercase;color:#7B2C8E;margin:0 0 8px;">AI visuals &amp; Virtual try on</p>
       <h2 style="font-family:'Archivo';font-weight:800;font-size:28px;line-height:1.05;color:#fff;margin:0;">The right look for every audience</h2>
       <p id="mm-cap" style="font:400 14px/1.55 'Space Grotesk';color:rgba(255,255,255,.6);margin:12px 0 0;max-width:40ch;min-height:6.2em;"></p>
     </div>
@@ -231,8 +210,8 @@ export function mobileAiStudioHtml(): string {
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
         <div style="position:relative;aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:#161618;">
-          <img id="mm-onmodel" src="/assets/ecom-onmodel.webp" alt="On-model result" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-          <span style="position:absolute;left:9px;top:9px;font:700 9px 'Space Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.5);padding:5px 9px;border-radius:100px;">On-model</span>
+          <img id="mm-onmodel" src="/assets/ecom-onmodel.webp" alt="On Model result" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <span style="position:absolute;left:9px;top:9px;font:700 9px 'Space Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.5);padding:5px 9px;border-radius:100px;">On Model</span>
         </div>
         <div style="position:relative;aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:#161618;">
           <video id="mm-vid" class="ais-video" autoplay muted playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"><source id="mm-vid-src" src="/assets/ecom-video.mp4" type="video/mp4"></video>
@@ -244,27 +223,6 @@ export function mobileAiStudioHtml(): string {
 }
 
 export const MOBILE_WHY_HTML = `
-  <section id="usp" style="background:#EBEBE9;color:#141414;padding:52px 18px;border-radius:28px 28px 0 0;">
-    <div class="mm-reveal">
-      <p style="font:600 11px 'Space Grotesk';letter-spacing:.22em;text-transform:uppercase;color:#7B2C8E;margin:0 0 12px;">Why Skill</p>
-      <h2 style="font-family:'Archivo';font-weight:800;font-size:26px;line-height:1.18;letter-spacing:-.01em;margin:0 0 26px;">Produce more &mdash; without compromising standards. From <span style="color:#141414;">quality</span> to <span style="color:#141414;">fair pricing</span> and <span style="color:#141414;">rapid delivery</span>, engineered around your brand and enhanced by AI.</h2>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div class="mtap mm-reveal" style="display:flex;align-items:center;gap:16px;background:#fff;border:1px solid #e2e0dc;border-radius:16px;padding:18px 16px;">
-        <div style="flex:none;width:52px;height:52px;"><svg viewBox="0 0 100 100" fill="none" style="width:52px;height:52px;"><circle cx="50" cy="50" r="34" stroke="#7B2C8E" stroke-width="4"/><path d="M36 50 L46 60 L66 40" stroke="#7B2C8E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div><h4 style="font-family:'Archivo';font-weight:800;font-size:18px;margin:0 0 3px;">Upload-ready, every time</h4><p style="font:400 13px/1.42 'Space Grotesk';color:#5a5a5a;margin:0;">Structured, multi-checkpoint Quality Control &mdash; brand-ready before delivery.</p></div>
-      </div>
-      <div class="mtap mm-reveal" style="display:flex;align-items:center;gap:16px;background:#fff;border:1px solid #e2e0dc;border-radius:16px;padding:18px 16px;">
-        <div style="flex:none;width:52px;height:52px;"><svg viewBox="0 0 100 100" fill="none" style="width:52px;height:52px;"><line x1="16" y1="82" x2="84" y2="82" stroke="#7B2C8E" stroke-width="4" stroke-linecap="round"/><rect x="26" y="52" width="14" height="30" rx="3" fill="#7B2C8E"/><rect x="46" y="38" width="14" height="44" rx="3" fill="#7B2C8E" opacity=".7"/><rect x="66" y="24" width="14" height="58" rx="3" fill="#7B2C8E" opacity=".45"/></svg></div>
-        <div><h4 style="font-family:'Archivo';font-weight:800;font-size:18px;margin:0 0 3px;">Competitive pricing</h4><p style="font:400 13px/1.42 'Space Grotesk';color:#5a5a5a;margin:0;">Fair, transparent rates that scale with your volume.</p></div>
-      </div>
-      <div class="mtap mm-reveal" style="display:flex;align-items:center;gap:16px;background:#fff;border:1px solid #e2e0dc;border-radius:16px;padding:18px 16px;">
-        <div style="flex:none;width:52px;height:52px;"><svg viewBox="0 0 100 100" fill="none" style="width:52px;height:52px;"><circle cx="50" cy="50" r="34" stroke="#7B2C8E" stroke-width="4"/><path d="M50 30 V50 L64 60" stroke="#7B2C8E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div><h4 style="font-family:'Archivo';font-weight:800;font-size:18px;margin:0 0 3px;">Rapid delivery</h4><p style="font:400 13px/1.42 'Space Grotesk';color:#5a5a5a;margin:0;">Fast turnaround without a drop in quality.</p></div>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ CASES ============ -->
   <section id="mm-cases-section" style="background:#EBEBE9;color:#141414;padding:20px 0 52px;">
     <div class="mm-reveal" style="padding:0 18px;margin-bottom:18px;">
@@ -312,31 +270,40 @@ export const MOBILE_WHY_HTML = `
     <p style="font:400 12px/1.5 'Space Grotesk';color:rgba(255,255,255,.5);text-align:center;margin:24px 0 0;">Powered by a state-of-the-art post-production research &amp; management team.</p>
   </section>
 
-  <!-- ============ 10 YEARS ============ -->
-  <section id="mm-journey-section" style="background:#0C0C0E;color:#fff;padding:44px 0 40px;">
-    <div class="mm-reveal" style="padding:0 18px;margin-bottom:20px;">
-      <p style="font:600 11px 'Space Grotesk';letter-spacing:.18em;text-transform:uppercase;color:#b768c6;margin:0 0 12px;">Our journey &middot; 2016 &mdash; present</p>
-      <h2 style="font-family:'Archivo';font-weight:900;font-size:40px;line-height:.9;margin:0;">10 YEARS OF <span style="color:#b768c6;">SKILL</span></h2>
+  <!-- ============ FUTURE VISION ============ -->
+  <section id="mm-vision" style="background:#000;color:#fff;padding:56px 18px 64px;position:relative;overflow:hidden;">
+    <div aria-hidden="true" style="position:absolute;top:10%;left:50%;transform:translateX(-50%);width:120vw;height:120vw;max-width:640px;max-height:640px;border-radius:50%;background:radial-gradient(circle,rgba(123,44,142,.22),transparent 62%);filter:blur(28px);pointer-events:none;"></div>
+    <div class="mm-reveal" style="position:relative;z-index:2;text-align:center;margin-bottom:28px;">
+      <p style="font:600 11px 'Space Grotesk';letter-spacing:.22em;text-transform:uppercase;color:#b98cd0;margin:0 0 12px;">The next chapter begins</p>
+      <h2 style="font-family:'Archivo';font-weight:900;font-size:clamp(2rem,9vw,2.8rem);line-height:.95;margin:0;letter-spacing:-.01em;">FUTURE <span style="color:#7B2C8E;">VISION</span></h2>
     </div>
-    <div id="jm-story" style="position:relative;margin:0 14px;border-radius:22px;overflow:hidden;background:#000;aspect-ratio:4/5;max-height:58vh;box-shadow:0 30px 70px rgba(0,0,0,.5);">
-      ${storyImgsHtml()}
-      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 32%,rgba(0,0,0,.15) 55%,rgba(0,0,0,.88) 100%);"></div>
-      <div style="position:absolute;top:12px;left:12px;right:12px;display:flex;gap:5px;z-index:4;">
-        ${storyBarsHtml()}
+    <div class="mm-reveal" style="position:relative;z-index:2;width:min(72vw,280px);aspect-ratio:1;margin:0 auto 32px;">
+      <div style="position:absolute;inset:-10%;border-radius:50%;background:radial-gradient(circle,transparent 58%,rgba(123,44,142,.2) 70%,transparent 80%);animation:sg-globepulse 5s ease-in-out infinite;"></div>
+      <div style="position:absolute;inset:0;border-radius:50%;overflow:hidden;background:#0a0a18;box-shadow:inset 8px 10px 36px rgba(123,44,142,.28),inset -24px -24px 70px rgba(0,0,0,.85);">
+        <div style="position:absolute;inset:-12%;background-image:radial-gradient(circle,rgba(160,100,220,.95) 1.1px,transparent 1.5px);background-size:18px 18px;animation:sg-globe-rot 18s linear infinite;opacity:.55;"></div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+          <span style="font-family:'Archivo';font-weight:900;font-size:1.35rem;letter-spacing:.04em;color:#fff;">SKILL</span>
+          <span style="font:500 10px 'Space Grotesk';letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:4px;">Global Network</span>
+        </div>
       </div>
-      <div style="position:absolute;top:30px;left:16px;right:16px;z-index:4;display:flex;justify-content:space-between;align-items:center;">
-        <span style="font:700 10px 'Space Grotesk';letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.72);">Skill Graphics</span>
-        <span style="font:600 11px 'Space Grotesk';letter-spacing:.12em;color:rgba(255,255,255,.72);"><span id="jm-step">1</span> / ${JOURNEY_DATA.length}</span>
-      </div>
-      <div style="position:absolute;left:20px;right:20px;bottom:26px;z-index:4;">
-        <div id="jm-year" style="font-family:'Archivo';font-weight:900;font-size:74px;line-height:.82;letter-spacing:-.02em;color:#fff;text-shadow:0 4px 30px rgba(0,0,0,.5);">${JOURNEY_DATA[0].year}</div>
-        <h4 id="jm-title" style="font-family:'Archivo';font-weight:800;font-size:23px;line-height:1.05;margin:12px 0 8px;letter-spacing:-.01em;">${JOURNEY_DATA[0].title}</h4>
-        <p id="jm-story-text" style="font:400 14px/1.55 'Space Grotesk';color:rgba(255,255,255,.85);margin:0;max-width:34ch;">${JOURNEY_DATA[0].body}</p>
-      </div>
-      <button id="jm-prev" aria-label="Previous story" style="position:absolute;left:0;top:0;bottom:0;width:32%;z-index:5;background:transparent;border:0;cursor:pointer;"></button>
-      <button id="jm-next" aria-label="Next story" style="position:absolute;right:0;top:0;bottom:0;width:42%;z-index:5;background:transparent;border:0;cursor:pointer;"></button>
     </div>
-    <p style="font:500 11px 'Space Grotesk';color:rgba(255,255,255,.4);text-align:center;margin:14px 0 0;">Tap to move through the story</p>
+    <div class="mm-reveal" style="position:relative;z-index:2;display:grid;gap:18px;">
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 16px;">
+        <p style="font:700 11px 'Space Grotesk';letter-spacing:.16em;color:#c86ad8;margin:0 0 8px;">01</p>
+        <h3 style="font-family:'Archivo';font-weight:800;font-size:18px;margin:0 0 6px;line-height:1.15;color:#fff;">1,000+ creative professionals</h3>
+        <p style="font:400 13px/1.5 'Space Grotesk';color:#b8b8c0;margin:0;">A global network of talent. Limitless creativity.</p>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 16px;">
+        <p style="font:700 11px 'Space Grotesk';letter-spacing:.16em;color:#8fb4f6;margin:0 0 8px;">02</p>
+        <h3 style="font-family:'Archivo';font-weight:800;font-size:18px;margin:0 0 6px;line-height:1.15;color:#fff;">Global leader in AI-powered image &amp; video production</h3>
+        <p style="font:400 13px/1.5 'Space Grotesk';color:#b8b8c0;margin:0;">Intelligent technology. Smarter workflows.</p>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 16px;">
+        <p style="font:700 11px 'Space Grotesk';letter-spacing:.16em;color:#5cd6e0;margin:0 0 8px;">03</p>
+        <h3 style="font-family:'Archivo';font-weight:800;font-size:18px;margin:0 0 6px;line-height:1.15;color:#fff;">A fully connected, intelligent production ecosystem</h3>
+        <p style="font:400 13px/1.5 'Space Grotesk';color:#b8b8c0;margin:0;">Seamless. Scalable. Future-ready.</p>
+      </div>
+    </div>
   </section>
 
   <!-- ============ CONTACT ============ -->
@@ -371,7 +338,7 @@ export const HOME_MOBILE_CSS = `
 .mtap:active{transform:scale(.975);}
 .mnav-link{transition:padding-left .35s cubic-bezier(.2,.7,.2,1),color .3s ease;}
 .mnav-link:active{padding-left:14px;color:#c98fd6;}
-#mnav-burger:focus-visible,#mnav-close:focus-visible,#jm-prev:focus-visible,#jm-next:focus-visible,.mm-cat:focus-visible,.mtap:focus-visible{outline:2px solid #fff;outline-offset:2px;}
+#mnav-burger:focus-visible,#mnav-close:focus-visible,.mm-cat:focus-visible,.mtap:focus-visible{outline:2px solid #fff;outline-offset:2px;}
 .foot-socs{display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:center;width:100%;gap:4px;}
 .mobile-layout .foot-soc:hover,.mobile-layout .foot-soc:active{background:#7B2C8E!important;border-color:#7B2C8E!important;color:#fff!important;transform:translateY(-2px);}
 .mobile-layout .foot-soc:focus-visible{outline:2px solid #7B2C8E;outline-offset:2px;}
@@ -743,85 +710,6 @@ export function mountHomeMobile(): () => void {
     cleanups.push(() => window.clearInterval(opsTimer));
   }
 
-  // ---- 10 Years: tap-through story deck ----
-  const storyEl = document.getElementById("jm-story");
-  if (storyEl) {
-    let ji = 0;
-    let jTimer = 0;
-    let inView = true;
-    const yearEl = document.getElementById("jm-year");
-    const titleEl = document.getElementById("jm-title");
-    const textEl = document.getElementById("jm-story-text");
-    const stepEl = document.getElementById("jm-step");
-    const imgs = Array.from(storyEl.querySelectorAll<HTMLElement>(".jm-simg"));
-    const bars = Array.from(storyEl.querySelectorAll<HTMLElement>(".jm-barfill"));
-
-    const renderStory = (i: number) => {
-      const j = JOURNEY_DATA[i];
-      if (!j) return;
-      imgs.forEach((el) => {
-        const on = Number(el.getAttribute("data-i")) === i;
-        el.style.opacity = on ? "1" : "0";
-      });
-      if (yearEl) yearEl.textContent = j.year;
-      if (titleEl) titleEl.textContent = j.title;
-      if (textEl) textEl.textContent = j.body;
-      if (stepEl) stepEl.textContent = String(i + 1);
-      bars.forEach((el) => {
-        const bi = Number(el.getAttribute("data-i"));
-        el.style.transition = "none";
-        el.style.width = bi < i ? "100%" : "0%";
-      });
-    };
-
-    const startStory = () => {
-      window.clearInterval(jTimer);
-      const fill = storyEl.querySelector<HTMLElement>(`.jm-barfill[data-i="${ji}"]`);
-      if (fill) {
-        fill.style.transition = "none";
-        fill.style.width = "0%";
-        void fill.offsetWidth;
-        fill.style.transition = "width 3.6s linear";
-        fill.style.width = "100%";
-      }
-      jTimer = window.setTimeout(() => goStory(ji + 1), 3600) as unknown as number;
-    };
-
-    const goStory = (i: number) => {
-      const n = JOURNEY_DATA.length;
-      ji = ((i % n) + n) % n;
-      renderStory(ji);
-      if (inView) startStory();
-    };
-
-    renderStory(0);
-    startStory();
-
-    const prevBtn = document.getElementById("jm-prev");
-    const nextBtn = document.getElementById("jm-next");
-    const onPrev = () => goStory(ji - 1);
-    const onNext = () => goStory(ji + 1);
-    prevBtn?.addEventListener("click", onPrev);
-    nextBtn?.addEventListener("click", onNext);
-    cleanups.push(() => {
-      prevBtn?.removeEventListener("click", onPrev);
-      nextBtn?.removeEventListener("click", onNext);
-      window.clearInterval(jTimer);
-    });
-
-    const storyIo = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          inView = e.isIntersecting;
-          if (inView) startStory();
-          else window.clearInterval(jTimer);
-        });
-      },
-      { threshold: 0.4 }
-    );
-    storyIo.observe(storyEl);
-    cleanups.push(() => storyIo.disconnect());
-  }
 
   // ---- cases: auto-scroll right, pause on touch, pause off-screen ----
   const casesEl = document.getElementById("mm-cases");
