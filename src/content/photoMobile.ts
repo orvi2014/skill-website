@@ -115,7 +115,7 @@ export const MOBILE_PHOTO_HTML = `
     <div id="pm-onm" style="display:flex;gap:12px;overflow-x:auto;padding:0 18px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;">
       ${ONMODEL.map(
         (src) =>
-          `<div style="position:relative;flex:0 0 72%;aspect-ratio:2/3;border-radius:8px;overflow:hidden;background:#e2e2de;scroll-snap-align:center;"><img src="${src}" alt="On model" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 12%;display:block;"></div>`
+          `<div style="position:relative;flex:0 0 72%;aspect-ratio:2/3;border-radius:8px;overflow:hidden;background:#e2e2de;scroll-snap-align:center;"><img src="${src}" alt="On model" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"></div>`
       ).join("")}
     </div>
   </section>

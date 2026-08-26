@@ -120,12 +120,12 @@ export function caseHtml(data: CaseStudy): string {
   <div class="desktop-layout">${headerHtml({ subpage: true })}</div>
 
   <!-- HERO / COVER -->
-  <header id="main-content" tabindex="-1" data-nav-hero style="position:relative;height:74vh;min-height:520px;overflow:hidden;background:${data.comingSoon ? "linear-gradient(135deg,#1c1c1c,#0c0c0e)" : "#d7d7d2"};">
+  <header id="main-content" tabindex="-1" data-nav-hero style="position:relative;height:min(58vh,680px);min-height:380px;overflow:hidden;background:${data.comingSoon ? "linear-gradient(135deg,#1c1c1c,#0c0c0e)" : "#d7d7d2"};">
     ${
       data.comingSoon
         ? `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 24px;"><span style="font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,7vw,6rem);text-transform:uppercase;color:transparent;-webkit-text-stroke:1.6px rgba(255,255,255,.8);line-height:.95;">${data.name}</span></div>`
         : `<div class="ncase-slot" style="position:absolute;inset:0;overflow:hidden;">
-      <img src="${data.heroImg}" alt="${data.name}" style="width:100%;height:100%;object-fit:cover;object-position:${data.coverPos ?? "center"};display:block;">
+      <img src="${data.heroImg}" alt="${data.name}" style="width:100%;height:100%;object-fit:cover;object-position:${data.coverPos ?? "center center"};display:block;">
     </div>`
     }
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,18,20,.42),rgba(18,18,20,0) 34%);pointer-events:none;"></div>
@@ -138,7 +138,11 @@ export function caseHtml(data: CaseStudy): string {
   <!-- TITLE + INTRO -->
   <section class="sg-reveal" style="background:#fff;padding:clamp(64px,11vh,140px) 40px;">
     <div style="max-width:760px;margin:0 auto;text-align:center;">
-      <p style="font:600 12px 'Space Grotesk';letter-spacing:.28em;text-transform:uppercase;color:#7B2C8E;margin:0 0 22px;">${data.name}</p>
+      ${
+        data.comingSoon
+          ? `<p style="font:600 12px 'Space Grotesk';letter-spacing:.28em;text-transform:uppercase;color:#7B2C8E;margin:0 0 22px;">${data.name}</p>`
+          : `<div style="display:flex;justify-content:center;margin:0 0 22px;"><img src="/assets/brand-logos/${data.slug}.png" alt="${data.name}" style="height:32px;width:auto;max-width:180px;object-fit:contain;display:block;" onerror="this.outerHTML='<p style=\\'font:600 12px Space Grotesk;letter-spacing:.28em;text-transform:uppercase;color:#7B2C8E;margin:0\\'>${data.name}</p>'"></div>`
+      }
       <h1 style="font-family:'Archivo';font-weight:800;font-size:clamp(1.9rem,4.4vw,3.4rem);line-height:1.06;letter-spacing:-.02em;margin:0 0 26px;color:#161616;">${data.title}</h1>
       <p style="font:400 clamp(15px,1.25vw,18px)/1.8 'Space Grotesk';color:#5b5b58;margin:0;">${data.intro}</p>
     </div>

@@ -17,7 +17,8 @@ export const AI_STUDIO_CSS = `
 
 @media (max-width:1024px){
   #ais-card{flex-direction:column !important;gap:22px !important;min-height:0 !important;padding:24px 16px 30px !important;align-items:stretch !important;}
-  #ais-card > div[style*="flex:0 1 360px"]{flex:none !important;max-width:none !important;min-width:0 !important;text-align:center;align-items:center;}
+  #ais-card > div[style*="flex:0 1 480px"]{flex:none !important;max-width:none !important;min-width:0 !important;text-align:center;align-items:center;}
+  #ais-card h2{white-space:normal !important;font-size:clamp(1.55rem,5vw,2rem) !important;}
   #aisb-detail{height:auto !important;min-height:0 !important;max-width:36ch !important;margin:0 auto 4px !important;}
   #aisb-chips{justify-content:center !important;}
   #ais-card > div[style*="flex:0 0 auto"][style*="flex-direction:column"]{flex:none !important;width:100% !important;}
@@ -104,9 +105,9 @@ export const AI_STUDIO_HTML = `
     <div class="ais-blob" aria-hidden="true" style="top:-14%;left:-6%;width:46%;height:70%;background:radial-gradient(circle,rgba(123,44,142,.10),transparent 68%);animation:ais-drift1 22s ease-in-out infinite;"></div>
     <div class="ais-blob" aria-hidden="true" style="bottom:-20%;right:-4%;width:42%;height:66%;background:radial-gradient(circle,rgba(224,34,46,.06),transparent 68%);animation:ais-drift2 27s ease-in-out infinite;"></div>
     <div class="ais-blob" aria-hidden="true" style="top:20%;right:24%;width:34%;height:52%;background:radial-gradient(circle,rgba(123,44,142,.07),transparent 70%);animation:ais-drift3 19s ease-in-out infinite;"></div>
-    <div style="position:relative;flex:0 1 360px;min-width:250px;max-width:380px;display:flex;flex-direction:column;justify-content:center;">
+    <div style="position:relative;flex:0 1 480px;min-width:280px;max-width:520px;display:flex;flex-direction:column;justify-content:center;">
       <p style="font:600 12px 'Space Grotesk';letter-spacing:.22em;text-transform:uppercase;color:#7B2C8E;margin:0 0 16px;">AI visuals &amp; Virtual try on</p>
-      <h2 style="font-family:'Archivo';font-weight:800;font-size:clamp(1.7rem,2.6vw,3rem);line-height:1.03;letter-spacing:-.02em;margin:0 0 18px;color:#161616;">The right look<br>for <span id="aisb-headword" style="display:inline-block;transform-origin:center;backface-visibility:hidden;transform:perspective(440px) rotateX(0deg);color:transparent;-webkit-text-stroke:1.4px #7B2C8E;transition:transform .52s cubic-bezier(.2,.75,.25,1),opacity .42s ease;">E-commerce</span></h2>
+      <h2 style="font-family:'Archivo';font-weight:800;font-size:clamp(1.45rem,1.55vw,2rem);line-height:1.08;letter-spacing:-.02em;margin:0 0 18px;color:#161616;white-space:nowrap;">The right look for <span id="aisb-headword" style="display:inline-block;transform-origin:center;backface-visibility:hidden;transform:perspective(440px) rotateX(0deg);color:transparent;-webkit-text-stroke:1.4px #7B2C8E;transition:transform .52s cubic-bezier(.2,.75,.25,1),opacity .42s ease;">E-commerce</span></h2>
       <p id="aisb-detail" style="font:400 15px/1.62 'Space Grotesk';color:#5b5b58;margin:0 0 26px;max-width:40ch;height:7.9em;min-height:7.9em;transition:opacity .4s ease;">Your customers aren't all the same — your content shouldn't be either. One product set becomes the right look for every channel, all from your existing images.</p>
       <div id="aisb-chips" style="display:flex;gap:4px;flex-wrap:wrap;">
         <button type="button" data-cat="relaxed" class="ais-chip" aria-pressed="true" style="border:1px solid #7B2C8E;background:#7B2C8E;color:#fff;font:600 11px 'Space Grotesk';padding:8px 9px;border-radius:100px;cursor:pointer;white-space:nowrap;">E-commerce</button>

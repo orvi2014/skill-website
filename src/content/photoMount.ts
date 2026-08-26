@@ -58,6 +58,19 @@ export function mountPhoto(): () => void {
   const onmSec = document.getElementById("onm-gallery");
   const onmL = document.getElementById("onm-colL");
   const onmR = document.getElementById("onm-colR");
+  let onmTravelL = 0;
+  let onmTravelR = 0;
+
+  const layoutOnm = () => {
+    if (!onmSec || !onmL || !onmR || window.innerWidth <= 640) return;
+    const vhh = window.innerHeight || 1;
+    const imgsBox = onmSec.querySelector(".onm-imgs") as HTMLElement | null;
+    const viewH = imgsBox?.clientHeight || vhh;
+    onmTravelL = Math.max(0, onmL.scrollHeight - viewH);
+    onmTravelR = Math.max(0, onmR.scrollHeight - viewH);
+    const needPx = Math.max(onmTravelL, onmTravelR, vhh * 0.8);
+    (onmSec as HTMLElement).style.height = `${Math.round(vhh + needPx)}px`;
+  };
 
   const onScroll = () => {
     if (window.innerWidth <= 640) return; // desktop-only parallax; hidden on mobile
@@ -79,9 +92,11 @@ export function mountPhoto(): () => void {
       const vhh = window.innerHeight || 1;
       let p = -g.top / Math.max(1, g.height - vhh);
       p = Math.max(0, Math.min(1, p));
-      const amt = 640;
-      (onmL as HTMLElement).style.transform = `translateY(calc(-50% + ${((p - 0.5) * amt).toFixed(1)}px))`;
-      (onmR as HTMLElement).style.transform = `translateY(calc(-50% + ${((0.5 - p) * amt).toFixed(1)}px))`;
+      // Opposite directions; each column stays flush (no empty start/end gap).
+      const yL = -p * onmTravelL;
+      const yR = -onmTravelR + p * onmTravelR;
+      (onmL as HTMLElement).style.transform = `translateY(${yL.toFixed(1)}px)`;
+      (onmR as HTMLElement).style.transform = `translateY(${yR.toFixed(1)}px)`;
     }
   };
   let scrollTicking = false;
@@ -93,9 +108,31 @@ export function mountPhoto(): () => void {
       scrollTicking = false;
     });
   };
+  layoutOnm();
   onScroll();
   window.addEventListener("scroll", onScrollThrottled, { passive: true });
   cleanups.push(() => window.removeEventListener("scroll", onScrollThrottled));
+  const onOnmResize = () => {
+    layoutOnm();
+    onScroll();
+  };
+  window.addEventListener("resize", onOnmResize, { passive: true });
+  cleanups.push(() => window.removeEventListener("resize", onOnmResize));
+  // Recalc after images load (scrollHeight may change).
+  [onmL, onmR].forEach((col) => {
+    if (!col) return;
+    col.querySelectorAll("img").forEach((img) => {
+      if (img.complete) return;
+      img.addEventListener(
+        "load",
+        () => {
+          layoutOnm();
+          onScroll();
+        },
+        { once: true }
+      );
+    });
+  });
 
   // ---- Still-life carousel ----
   const carouselImgs = Array.from(

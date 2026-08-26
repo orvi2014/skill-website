@@ -46,7 +46,7 @@ a{color:#7B2C8E;} a:hover{color:#5c1f6d;}
 .ph-thumb.active{opacity:1;}
 .ph-thumb:hover{opacity:.85;}
 .onm-slot{position:relative;overflow:hidden;background:#EDEDEB;width:100%;aspect-ratio:2/3;height:auto;}
-.onm-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 12%;display:block;}
+.onm-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
 .onm-slot .onm-ph{display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:#9a9a95;font:600 12px 'Space Grotesk';letter-spacing:.08em;text-transform:uppercase;background:repeating-linear-gradient(135deg,#e5e5e1,#e5e5e1 10px,#dedeD9 10px,#dedeD9 20px);}
 .ph-dot{cursor:pointer;transition:width .3s ease,background .3s ease;}
 .ph-thumb:focus-visible,.ph-dot:focus-visible,.ph-colour-dot:focus-visible{outline:2px solid #7B2C8E;outline-offset:2px;}
@@ -181,13 +181,13 @@ ${MOBILE_PHOTO_HTML}
     <h3 style="position:relative;z-index:2;margin:0;text-align:center;font-family:'Archivo';font-weight:800;font-size:clamp(2.8rem,10vw,10rem);text-transform:uppercase;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.96);line-height:.9;">3 Million<br>Images In<br>One Year</h3>
   </div>
 
-  <section id="onm-gallery" class="ph-snap" style="position:relative;background:#EDEDEB;height:200vh;">
+  <section id="onm-gallery" style="position:relative;background:#EDEDEB;height:240vh;">
     <div class="onm-inner" style="position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;display:flex;align-items:stretch;">
       <div class="sg-reveal onm-text" style="flex:1 1 42%;display:flex;flex-direction:column;justify-content:center;padding:0 clamp(28px,4.5vw,84px);">
         <span class="cat-wrap"><span class="cat-ghost" aria-hidden="true">03</span><h3 class="cat-h" style="margin:0;font-family:'Archivo';font-weight:800;font-size:clamp(2.8rem,6.4vw,7rem);line-height:.88;text-transform:uppercase;color:#161616;letter-spacing:-.015em;">Styled<br>On<br><span style="color:#161616;">Model</span></h3></span>
       </div>
       <div class="onm-imgs" style="position:relative;flex:1 1 58%;overflow:hidden;">
-        <div id="onm-colL" style="position:absolute;left:clamp(10px,2.4vw,34px);top:50%;width:calc(50% - clamp(16px,1.8vw,28px));display:flex;flex-direction:column;gap:16px;will-change:transform;transform:translateY(-50%);">
+        <div id="onm-colL" style="position:absolute;left:clamp(10px,2.4vw,34px);top:0;width:calc(50% - clamp(16px,1.8vw,28px));display:flex;flex-direction:column;gap:16px;will-change:transform;transform:translateY(0);">
           ${ONM_IMAGES.filter((_, i) => i % 2 === 0)
             .map(
               (src) =>
@@ -195,7 +195,7 @@ ${MOBILE_PHOTO_HTML}
             )
             .join("")}
         </div>
-        <div id="onm-colR" style="position:absolute;right:clamp(24px,4.4vw,84px);top:50%;width:calc(50% - clamp(16px,1.8vw,28px));display:flex;flex-direction:column;gap:16px;will-change:transform;transform:translateY(-50%);">
+        <div id="onm-colR" style="position:absolute;right:clamp(24px,4.4vw,84px);top:0;width:calc(50% - clamp(16px,1.8vw,28px));display:flex;flex-direction:column;gap:16px;will-change:transform;transform:translateY(0);">
           ${ONM_IMAGES.filter((_, i) => i % 2 === 1)
             .map(
               (src) =>

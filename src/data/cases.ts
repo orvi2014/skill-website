@@ -41,8 +41,7 @@ const ASSETS: Record<string, AssetPack> = {
   },
   adidas: {
     cover: "/assets/cases/adidas/cover.webp",
-    // Branding (stripes + trefoil) sits on the far right of a wide blue field.
-    coverPos: "right center",
+    coverPos: "38% 58%",
     video: "/assets/cases/adidas/video.mp4",
     gallery: [
       "/assets/cases/adidas/g1.webp",
@@ -75,7 +74,7 @@ const ASSETS: Record<string, AssetPack> = {
   prada: {
     cover: "/assets/cases/prada/cover.webp",
     // Model + bag sit in the left third of a wide staircase frame.
-    coverPos: "18% 42%",
+    coverPos: "22% 40%",
     video: "/assets/cases/prada/video.mp4",
     gallery: [
       "/assets/cases/prada/g1.webp",
@@ -106,6 +105,7 @@ const ASSETS: Record<string, AssetPack> = {
   },
   "tommy-hilfiger": {
     cover: "/assets/cases/tommy-hilfiger/cover.webp",
+    coverPos: "78% 18%",
     video: "/assets/cases/tommy-hilfiger/video.mp4",
     gallery: [
       "/assets/cases/tommy-hilfiger/g1.webp",
@@ -117,6 +117,8 @@ const ASSETS: Record<string, AssetPack> = {
   },
   cmp: {
     cover: "/assets/cases/cmp/cover.webp",
+    // Two hikers sit left-of-center against a rock wall on the right.
+    coverPos: "32% 48%",
     video: "/assets/cases/cmp/video.mp4",
     gallery: [
       "/assets/cases/cmp/g1.webp",
@@ -168,6 +170,8 @@ const ASSETS: Record<string, AssetPack> = {
   },
   "the-north-face": {
     cover: "/assets/cases/the-north-face/cover.webp",
+    // Hikers sit on the right of a wide snow field.
+    coverPos: "78% 42%",
     video: "/assets/cases/the-north-face/video.mp4",
     gallery: [
       "/assets/cases/the-north-face/g1.webp",
@@ -187,6 +191,8 @@ const ASSETS: Record<string, AssetPack> = {
   },
   ftkr: {
     cover: "/assets/cases/ftkr/cover.webp",
+    // Model is on the left half of a split graphic.
+    coverPos: "22% 55%",
     video: "/assets/cases/ftkr/video.mp4",
     gallery: [
       "/assets/cases/ftkr/g1.webp",

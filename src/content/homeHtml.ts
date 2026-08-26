@@ -35,11 +35,11 @@ const BRAND_MARQUEE_ITEMS = [
 
 const CASES_MARQUEE = [
   { slug: "nike", name: "Nike", src: "/assets/cases-nike.webp" },
-  { slug: "prada", name: "Prada", src: "/assets/cases-prada.webp", pos: "18% 42%" },
+  { slug: "prada", name: "Prada", src: "/assets/cases-prada.webp", pos: "22% 40%" },
   { slug: "dkny", name: "DKNY", src: "/assets/cases-dkny.webp" },
-  { slug: "cmp", name: "CMP", src: "/assets/cases-cmp.webp" },
-  { slug: "adidas", name: "Adidas", src: "/assets/cases-adidas.webp", pos: "right center" },
-  { slug: "tommy-hilfiger", name: "Tommy Hilfiger", src: "/assets/cases-tommy.webp" },
+  { slug: "cmp", name: "CMP", src: "/assets/cases-cmp.webp", pos: "32% 48%" },
+  { slug: "adidas", name: "Adidas", src: "/assets/cases-adidas.webp", pos: "38% 58%" },
+  { slug: "tommy-hilfiger", name: "Tommy Hilfiger", src: "/assets/cases-tommy.webp", pos: "78% 18%" },
   { slug: "replay", name: "Replay", src: "/assets/cases-replay.webp" },
   { slug: "elvine", name: "Elvine", src: "/assets/cases-elvine.webp" },
   { slug: "kappahl", name: "KappAhl", src: "/assets/cases-kappahl.webp" },
@@ -47,9 +47,9 @@ const CASES_MARQUEE = [
   { slug: "amazon", name: "Amazon", src: "/assets/cases-amazon.webp" },
   { slug: "walmart", name: "Walmart", src: "/assets/cases-walmart.webp" },
   { slug: "uniqlo", name: "Uniqlo", src: "/assets/cases-uniqlo.webp" },
-  { slug: "the-north-face", name: "The North Face", src: "/assets/cases-the-north-face.webp" },
+  { slug: "the-north-face", name: "The North Face", src: "/assets/cases-the-north-face.webp", pos: "78% 42%" },
   { slug: "burberry", name: "Burberry", src: "/assets/cases-burberry.webp" },
-  { slug: "ftkr", name: "FTKR", src: "/assets/cases-ftkr.webp" },
+  { slug: "ftkr", name: "FTKR", src: "/assets/cases-ftkr.webp", pos: "22% 55%" },
   { slug: "avi-co", name: "Avi & Co", src: "/assets/cases-avi-co.webp" },
   { slug: "champion", name: "Champion", src: "/assets/cases-champion.webp" },
   { slug: "vans", name: "Vans", src: "/assets/cases-vans.webp" },
@@ -64,8 +64,8 @@ const CASES_MARQUEE = [
                 : `<div style="position:absolute;inset:0;background:linear-gradient(135deg,#1c1c1c,#0c0c0e);"></div>`
             }
             <div style="position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.55) 100%);"></div>
-            <div class="cases-card-logo" aria-hidden="true" style="position:absolute;right:24px;bottom:24px;z-index:5;pointer-events:none;display:flex;align-items:flex-end;justify-content:flex-end;max-width:200px;height:32px;">
-              <img src="/assets/brand-logos/${c.slug}.png" alt="" loading="lazy" style="height:32px;width:auto;max-width:200px;object-fit:contain;object-position:right bottom;filter:brightness(0) invert(1);display:block;" onerror="this.style.display='none';">
+            <div class="cases-card-logo" aria-hidden="true" style="position:absolute;right:24px;bottom:24px;z-index:5;pointer-events:none;display:flex;align-items:center;justify-content:flex-end;height:32px;">
+              <img src="/assets/brand-logos/${c.slug}.png" alt="" loading="lazy" style="height:32px;width:auto;max-width:160px;object-fit:contain;object-position:right center;${c.slug === "tommy-hilfiger" ? "" : "filter:brightness(0) invert(1);"}display:block;" onerror="this.style.display='none';">
             </div>
           </a>`
   )
