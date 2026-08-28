@@ -1,9 +1,8 @@
 import { homeMobileFooterHtml } from "./homeFooter";
+import { logoH } from "./logoSizes";
 
 const BRAND_LIST = [
-  "Nike",
   "Adidas",
-  "Prada",
   "Guess",
   "Replay",
   "DKNY",
@@ -14,12 +13,7 @@ const BRAND_LIST = [
   "Walmart",
   "Uniqlo",
   "The&nbsp;North&nbsp;Face",
-  "Burberry",
-  "FTKR",
-  "Avi&nbsp;&amp;&nbsp;Co",
-  "Champion",
   "Vans",
-  "Mango",
 ];
 
 function tickerHtml(): string {
@@ -29,27 +23,23 @@ function tickerHtml(): string {
   ).join("");
 }
 
+const LOGO_CUTOUT = new Set(["guess", "uniqlo", "tommy-hilfiger", "the-north-face", "vans", "adidas", "kappahl", "amazon"]);
+
+
 const MOBILE_CASES = [
-  { slug: "nike", name: "Nike", src: "/assets/cases-nike.webp" },
-  { slug: "prada", name: "Prada", src: "/assets/cases-prada.webp", pos: "22% 40%" },
-  { slug: "dkny", name: "DKNY", src: "/assets/cases-dkny.webp" },
-  { slug: "cmp", name: "CMP", src: "/assets/cases-cmp.webp", pos: "32% 48%" },
-  { slug: "adidas", name: "Adidas", src: "/assets/cases-adidas.webp", pos: "38% 58%" },
+  { slug: "adidas", name: "Adidas", src: "/assets/cases-adidas.webp" },
+  { slug: "furla", name: "Furla", src: "/assets/cases-furla.webp" },
+  { slug: "uniqlo", name: "Uniqlo", src: "/assets/cases-uniqlo.webp", pos: "50% 42%" },
   { slug: "tommy-hilfiger", name: "Tommy Hilfiger", src: "/assets/cases-tommy.webp", pos: "78% 18%" },
-  { slug: "replay", name: "Replay", src: "/assets/cases-replay.webp" },
-  { slug: "elvine", name: "Elvine", src: "/assets/cases-elvine.webp" },
+  { slug: "walmart", name: "Walmart", src: "/assets/cases-walmart.webp", pos: "44% 4%" },
+  { slug: "guess", name: "Guess", src: "/assets/cases-guess.webp", pos: "56% 8%" },
+  { slug: "vans", name: "Vans", src: "/assets/cases-vans.webp", pos: "46% 26%" },
+  { slug: "dkny", name: "DKNY", src: "/assets/cases-dkny.webp", pos: "48% 45%" },
   { slug: "kappahl", name: "KappAhl", src: "/assets/cases-kappahl.webp" },
-  { slug: "guess", name: "Guess", src: "/assets/cases-guess.webp" },
-  { slug: "amazon", name: "Amazon", src: "/assets/cases-amazon.webp" },
-  { slug: "walmart", name: "Walmart", src: "/assets/cases-walmart.webp" },
-  { slug: "uniqlo", name: "Uniqlo", src: "/assets/cases-uniqlo.webp" },
-  { slug: "the-north-face", name: "The North Face", src: "/assets/cases-the-north-face.webp", pos: "78% 42%" },
-  { slug: "burberry", name: "Burberry", src: "/assets/cases-burberry.webp" },
-  { slug: "ftkr", name: "FTKR", src: "/assets/cases-ftkr.webp", pos: "22% 55%" },
-  { slug: "avi-co", name: "Avi & Co", src: "/assets/cases-avi-co.webp" },
-  { slug: "champion", name: "Champion", src: "/assets/cases-champion.webp" },
-  { slug: "vans", name: "Vans", src: "/assets/cases-vans.webp" },
-  { slug: "mango", name: "Mango", src: "/assets/cases-mango.webp" },
+  { slug: "the-north-face", name: "The North Face", src: "/assets/cases-the-north-face.webp", pos: "52% 32%" },
+  { slug: "cmp", name: "CMP", src: "/assets/cases-cmp.webp", pos: "50% 34%" },
+  { slug: "replay", name: "Replay", src: "/assets/cases-replay.webp" },
+  { slug: "amazon", name: "Amazon", src: "/assets/cases-amazon.webp", pos: "50% 50%" },
 ];
 
 function caseCardsHtml(): string {
@@ -62,7 +52,7 @@ function caseCardsHtml(): string {
             : `<div style="position:absolute;inset:0;background:linear-gradient(135deg,#1c1c1c,#0c0c0e);"></div>`
         }
         <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.6));"></div>
-        <img src="/assets/brand-logos/${c.slug}.png" alt="" loading="lazy" aria-hidden="true" style="position:absolute;right:16px;bottom:16px;height:28px;width:auto;max-width:140px;object-fit:contain;object-position:right center;${c.slug === "tommy-hilfiger" ? "" : "filter:brightness(0) invert(1);"}display:block;opacity:.92;" onerror="this.style.display='none';">
+        <img src="/assets/brand-logos/${c.slug}${LOGO_CUTOUT.has(c.slug) ? "-mono" : ""}.png" alt="" loading="lazy" aria-hidden="true" style="position:absolute;right:16px;bottom:16px;height:${logoH(c.slug, 0.875)}px;width:auto;max-width:192px;object-fit:contain;object-position:right center;${LOGO_CUTOUT.has(c.slug) ? "" : "filter:brightness(0) invert(1);"}display:block;opacity:.92;" onerror="this.style.display='none';">
       </a>`
   ).join("");
 }
@@ -274,7 +264,6 @@ export const MOBILE_WHY_HTML = `
   <section id="mm-vision" style="background:#000;color:#fff;padding:56px 18px 64px;position:relative;overflow:hidden;">
     <div aria-hidden="true" style="position:absolute;top:10%;left:50%;transform:translateX(-50%);width:120vw;height:120vw;max-width:640px;max-height:640px;border-radius:50%;background:radial-gradient(circle,rgba(123,44,142,.22),transparent 62%);filter:blur(28px);pointer-events:none;"></div>
     <div class="mm-reveal" style="position:relative;z-index:2;text-align:center;margin-bottom:28px;">
-      <p style="font:600 11px 'Space Grotesk';letter-spacing:.22em;text-transform:uppercase;color:#b98cd0;margin:0 0 12px;">The next chapter begins</p>
       <h2 style="font-family:'Archivo';font-weight:900;font-size:clamp(2rem,9vw,2.8rem);line-height:.95;margin:0;letter-spacing:-.01em;">FUTURE <span style="color:#7B2C8E;">VISION</span></h2>
     </div>
     <div class="mm-reveal" style="position:relative;z-index:2;width:min(72vw,280px);aspect-ratio:1;margin:0 auto 32px;">
@@ -289,19 +278,44 @@ export const MOBILE_WHY_HTML = `
     </div>
     <div class="mm-reveal" style="position:relative;z-index:2;display:grid;gap:18px;">
       <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 16px;">
-        <p style="font:700 11px 'Space Grotesk';letter-spacing:.16em;color:#c86ad8;margin:0 0 8px;">01</p>
         <h3 style="font-family:'Archivo';font-weight:800;font-size:18px;margin:0 0 6px;line-height:1.15;color:#fff;">1,000+ creative professionals</h3>
         <p style="font:400 13px/1.5 'Space Grotesk';color:#b8b8c0;margin:0;">A global network of talent. Limitless creativity.</p>
       </div>
       <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 16px;">
-        <p style="font:700 11px 'Space Grotesk';letter-spacing:.16em;color:#8fb4f6;margin:0 0 8px;">02</p>
         <h3 style="font-family:'Archivo';font-weight:800;font-size:18px;margin:0 0 6px;line-height:1.15;color:#fff;">Global leader in AI-powered image &amp; video production</h3>
         <p style="font:400 13px/1.5 'Space Grotesk';color:#b8b8c0;margin:0;">Intelligent technology. Smarter workflows.</p>
       </div>
       <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 16px;">
-        <p style="font:700 11px 'Space Grotesk';letter-spacing:.16em;color:#5cd6e0;margin:0 0 8px;">03</p>
         <h3 style="font-family:'Archivo';font-weight:800;font-size:18px;margin:0 0 6px;line-height:1.15;color:#fff;">A fully connected, intelligent production ecosystem</h3>
         <p style="font:400 13px/1.5 'Space Grotesk';color:#b8b8c0;margin:0;">Seamless. Scalable. Future-ready.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ JOIN / SKILL ACADEMY ============ -->
+  <section id="mm-join" style="background:#000;color:#fff;padding:52px 18px 56px;">
+    <div class="mm-reveal">
+      <div style="display:flex;align-items:center;gap:12px;margin:0 0 12px;">
+        <span style="font:600 11px 'Space Grotesk';letter-spacing:.22em;text-transform:uppercase;color:#b98cd0;">Join us</span>
+        <span style="flex:1 1 auto;height:1px;background:linear-gradient(90deg,rgba(185,140,208,.5),transparent);"></span>
+      </div>
+      <h2 style="font-family:'Archivo';font-weight:800;font-size:clamp(28px,8.8vw,36px);line-height:1.02;margin:0 0 14px;">Grow as a<br><span style="color:#b98cd0;">Storyteller.</span></h2>
+      <p style="font:400 14px/1.6 'Space Grotesk';color:#adadb2;margin:0 0 24px;">Whether you're launching your career or taking the next big step, Skill is where creativity, technology and ambition come together. Create. Innovate. Grow. Together.</p>
+      <p style="font:600 11px 'Space Grotesk';letter-spacing:.16em;text-transform:uppercase;color:#7a7a80;margin:0 0 12px;">Open positions</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        ${["Image Editor","Video Editor","VFX Artist","Quality Controller","Social Media","Global Marketing","Business Development","Finance &amp; HR","IT &amp; Development"]
+          .map((r) => `<span style="font:500 12px 'Space Grotesk';border:1px solid #33333a;padding:8px 14px;border-radius:100px;color:#d8d8dc;">${r}</span>`)
+          .join("")}
+      </div>
+      <a href="#apply" class="mtap" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:24px;text-decoration:none;color:#141414;background:#fff;font:700 15px 'Space Grotesk';padding:16px;border-radius:15px;">Explore open roles <span>&#8594;</span></a>
+    </div>
+    <div class="mm-reveal" style="margin-top:26px;background:#fff;border:1px solid #e7e2ec;border-radius:20px;padding:24px 18px;">
+      <img src="/assets/skill-academy-mark.png" alt="Skill Academy" loading="lazy" style="width:170px;max-width:62%;height:auto;display:block;margin:0 auto 14px;">
+      <p style="font:400 13px/1.55 'Space Grotesk';color:#5b5b58;margin:0 auto 18px;text-align:center;max-width:34ch;">Great talent isn't just hired &mdash; it's developed. Real-world training and hands-on production experience with international brands.</p>
+      <div style="display:grid;gap:0;">
+        ${["Image Post-Production","Video Editing","Visual Effects (VFX)","AI-Powered Production"]
+          .map((t, i) => `<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-top:1px solid #ece9ef;${i === 3 ? "border-bottom:1px solid #ece9ef;" : ""}"><span style="font:500 14px 'Space Grotesk';color:#1c1c1c;">${t}</span></div>`)
+          .join("")}
       </div>
     </div>
   </section>
@@ -340,7 +354,6 @@ export const HOME_MOBILE_CSS = `
 .mnav-link:active{padding-left:14px;color:#c98fd6;}
 #mnav-burger:focus-visible,#mnav-close:focus-visible,.mm-cat:focus-visible,.mtap:focus-visible{outline:2px solid #fff;outline-offset:2px;}
 .foot-socs{display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:center;width:100%;gap:4px;}
-.mobile-layout .foot-soc:hover,.mobile-layout .foot-soc:active{background:#7B2C8E!important;border-color:#7B2C8E!important;color:#fff!important;transform:translateY(-2px);}
 .mobile-layout .foot-soc:focus-visible{outline:2px solid #7B2C8E;outline-offset:2px;}
 #mm-cases::-webkit-scrollbar{display:none;}
 #mm-cases{-ms-overflow-style:none;scrollbar-width:none;}

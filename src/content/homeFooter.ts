@@ -1,8 +1,8 @@
-import { footerSocialsHtml } from "./footerSocials";
+import { footerSocialsHtml, FOOTER_SOCIAL_HOVER_CSS } from "./footerSocials";
 
 export const HOME_FOOTER_CSS = `
 .foot-link:hover{color:#fff!important;}
-.foot-soc:hover{background:#7B2C8E!important;border-color:#7B2C8E!important;color:#fff!important;transform:translateY(-3px);}
+${FOOTER_SOCIAL_HOVER_CSS}
 .foot-wm-fill{-webkit-mask-image:radial-gradient(circle 180px at var(--mx,50%) var(--my,50%),#000 0%,rgba(0,0,0,.35) 55%,transparent 78%);mask-image:radial-gradient(circle 180px at var(--mx,50%) var(--my,50%),#000 0%,rgba(0,0,0,.35) 55%,transparent 78%);}
 .foot-office:hover .foot-office-city{color:#b98cd0;}
 @media (max-width:1024px){

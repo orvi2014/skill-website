@@ -114,7 +114,7 @@ export function mountHome(): () => void {
     const globe = document.getElementById("vision-globe");
     if (!wrap || !pin || !stage || !globe) return;
 
-    const globeDist = Math.round(window.innerHeight * 2.2);
+    const globeDist = Math.round(window.innerHeight * 0.9);
     const wanted = Math.round(globeDist + window.innerHeight);
     if (wrap.dataset.h !== String(wanted)) {
       wrap.style.height = `${wanted}px`;
@@ -136,7 +136,7 @@ export function mountHome(): () => void {
     const stars = document.getElementById("vision-stars");
 
     // Zoom in from Operations → hold → soft exit into Join
-    const emerge = vSmooth(0.0, 0.28, gp);
+    const emerge = vSmooth(0.0, 0.14, gp);
     const shrink = vSmooth(0.88, 1, gp);
     const gs = (0.07 + 0.95 * emerge) * (1 - 0.92 * shrink);
     globe.style.transform = `scale(${gs.toFixed(3)})`;
@@ -144,15 +144,15 @@ export function mountHome(): () => void {
       vSmooth(0.02, 0.12, gp) * (1 - vSmooth(0.92, 1, gp))
     ).toFixed(2);
 
-    const envA = vSmooth(0.3, 0.42, gp) * (1 - vSmooth(0.86, 0.94, gp));
+    const envA = vSmooth(0.06, 0.18, gp) * (1 - vSmooth(0.86, 0.94, gp));
     if (env) env.style.opacity = envA.toFixed(2);
     if (stars) stars.style.opacity = (0.75 * envA).toFixed(2);
     if (head) head.style.opacity = envA.toFixed(2);
 
     const wins = [
-      [0.38, 0.48],
-      [0.48, 0.58],
-      [0.58, 0.68],
+      [0.16, 0.26],
+      [0.26, 0.36],
+      [0.36, 0.46],
     ];
     const pts = document.querySelectorAll<HTMLElement>("#vision-stage .vpoint");
     const outAll = 1 - vSmooth(0.86, 0.94, gp);
@@ -185,16 +185,13 @@ export function mountHome(): () => void {
     const track = document.getElementById("cases-track");
     if (!track) return;
     if (!casesPaused) {
-      casesX -= 0.85;
-      const first = track.firstElementChild as HTMLElement | null;
-      if (first) {
-        const fw = first.getBoundingClientRect().width;
-        if (fw > 0 && -casesX >= fw) {
-          track.appendChild(first);
-          casesX += fw;
-        }
-      }
-      track.style.transform = `translate3d(${casesX.toFixed(1)}px,0,0)`;
+      casesX -= 1.1;
+      // One set of cards is rendered twice, so the loop is a plain modulo of
+      // half the track width: no DOM is reparented mid-animation, which is
+      // what used to cause a one-frame relayout blink at every wrap.
+      const half = track.scrollWidth / 2;
+      if (half > 0 && -casesX >= half) casesX += half;
+      track.style.transform = `translate3d(${casesX.toFixed(2)}px,0,0)`;
     }
   }
 
@@ -276,8 +273,8 @@ export function mountHome(): () => void {
       logo.style.zIndex = "6";
     }
     card.addEventListener("mouseenter", () => {
-      card.style.transform = "scale(1.16)";
-      card.style.boxShadow = "0 44px 90px rgba(0,0,0,.42)";
+      card.style.transform = "scale(1.1)";
+      card.style.boxShadow = "0 18px 40px rgba(0,0,0,.34)";
       card.style.zIndex = "8";
       if (media) {
         media.style.filter = "saturate(1.12) contrast(1.03)";

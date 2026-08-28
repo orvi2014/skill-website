@@ -37,7 +37,7 @@ function frame(inner: string) {
   return `<div style="flex:1;min-height:0;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 10px 26px rgba(20,10,30,.08);">${inner}</div>`;
 }
 function img(src: string) {
-  return `<img src="${src}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:contain;display:block;">`;
+  return `<img src="${src}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">`;
 }
 function ph(label: string) {
   return `<div class="ais-ph">${label}</div>`;
@@ -75,17 +75,16 @@ function panel(
       </div>
       <div aria-hidden="true" style="grid-column:3;align-self:center;justify-self:center;color:#7B2C8E;font-size:clamp(18px,2vw,28px);line-height:1;">→</div>
       <div style="grid-column:4;position:relative;height:100%;aspect-ratio:9/16;">
-        <div style="position:absolute;inset:0;border-radius:18px;overflow:hidden;background:#fff;border:1px solid #ececE7;box-shadow:0 24px 60px rgba(20,10,30,.12);">
+        <div style="position:absolute;inset:0;border-radius:18px;overflow:hidden;background:#fff;border:1px solid rgba(20,10,30,.14);box-shadow:0 24px 60px rgba(20,10,30,.12);">
           ${onmodel ? `<img src="${onmodel}" alt="On Model result" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">` : ph("On Model result")}
           <div style="position:absolute;left:12px;top:12px;display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.86);backdrop-filter:blur(6px);padding:6px 12px;border-radius:100px;pointer-events:none;">
             <span style="width:7px;height:7px;border-radius:50%;background:${accentColor};"></span>
             <span style="font:600 10px 'Space Grotesk';letter-spacing:.08em;text-transform:uppercase;color:#161616;">On Model</span>
           </div>
         </div>
-        <svg viewBox="0 0 90 160" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:6;overflow:visible;"><path d="M3 20 L3 3 L20 3" fill="none" stroke="${accentColor}" stroke-width="1.4"/><path d="M87 20 L87 3 L70 3" fill="none" stroke="${accentColor}" stroke-width="1.4"/><path d="M3 140 L3 157 L20 157" fill="none" stroke="${accentColor}" stroke-width="1.4"/><path d="M87 140 L87 157 L70 157" fill="none" stroke="${accentColor}" stroke-width="1.4"/></svg>
       </div>
       <div style="grid-column:5;position:relative;height:100%;aspect-ratio:9/16;">
-        <div style="position:absolute;inset:0;border-radius:18px;overflow:hidden;background:#161616;border:1px solid #ececE7;box-shadow:0 24px 60px rgba(20,10,30,.12);">
+        <div style="position:absolute;inset:0;border-radius:18px;overflow:hidden;background:#161616;border:1px solid rgba(20,10,30,.12);box-shadow:0 24px 60px rgba(20,10,30,.12);">
           ${videoInner}
           <div style="position:absolute;left:12px;top:12px;display:flex;align-items:center;gap:7px;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);padding:6px 12px;border-radius:100px;pointer-events:none;z-index:2;">
             <span style="width:7px;height:7px;border-radius:50%;background:${accentColor};"></span>
@@ -283,7 +282,7 @@ export function mountAiStudio(): () => void {
       catTimer = window.setInterval(() => {
         ci = (ci + 1) % ORDER.length;
         setCat(ORDER[ci]);
-      }, 3500);
+      }, 2600);
     };
     c.addEventListener("click", onClick);
     cleanups.push(() => c.removeEventListener("click", onClick));
@@ -292,7 +291,7 @@ export function mountAiStudio(): () => void {
   catTimer = window.setInterval(() => {
     ci = (ci + 1) % ORDER.length;
     setCat(ORDER[ci]);
-  }, 3500);
+  }, 2600);
   cleanups.push(() => window.clearInterval(catTimer));
   syncVideos(ORDER[0]);
 

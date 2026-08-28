@@ -3,6 +3,7 @@ import { getCase } from "@/data/cases";
 import { HEADER_CSS, headerHtml } from "./siteHeader";
 import { mountSiteHeader } from "./siteHeaderMount";
 import { HOME_MOBILE_CSS, mobileNavHtml, mountMobileNav } from "./homeMobile";
+import { logoColourH, logoColourSrc } from "./logoSizes";
 
 export const CASE_CSS = `
 ${HEADER_CSS}
@@ -141,7 +142,7 @@ export function caseHtml(data: CaseStudy): string {
       ${
         data.comingSoon
           ? `<p style="font:600 12px 'Space Grotesk';letter-spacing:.28em;text-transform:uppercase;color:#7B2C8E;margin:0 0 22px;">${data.name}</p>`
-          : `<div style="display:flex;justify-content:center;margin:0 0 22px;"><img src="/assets/brand-logos/${data.slug}.png" alt="${data.name}" style="height:32px;width:auto;max-width:180px;object-fit:contain;display:block;" onerror="this.outerHTML='<p style=\\'font:600 12px Space Grotesk;letter-spacing:.28em;text-transform:uppercase;color:#7B2C8E;margin:0\\'>${data.name}</p>'"></div>`
+          : `<div style="display:flex;justify-content:center;align-items:center;height:${logoColourH(data.slug, 1.75)}px;margin:0 0 24px;"><img src="${logoColourSrc(data.slug)}" alt="${data.name}" style="height:${logoColourH(data.slug, 1.75)}px;width:auto;max-width:320px;object-fit:contain;display:block;" onerror="this.outerHTML='<p style=\\'font:600 12px Space Grotesk;letter-spacing:.28em;text-transform:uppercase;color:#7B2C8E;margin:0\\'>${data.name}</p>'"></div>`
       }
       <h1 style="font-family:'Archivo';font-weight:800;font-size:clamp(1.9rem,4.4vw,3.4rem);line-height:1.06;letter-spacing:-.02em;margin:0 0 26px;color:#161616;">${data.title}</h1>
       <p style="font:400 clamp(15px,1.25vw,18px)/1.8 'Space Grotesk';color:#5b5b58;margin:0;">${data.intro}</p>

@@ -1,4 +1,5 @@
 import { AI_STUDIO_HTML } from "./aiStudio";
+import { logoH } from "./logoSizes";
 import { headerHtml } from "./siteHeader";
 import {
   MOBILE_SERVICES_HTML,
@@ -9,9 +10,7 @@ import {
 import { homeDesktopFooterHtml } from "./homeFooter";
 
 const BRAND_MARQUEE_ITEMS = [
-  "Nike",
   "Adidas",
-  "Prada",
   "Guess",
   "Replay",
   "DKNY",
@@ -22,38 +21,33 @@ const BRAND_MARQUEE_ITEMS = [
   "Walmart",
   "Uniqlo",
   "The&nbsp;North&nbsp;Face",
-  "Burberry",
-  "FTKR",
-  "Avi&nbsp;&amp;&nbsp;Co",
-  "Champion",
   "Vans",
-  "Mango",
 ].map(
   (n) =>
     `<span style="font:600 13px 'Space Grotesk';letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.92);padding:0 34px;">${n}</span><span style="width:4px;height:4px;border-radius:50%;background:#7B2C8E;"></span>`
 ).join("");
 
+const LOGO_CUTOUT = new Set(["guess", "uniqlo", "tommy-hilfiger", "the-north-face", "vans", "adidas", "kappahl", "amazon"]);
+// slugs whose hover state uses a hand-made colour file
+const LOGO_COLOUR_FILE = new Set(["cmp", "the-north-face", "vans", "adidas", "kappahl", "amazon"]);
+// logos whose own PNG already carries brand colour (revealed on hover)
+const LOGO_HAS_COLOUR = new Set(["replay", "walmart"]);
+
+
 const CASES_MARQUEE = [
-  { slug: "nike", name: "Nike", src: "/assets/cases-nike.webp" },
-  { slug: "prada", name: "Prada", src: "/assets/cases-prada.webp", pos: "22% 40%" },
-  { slug: "dkny", name: "DKNY", src: "/assets/cases-dkny.webp" },
-  { slug: "cmp", name: "CMP", src: "/assets/cases-cmp.webp", pos: "32% 48%" },
-  { slug: "adidas", name: "Adidas", src: "/assets/cases-adidas.webp", pos: "38% 58%" },
+  { slug: "adidas", name: "Adidas", src: "/assets/cases-adidas.webp" },
+  { slug: "furla", name: "Furla", src: "/assets/cases-furla.webp" },
+  { slug: "uniqlo", name: "Uniqlo", src: "/assets/cases-uniqlo.webp", pos: "50% 42%" },
   { slug: "tommy-hilfiger", name: "Tommy Hilfiger", src: "/assets/cases-tommy.webp", pos: "78% 18%" },
-  { slug: "replay", name: "Replay", src: "/assets/cases-replay.webp" },
-  { slug: "elvine", name: "Elvine", src: "/assets/cases-elvine.webp" },
+  { slug: "walmart", name: "Walmart", src: "/assets/cases-walmart.webp", pos: "44% 4%" },
+  { slug: "guess", name: "Guess", src: "/assets/cases-guess.webp", pos: "56% 8%" },
+  { slug: "vans", name: "Vans", src: "/assets/cases-vans.webp", pos: "46% 26%" },
+  { slug: "dkny", name: "DKNY", src: "/assets/cases-dkny.webp", pos: "48% 45%" },
   { slug: "kappahl", name: "KappAhl", src: "/assets/cases-kappahl.webp" },
-  { slug: "guess", name: "Guess", src: "/assets/cases-guess.webp" },
-  { slug: "amazon", name: "Amazon", src: "/assets/cases-amazon.webp" },
-  { slug: "walmart", name: "Walmart", src: "/assets/cases-walmart.webp" },
-  { slug: "uniqlo", name: "Uniqlo", src: "/assets/cases-uniqlo.webp" },
-  { slug: "the-north-face", name: "The North Face", src: "/assets/cases-the-north-face.webp", pos: "78% 42%" },
-  { slug: "burberry", name: "Burberry", src: "/assets/cases-burberry.webp" },
-  { slug: "ftkr", name: "FTKR", src: "/assets/cases-ftkr.webp", pos: "22% 55%" },
-  { slug: "avi-co", name: "Avi & Co", src: "/assets/cases-avi-co.webp" },
-  { slug: "champion", name: "Champion", src: "/assets/cases-champion.webp" },
-  { slug: "vans", name: "Vans", src: "/assets/cases-vans.webp" },
-  { slug: "mango", name: "Mango", src: "/assets/cases-mango.webp" },
+  { slug: "the-north-face", name: "The North Face", src: "/assets/cases-the-north-face.webp", pos: "52% 32%" },
+  { slug: "cmp", name: "CMP", src: "/assets/cases-cmp.webp", pos: "50% 34%" },
+  { slug: "replay", name: "Replay", src: "/assets/cases-replay.webp" },
+  { slug: "amazon", name: "Amazon", src: "/assets/cases-amazon.webp", pos: "50% 50%" },
 ]
   .map(
     (c) => `
@@ -64,8 +58,9 @@ const CASES_MARQUEE = [
                 : `<div style="position:absolute;inset:0;background:linear-gradient(135deg,#1c1c1c,#0c0c0e);"></div>`
             }
             <div style="position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.55) 100%);"></div>
-            <div class="cases-card-logo" aria-hidden="true" style="position:absolute;right:24px;bottom:24px;z-index:5;pointer-events:none;display:flex;align-items:center;justify-content:flex-end;height:32px;">
-              <img src="/assets/brand-logos/${c.slug}.png" alt="" loading="lazy" style="height:32px;width:auto;max-width:160px;object-fit:contain;object-position:right center;${c.slug === "tommy-hilfiger" ? "" : "filter:brightness(0) invert(1);"}display:block;" onerror="this.style.display='none';">
+            <div class="cases-card-logo" aria-hidden="true" style="position:absolute;right:24px;bottom:24px;z-index:5;pointer-events:none;display:flex;align-items:center;justify-content:flex-end;height:44px;">
+              ${LOGO_CUTOUT.has(c.slug) || LOGO_COLOUR_FILE.has(c.slug) ? `<img class="cc-color" src="/assets/brand-logos/${c.slug}${LOGO_COLOUR_FILE.has(c.slug) ? "-color" : ""}.png" alt="" loading="lazy" style="position:absolute;right:0;top:50%;transform:translateY(-50%);height:${logoH(c.slug)}px;width:auto;max-width:216px;object-fit:contain;object-position:right center;display:block;">` : ""}
+              <img class="${LOGO_CUTOUT.has(c.slug) || LOGO_COLOUR_FILE.has(c.slug) ? "cc-mono" : LOGO_HAS_COLOUR.has(c.slug) ? "cc-hascolour" : ""}" src="/assets/brand-logos/${c.slug}${LOGO_CUTOUT.has(c.slug) ? "-mono" : ""}.png" alt="" loading="lazy" style="height:${logoH(c.slug)}px;width:auto;max-width:216px;object-fit:contain;object-position:right center;display:block;" onerror="this.style.display='none';">
             </div>
           </a>`
   )
@@ -239,7 +234,7 @@ export const HOME_HTML = `
       </svg>
     </div>
     <div id="cases-wrap" class="cases-marquee-wrap" style="position:relative;margin-top:0;flex:1 1 auto;min-height:0;height:auto;overflow:hidden;">
-      <div id="cases-track" style="display:flex;align-items:center;gap:0;height:100%;width:max-content;will-change:transform;">${CASES_MARQUEE}
+      <div id="cases-track" style="display:flex;align-items:center;gap:0;height:100%;width:max-content;will-change:transform;backface-visibility:hidden;">${CASES_MARQUEE}${CASES_MARQUEE}
       </div>
     </div>
   </section>
@@ -342,7 +337,6 @@ export const HOME_HTML = `
         <div id="vision-env" aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(circle at 50% 46%,#0a0a16 0%,#050509 55%,#000000 100%);opacity:0;"></div>
         <div id="vision-stars" aria-hidden="true" style="position:absolute;inset:0;opacity:0;background-image:radial-gradient(1.4px 1.4px at 12% 22%,#fff,transparent),radial-gradient(1.2px 1.2px at 82% 16%,#cbe,transparent),radial-gradient(1px 1px at 66% 30%,#fff,transparent),radial-gradient(1.4px 1.4px at 28% 72%,#fff,transparent),radial-gradient(1px 1px at 90% 62%,#dcf,transparent),radial-gradient(1.2px 1.2px at 44% 84%,#fff,transparent),radial-gradient(1px 1px at 8% 54%,#fff,transparent),radial-gradient(1.3px 1.3px at 74% 82%,#bcf,transparent);animation:sg-twinkle 4s ease-in-out infinite;"></div>
         <div id="vision-head" style="position:absolute;top:8vh;left:0;right:0;text-align:center;z-index:6;opacity:0;">
-          <p style="font:600 12px 'Space Grotesk';letter-spacing:.28em;text-transform:uppercase;color:#b98cd0;margin:0 0 12px;">The next chapter begins</p>
           <h2 style="font-family:'Archivo';font-weight:900;font-size:clamp(2.2rem,6vw,5rem);line-height:.95;margin:0;letter-spacing:-.01em;color:#fff;">FUTURE <span style="color:#7B2C8E;">VISION</span></h2>
         </div>
         <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;display:flex;align-items:center;justify-content:center;">
@@ -364,17 +358,14 @@ export const HOME_HTML = `
           </div>
         </div>
         <div class="vpoint" style="position:absolute;left:6%;top:23%;max-width:270px;z-index:5;opacity:0;">
-          <p style="font:700 12px 'Space Grotesk';letter-spacing:.16em;color:#c86ad8;margin:0 0 8px;">01</p>
           <h3 style="font-family:'Archivo';font-weight:800;font-size:clamp(18px,1.8vw,23px);margin:0 0 8px;line-height:1.12;color:#fff;">1,000+ creative professionals</h3>
           <p style="font:400 14px/1.55 'Space Grotesk';color:#d2d2de;margin:0;">A global network of talent. Limitless creativity.</p>
         </div>
         <div class="vpoint" style="position:absolute;right:6%;top:27%;max-width:280px;text-align:right;z-index:5;opacity:0;">
-          <p style="font:700 12px 'Space Grotesk';letter-spacing:.16em;color:#8fb4f6;margin:0 0 8px;">02</p>
           <h3 style="font-family:'Archivo';font-weight:800;font-size:clamp(18px,1.8vw,23px);margin:0 0 8px;line-height:1.12;color:#fff;">Global leader in AI-powered image &amp; video production</h3>
           <p style="font:400 14px/1.55 'Space Grotesk';color:#d2d2de;margin:0;">Intelligent technology. Smarter workflows.</p>
         </div>
         <div class="vpoint" style="position:absolute;left:0;right:0;bottom:11%;text-align:center;z-index:5;opacity:0;">
-          <p style="font:700 12px 'Space Grotesk';letter-spacing:.16em;color:#5cd6e0;margin:0 0 8px;">03</p>
           <h3 style="font-family:'Archivo';font-weight:800;font-size:clamp(18px,1.8vw,23px);margin:0 auto 8px;line-height:1.12;max-width:26ch;color:#fff;">A fully connected, intelligent production ecosystem</h3>
           <p style="font:400 14px/1.55 'Space Grotesk';color:#d2d2de;margin:0;">Seamless. Scalable. Future-ready.</p>
         </div>
@@ -403,10 +394,10 @@ export const HOME_HTML = `
           <img class="sa-logo" src="/assets/skill-academy-mark.png" alt="Skill Academy" loading="lazy" style="width:210px;max-width:66%;height:auto;display:block;margin:0 auto 16px;transition:transform .6s cubic-bezier(.2,.72,.2,1);">
           <p class="sa-desc" style="font:400 14px/1.55 'Space Grotesk';color:#5b5b58;margin:0 auto 20px;text-align:center;max-width:36ch;transition:color .5s ease;">Great talent isn't just hired — it's developed. Real-world training and hands-on production experience with international brands.</p>
           <div style="display:grid;gap:8px;">
-            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 14px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">Image Post-Production</span><span class="sa-arrow" style="color:#f59120;transition:color .5s ease,transform .35s ease;">&#8594;</span></div>
-            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 14px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">Video Editing</span><span class="sa-arrow" style="color:#f59120;transition:color .5s ease,transform .35s ease;">&#8594;</span></div>
-            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 14px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">Visual Effects (VFX)</span><span class="sa-arrow" style="color:#f59120;transition:color .5s ease,transform .35s ease;">&#8594;</span></div>
-            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid #ece9ef;border-bottom:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 14px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">AI-Powered Production</span><span class="sa-arrow" style="color:#f59120;transition:color .5s ease,transform .35s ease;">&#8594;</span></div>
+            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 14px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">Image Post-Production</span></div>
+            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 14px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">Video Editing</span></div>
+            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 14px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">Visual Effects (VFX)</span></div>
+            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid #ece9ef;border-bottom:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 14px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">AI-Powered Production</span></div>
           </div>
         </div>
       </div>

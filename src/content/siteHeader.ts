@@ -1,4 +1,8 @@
+import { footerSocialsHtml, FOOTER_SOCIAL_HOVER_CSS } from "./footerSocials";
+
 export const HEADER_CSS = `
+#sg-menu .foot-socs{display:flex !important;flex-wrap:wrap !important;justify-content:flex-start !important;width:auto !important;gap:10px !important;}
+${FOOTER_SOCIAL_HOVER_CSS}
 .skip-link{position:fixed;top:-100px;left:12px;z-index:100;background:#fff;color:#141414;padding:12px 20px;border-radius:8px;font:600 14px 'Space Grotesk';text-decoration:none;transition:top .2s ease;box-shadow:0 8px 24px rgba(0,0,0,.25);}
 .skip-link:focus{top:12px;}
 .sg-vlink{opacity:.9;}
@@ -79,10 +83,9 @@ export function headerHtml(opts?: { backHref?: string; backLabel?: string; subpa
         <a href="/#cases" class="sg-menu-link" style="text-decoration:none;color:#fff;font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;">Cases</a>
         <a href="/#faq" class="sg-menu-link" style="text-decoration:none;color:#fff;font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;">FAQ</a>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:center;margin-top:54px;padding-top:30px;border-top:1px solid rgba(255,255,255,.14);">
+      <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin-top:40px;padding-top:26px;border-top:1px solid rgba(255,255,255,.14);">
         <a href="/#book" class="sg-menu-link" style="text-decoration:none;background:#7B2C8E;color:#fff;font:600 15px 'Space Grotesk';padding:14px 28px;border-radius:100px;">Book a Meeting &#8594;</a>
-        <a href="mailto:support@skill.ventures" style="text-decoration:none;color:#c5c5c9;font:400 15px 'Space Grotesk';">support@skill.ventures</a>
-        <span style="color:#7a7a80;font:400 14px 'Space Grotesk';">Dhaka · Sharjah · New York · Singapore</span>
+        ${footerSocialsHtml("on-dark")}
       </div>
     </div>
   </div>`;

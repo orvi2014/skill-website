@@ -27,21 +27,9 @@ type AssetPack = {
 };
 
 const ASSETS: Record<string, AssetPack> = {
-  nike: {
-    cover: "/assets/cases/nike/cover.webp",
-    video: "/assets/cases/nike/video.mp4",
-    gallery: [
-      "/assets/cases/nike/g1.webp",
-      "/assets/cases/nike/g2.webp",
-      "/assets/cases/nike/g3.webp",
-      "/assets/cases/nike/g4.webp",
-      "/assets/cases/nike/g5.webp",
-      "/assets/cases/nike/g6.webp",
-    ],
-  },
   adidas: {
     cover: "/assets/cases/adidas/cover.webp",
-    coverPos: "38% 58%",
+    coverPos: "50% 62%",
     video: "/assets/cases/adidas/video.mp4",
     gallery: [
       "/assets/cases/adidas/g1.webp",
@@ -51,18 +39,10 @@ const ASSETS: Record<string, AssetPack> = {
       "/assets/cases/adidas/g5.webp",
     ],
   },
-  elvine: {
-    cover: "/assets/cases/elvine/cover.webp",
-    video: "/assets/cases/elvine/video.mp4",
-    gallery: [
-      "/assets/cases/elvine/g1.webp",
-      "/assets/cases/elvine/g2.webp",
-      "/assets/cases/elvine/g3.webp",
-      "/assets/cases/elvine/g4.webp",
-    ],
-  },
   replay: {
     cover: "/assets/cases/replay/cover.webp",
+    // Couple stands just right of centre; full height shows, sides crop.
+    coverPos: "52% 50%",
     video: "/assets/cases/replay/video.mp4",
     gallery: [
       "/assets/cases/replay/g1.webp",
@@ -71,20 +51,10 @@ const ASSETS: Record<string, AssetPack> = {
       "/assets/cases/replay/g4.webp",
     ],
   },
-  prada: {
-    cover: "/assets/cases/prada/cover.webp",
-    // Model + bag sit in the left third of a wide staircase frame.
-    coverPos: "22% 40%",
-    video: "/assets/cases/prada/video.mp4",
-    gallery: [
-      "/assets/cases/prada/g1.webp",
-      "/assets/cases/prada/g2.webp",
-      "/assets/cases/prada/g3.webp",
-      "/assets/cases/prada/g4.webp",
-    ],
-  },
   guess: {
     cover: "/assets/cases/guess/cover.webp",
+    // Her face sits upper right; bias the crop there so it is never cut.
+    coverPos: "62% 8%",
     video: "/assets/cases/guess/video.mp4",
     gallery: [
       "/assets/cases/guess/g1.webp",
@@ -95,6 +65,8 @@ const ASSETS: Record<string, AssetPack> = {
   },
   dkny: {
     cover: "/assets/cases/dkny/cover.webp",
+    // 16:9 photo in a wider frame: hold the top so her head is not cut.
+    coverPos: "62% 0%",
     video: "/assets/cases/dkny/video.mp4",
     gallery: [
       "/assets/cases/dkny/g1.webp",
@@ -112,7 +84,6 @@ const ASSETS: Record<string, AssetPack> = {
       "/assets/cases/tommy-hilfiger/g2.webp",
       "/assets/cases/tommy-hilfiger/g3.webp",
       "/assets/cases/tommy-hilfiger/g4.webp",
-      "/assets/cases/tommy-hilfiger/g5.webp",
     ],
   },
   cmp: {
@@ -128,8 +99,20 @@ const ASSETS: Record<string, AssetPack> = {
       "/assets/cases/cmp/g5.webp",
     ],
   },
+  furla: {
+    cover: "/assets/cases/furla/cover.webp",
+    coverPos: "50% 25%",
+    video: "/assets/cases/furla/video.mp4",
+    gallery: [
+      "/assets/cases/furla/g1.webp",
+      "/assets/cases/furla/g2.webp",
+      "/assets/cases/furla/g3.webp",
+      "/assets/cases/furla/g4.webp",
+    ],
+  },
   kappahl: {
     cover: "/assets/cases/kappahl/cover.webp",
+    coverPos: "50% 50%",
     video: "/assets/cases/kappahl/video.mp4",
     gallery: [
       "/assets/cases/kappahl/g1.webp",
@@ -140,6 +123,7 @@ const ASSETS: Record<string, AssetPack> = {
   },
   amazon: {
     cover: "/assets/cases/amazon/cover.webp",
+    coverPos: "50% 50%",
     video: "/assets/cases/amazon/video.mp4",
     gallery: [
       "/assets/cases/amazon/g1.webp",
@@ -160,6 +144,7 @@ const ASSETS: Record<string, AssetPack> = {
   },
   uniqlo: {
     cover: "/assets/cases/uniqlo/cover.webp",
+    coverPos: "40% 15%",
     video: "/assets/cases/uniqlo/video.mp4",
     gallery: [
       "/assets/cases/uniqlo/g1.webp",
@@ -170,56 +155,14 @@ const ASSETS: Record<string, AssetPack> = {
   },
   "the-north-face": {
     cover: "/assets/cases/the-north-face/cover.webp",
-    // Hikers sit on the right of a wide snow field.
-    coverPos: "78% 42%",
+    // Climber stands right of centre against the escarpment; keep his head in frame.
+    coverPos: "62% 30%",
     video: "/assets/cases/the-north-face/video.mp4",
     gallery: [
       "/assets/cases/the-north-face/g1.webp",
       "/assets/cases/the-north-face/g2.webp",
       "/assets/cases/the-north-face/g3.webp",
-    ],
-  },
-  burberry: {
-    cover: "/assets/cases/burberry/cover.webp",
-    video: "/assets/cases/burberry/video.mp4",
-    gallery: [
-      "/assets/cases/burberry/g1.webp",
-      "/assets/cases/burberry/g2.webp",
-      "/assets/cases/burberry/g3.webp",
-      "/assets/cases/burberry/g4.webp",
-    ],
-  },
-  ftkr: {
-    cover: "/assets/cases/ftkr/cover.webp",
-    // Model is on the left half of a split graphic.
-    coverPos: "22% 55%",
-    video: "/assets/cases/ftkr/video.mp4",
-    gallery: [
-      "/assets/cases/ftkr/g1.webp",
-      "/assets/cases/ftkr/g2.webp",
-      "/assets/cases/ftkr/g3.webp",
-      "/assets/cases/ftkr/g4.webp",
-    ],
-  },
-  "avi-co": {
-    cover: "/assets/cases/avi-co/cover.webp",
-    video: "/assets/cases/avi-co/video.mp4",
-    gallery: [
-      "/assets/cases/avi-co/g1.webp",
-      "/assets/cases/avi-co/g2.webp",
-      "/assets/cases/avi-co/g3.webp",
-      "/assets/cases/avi-co/g4.webp",
-    ],
-  },
-  champion: {
-    cover: "/assets/cases/champion/cover.webp",
-    video: "/assets/cases/champion/video.mp4",
-    gallery: [
-      "/assets/cases/champion/g1.webp",
-      "/assets/cases/champion/g2.webp",
-      "/assets/cases/champion/g3.webp",
-      "/assets/cases/champion/g4.webp",
-      "/assets/cases/champion/g5.webp",
+      "/assets/cases/the-north-face/g4.webp",
     ],
   },
   vans: {
@@ -230,16 +173,6 @@ const ASSETS: Record<string, AssetPack> = {
       "/assets/cases/vans/g2.webp",
       "/assets/cases/vans/g3.webp",
       "/assets/cases/vans/g4.webp",
-    ],
-  },
-  mango: {
-    cover: "/assets/cases/mango/cover.webp",
-    video: "/assets/cases/mango/video.mp4",
-    gallery: [
-      "/assets/cases/mango/g1.webp",
-      "/assets/cases/mango/g2.webp",
-      "/assets/cases/mango/g3.webp",
-      "/assets/cases/mango/g4.webp",
     ],
   },
 };
@@ -261,35 +194,6 @@ function withAssets(
 export const CASES: CaseStudy[] = [
   withAssets(
     {
-      slug: "nike",
-      name: "Nike",
-      title: "Scaling performance through high-volume image production",
-      intro:
-        "Nike needed consistent, high-quality post-production for product launches at global scale — without ever bending brand standards across categories. We built a scalable workflow that pairs AI-assisted processes with dedicated retouchers and multi-level quality control, so every image ships fast, on-brand and pixel-precise.",
-      customer: "Nike",
-      project: "PLP / PDP",
-      category: "Fashion",
-      tags: [
-        "High-volume image production",
-        "Brand guideline compliance",
-        "Fast turnaround",
-        "Multi-level quality assurance",
-        "AI-assisted production workflow",
-      ],
-      staged:
-        "Volume without compromise. From launch drops to always-on catalogue, every asset moves through the same AI-accelerated pipeline and the same human eye for detail — so speed never costs consistency. Categories stay visually aligned, colour stays true, and each launch lands looking unmistakably Nike.",
-      metrics: [
-        { value: "12K+", label: "Assets / launch" },
-        { value: "48h", label: "Avg turnaround" },
-        { value: "5", label: "Categories" },
-        { value: "100%", label: "Brand-consistent" },
-      ],
-      nextSlug: "adidas",
-    },
-    "nike"
-  ),
-  withAssets(
-    {
       slug: "adidas",
       name: "Adidas",
       title: "Delivering consistency across every collection",
@@ -307,32 +211,9 @@ export const CASES: CaseStudy[] = [
       ],
       staged:
         "Season after season, the same pipeline keeps colour true and styling aligned across thousands of assets — enterprise-scale output that never drifts from the brand's global standards.",
-      nextSlug: "elvine",
-    },
-    "adidas"
-  ),
-  withAssets(
-    {
-      slug: "elvine",
-      name: "Elvine",
-      title: "Premium outerwear deserves premium presentation",
-      intro:
-        "Elvine wanted clean, premium product imagery that reflected the quality and craftsmanship of every collection. Our specialists delivered meticulous retouching, ghost mannequin production and colour refinement — preserving authentic fabric textures and garment detail throughout.",
-      customer: "Elvine",
-      project: "PLP / PDP",
-      category: "Fashion",
-      tags: [
-        "Ghost Mannequin",
-        "Premium Retouching",
-        "Texture Preservation",
-        "Colour Accuracy",
-        "Quality Control",
-      ],
-      staged:
-        "Every jacket is treated like the craft object it is: precise retouching and true colour, with fabric texture kept honest so the product looks exactly as it does in hand.",
       nextSlug: "replay",
     },
-    "elvine"
+    "adidas"
   ),
   withAssets(
     {
@@ -352,31 +233,9 @@ export const CASES: CaseStudy[] = [
       ],
       staged:
         "Denim lives or dies on texture. We hold the grain, the wash and the weight true across the whole range — natural, consistent and ready for every channel.",
-      nextSlug: "prada",
-    },
-    "replay"
-  ),
-  withAssets(
-    {
-      slug: "prada",
-      name: "Prada",
-      title: "Luxury lies in every detail",
-      intro:
-        "Luxury products demand exceptional precision without compromising their authentic appearance. Pixel-level retouching, luxury-grade colour management and rigorous quality assurance delivered imagery worthy of one of the world's most iconic fashion houses.",
-      customer: "Prada",
-      project: "PLP / PDP",
-      category: "Luxury",
-      tags: [
-        "Luxury Retouching",
-        "Precision Editing",
-        "Colour Management",
-        "Premium Quality Standards",
-      ],
-      staged:
-        "At this level, detail is everything. Pixel-precise retouching and exacting colour management produce imagery that carries the weight of the house behind it.",
       nextSlug: "guess",
     },
-    "prada"
+    "replay"
   ),
   withAssets(
     {
@@ -484,9 +343,31 @@ export const CASES: CaseStudy[] = [
       ],
       staged:
         "Always-on fashion needs an always-on pipeline. Dedicated teams and AI-powered workflows keep continuous releases fast, consistent and quality-assured.",
-      nextSlug: "amazon",
+      nextSlug: "furla",
     },
     "kappahl"
+  ),
+  withAssets(
+    {
+      slug: "furla",
+      name: "Furla",
+      title: "Italian leather, presented in full detail",
+      intro:
+        "Furla needed accessory imagery that holds true leather grain, hardware tone and colour across every product view. Dedicated retouching and structured quality control deliver campaign and e-commerce assets that match the brand's Italian craftsmanship.",
+      customer: "Furla",
+      project: "PLP / PDP",
+      category: "Accessories / Leather Goods",
+      tags: [
+        "Leather Goods Retouching",
+        "Hardware Detail",
+        "Colour Accuracy",
+        "On-Model & Pack Shot",
+      ],
+      staged:
+        "Leather goods are judged up close. We keep the grain, the stitching and the gold hardware honest across pack shots, details and on-model views, so every angle reads as the same product.",
+      nextSlug: "amazon",
+    },
+    "furla"
   ),
   ...(
     [
@@ -494,16 +375,11 @@ export const CASES: CaseStudy[] = [
       { slug: "walmart", name: "Walmart", category: "Retail" },
       { slug: "uniqlo", name: "Uniqlo", category: "Fashion" },
       { slug: "the-north-face", name: "The North Face", category: "Sport / Outdoor" },
-      { slug: "burberry", name: "Burberry", category: "Luxury" },
-      { slug: "ftkr", name: "FTKR", category: "Fashion" },
-      { slug: "avi-co", name: "Avi & Co", category: "Jewelry" },
-      { slug: "champion", name: "Champion", category: "Sportswear" },
       { slug: "vans", name: "Vans", category: "Footwear" },
-      { slug: "mango", name: "Mango", category: "Fashion" },
     ] as const
   ).map((b, i, arr) => {
     const hasAssets = Boolean(ASSETS[b.slug]);
-    const nextSlug = i + 1 < arr.length ? arr[i + 1].slug : "nike";
+    const nextSlug = i + 1 < arr.length ? arr[i + 1].slug : "adidas";
     if (!hasAssets) {
       return {
         slug: b.slug,
