@@ -58,7 +58,7 @@ function panel(
     .map((src) => frame(src ? img(src) : ph("Retouched")))
     .join("");
   const videoInner = videoSrc
-    ? `<video class="ais-video" src="${videoSrc}" muted loop playsinline autoplay preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>`
+    ? `<video class="ais-video" src="${videoSrc}" muted loop playsinline autoplay preload="metadata" style="width:100%;height:100%;object-fit:contain;object-position:center;background:#161616;display:block;"></video>`
     : `<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#cfcfd4;text-align:center;padding:16px;">
             <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.24);font-size:16px;">▶</span>
             <span style="font:600 11px 'Space Grotesk';letter-spacing:.04em;line-height:1.5;">Video<br>coming soon</span>

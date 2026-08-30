@@ -150,7 +150,7 @@ export const HOME_HTML = `
   ${headerHtml()}
 
   <!-- HERO -->
-  <header id="top" data-nav-hero style="position:relative;min-height:100vh;height:100vh;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(120% 100% at 50% 0%,#F3F3F1 0%,#E4E4E1 55%,#D7D7D3 100%);overflow:hidden;padding:0 40px;">
+  <header id="top" data-nav-hero data-nav-bg="dark" style="position:relative;min-height:100vh;height:100vh;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(120% 100% at 50% 0%,#F3F3F1 0%,#E4E4E1 55%,#D7D7D3 100%);overflow:hidden;padding:0 40px;">
     <video autoPlay muted loop playsInline data-no-lazy data-no-fullscreen poster="/assets/hero-poster.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;"><source src="/assets/hero.mp4" type="video/mp4"></video>
     <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(12,12,14,.5),rgba(12,12,14,.34) 45%,rgba(12,12,14,.62));"></div>
     <h1 style="position:relative;z-index:3;text-align:center;margin:0;font-family:'Archivo';font-weight:800;text-transform:uppercase;line-height:.95;letter-spacing:-.015em;font-size:clamp(2rem,5.8vw,5.4rem);color:transparent;-webkit-text-stroke:1.6px rgba(255,255,255,.94);">Visual Content for<br>E-commerce by<br>Human and AI</h1>

@@ -105,17 +105,28 @@ export function mountSiteHeader(): () => void {
   }
   const onHashSectionClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement | null;
-    const link = target?.closest<HTMLAnchorElement>(
-      'a[href="#cases"], a[href="/#cases"]'
-    );
+    const link = target?.closest<HTMLAnchorElement>("a[href]");
     if (!link) return;
     const href = link.getAttribute("href") || "";
+    const isCases =
+      href === "#cases" ||
+      href === "/#cases" ||
+      href === "#mm-cases-section" ||
+      href === "/#mm-cases-section";
+    const isStudio =
+      href === "#studio" ||
+      href === "/#studio" ||
+      href === "#mm-ais-section" ||
+      href === "/#mm-ais-section";
+    if (!isCases && !isStudio) return;
     // Only intercept when this resolves to staying on the current page —
     // otherwise let the browser navigate there first (handled on arrival
     // by the home page's own mount script).
     if (location.pathname !== "/" && !href.startsWith("#")) return;
     e.preventDefault();
-    scrollToVisible(["cases", "mm-cases-section"]);
+    scrollToVisible(
+      isCases ? ["cases", "mm-cases-section"] : ["studio", "mm-ais-section"]
+    );
   };
   document.addEventListener("click", onHashSectionClick);
   cleanups.push(() => document.removeEventListener("click", onHashSectionClick));

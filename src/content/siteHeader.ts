@@ -81,7 +81,6 @@ export function headerHtml(opts?: { backHref?: string; backLabel?: string; subpa
         <a href="/video" class="sg-menu-link" style="text-decoration:none;color:#fff;font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;">Video Editing</a>
         <a href="/#studio" class="sg-menu-link" style="text-decoration:none;color:#fff;font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;">AI Studio</a>
         <a href="/#cases" class="sg-menu-link" style="text-decoration:none;color:#fff;font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;">Cases</a>
-        <a href="/#faq" class="sg-menu-link" style="text-decoration:none;color:#fff;font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;">FAQ</a>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin-top:40px;padding-top:26px;border-top:1px solid rgba(255,255,255,.14);">
         <a href="/#book" class="sg-menu-link" style="text-decoration:none;background:#7B2C8E;color:#fff;font:600 15px 'Space Grotesk';padding:14px 28px;border-radius:100px;">Book a Meeting &#8594;</a>

@@ -81,12 +81,11 @@ function opsTilesHtml(): string {
   ).join("");
 }
 
-// `subpage` controls whether in-page anchors (AI Studio, Cases, FAQ)
-// point at sections on THIS page or need a leading "/" to go home first.
-// Reused on Photo, Video, and Case pages.
+// `subpage` controls whether in-page anchors point at sections on home
+// or need a leading "/" to go home first.
 export function mobileNavHtml(subpage = false): string {
   const home = subpage ? "/" : "#top";
-  const hash = (id: string) => (subpage ? `/#${id}` : `#${id}`);
+  const anchor = (id: string) => (subpage ? `/#${id}` : `#${id}`);
   return `
   <div id="mnav-bar" style="position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;z-index:80;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:linear-gradient(180deg,rgba(12,12,14,.82),rgba(12,12,14,0));backdrop-filter:blur(10px);">
     <div style="display:flex;align-items:center;gap:10px;">
@@ -108,9 +107,8 @@ export function mobileNavHtml(subpage = false): string {
     <nav style="display:flex;flex-direction:column;">
       <a class="mnav-link" href="/photo" style="font-family:'Archivo';font-weight:800;font-size:32px;color:#fff;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);">Image Editing</a>
       <a class="mnav-link" href="/video" style="font-family:'Archivo';font-weight:800;font-size:32px;color:#fff;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);">Video Editing</a>
-      <a class="mnav-link" href="${hash("studio")}" style="font-family:'Archivo';font-weight:800;font-size:32px;color:#fff;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);">AI Studio</a>
-      <a class="mnav-link" href="${hash("cases")}" style="font-family:'Archivo';font-weight:800;font-size:32px;color:#fff;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);">Cases</a>
-      <a class="mnav-link" href="${hash("faq")}" style="font-family:'Archivo';font-weight:800;font-size:32px;color:#fff;padding:10px 0;">FAQ</a>
+      <a class="mnav-link" href="${anchor("mm-ais-section")}" style="font-family:'Archivo';font-weight:800;font-size:32px;color:#fff;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);">AI Studio</a>
+      <a class="mnav-link" href="${anchor("mm-cases-section")}" style="font-family:'Archivo';font-weight:800;font-size:32px;color:#fff;padding:10px 0;">Cases</a>
     </nav>
     <a href="#book" class="mnav-link" style="margin-top:26px;display:flex;align-items:center;justify-content:center;gap:10px;background:#7B2C8E;color:#fff;font:700 15px 'Space Grotesk';padding:16px;border-radius:14px;text-decoration:none;">Book a Meeting <span aria-hidden="true">&#8594;</span></a>
     <div style="margin-top:auto;padding-top:30px;display:flex;align-items:center;justify-content:space-between;">
@@ -123,7 +121,7 @@ export function mobileNavHtml(subpage = false): string {
 
 export const MOBILE_SERVICES_HTML = `
   <!-- ============ HERO (mobile) ============ -->
-  <header id="mhero" data-nav-hero style="position:relative;height:100svh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:#0C0C0E;">
+  <header id="mhero" data-nav-hero data-nav-bg="dark" style="position:relative;height:100svh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:#0C0C0E;">
     <video autoPlay muted loop playsInline data-no-lazy data-no-fullscreen poster="/assets/hero-poster.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;"><source src="/assets/hero.mp4" type="video/mp4"></video>
     <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(12,12,14,.55),rgba(12,12,14,.25) 42%,rgba(12,12,14,.9));"></div>
     <div style="position:relative;z-index:3;padding:0 22px 26px;">
@@ -204,7 +202,7 @@ export function mobileAiStudioHtml(): string {
           <span style="position:absolute;left:9px;top:9px;font:700 9px 'Space Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.5);padding:5px 9px;border-radius:100px;">On Model</span>
         </div>
         <div style="position:relative;aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:#161618;">
-          <video id="mm-vid" class="ais-video" autoplay muted playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"><source id="mm-vid-src" src="/assets/ecom-video.mp4" type="video/mp4"></video>
+          <video id="mm-vid" class="ais-video" autoplay muted playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;background:#161618;"><source id="mm-vid-src" src="/assets/ecom-video.mp4" type="video/mp4"></video>
           <span style="position:absolute;left:9px;top:9px;font:700 9px 'Space Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.5);padding:5px 9px;border-radius:100px;">Video</span>
         </div>
       </div>
@@ -357,6 +355,7 @@ export const HOME_MOBILE_CSS = `
 .mobile-layout .foot-soc:focus-visible{outline:2px solid #7B2C8E;outline-offset:2px;}
 #mm-cases::-webkit-scrollbar{display:none;}
 #mm-cases{-ms-overflow-style:none;scrollbar-width:none;}
+#mm-cases-section .mm-case-logo{filter:none;}
 
 .mobile-layout{display:none;}
 .desktop-layout{display:block;}

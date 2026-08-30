@@ -106,7 +106,7 @@ function videoHtml(videoSrc: string | undefined): string {
   return `
   <div class="sg-reveal" style="background:#EDEDEB;padding:clamp(40px,7vh,90px) 40px;display:flex;justify-content:center;">
     <div data-sg-fs-host data-sg-fs-fit="contain" style="width:min(420px,72vw);aspect-ratio:9/16;max-height:min(78vh,720px);overflow:hidden;background:#111;border-radius:6px;position:relative;">
-      <video src="${videoSrc}" playsinline preload="metadata" style="width:100%;height:100%;object-fit:contain;display:block;background:#111;"></video>
+      <video src="${videoSrc}" muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:contain;display:block;background:#111;"></video>
     </div>
   </div>`;
 }
@@ -229,6 +229,15 @@ export function mountCase(): () => void {
 
   // ---- mobile-specific nav bar + hamburger menu (matches Photo/Video) ----
   cleanups.push(mountMobileNav());
+
+  document.querySelectorAll<HTMLVideoElement>("video").forEach((v) => {
+    if (v.id === "sg-fs-player" || v.closest("#sg-fs-overlay")) return;
+    v.muted = true;
+    v.defaultMuted = true;
+    v.setAttribute("muted", "");
+    v.playsInline = true;
+    v.setAttribute("playsinline", "");
+  });
 
   // scroll reveal
   let io: IntersectionObserver | undefined;

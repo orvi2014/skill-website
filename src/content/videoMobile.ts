@@ -39,9 +39,9 @@ export const MOBILE_VIDEO_HTML = `
     <p style="font:600 11px 'Space Grotesk';letter-spacing:.18em;text-transform:uppercase;color:#8a8a92;margin:0 0 12px;text-align:center;">02 &mdash; Reels</p>
     <h3 style="font-family:'Archivo';font-weight:800;font-size:26px;line-height:1.06;margin:0 0 26px;text-align:center;">Scroll-stopping reels</h3>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;align-items:start;">
-      <div style="border-radius:12px;overflow:hidden;aspect-ratio:9/16;background:#0f0f11;border:1px solid #2a2a2d;"><video muted loop playsinline preload="none" poster="/assets/reel-1-poster.webp" style="width:100%;height:100%;object-fit:cover;display:block;"><source src="/assets/reel-1.mp4" type="video/mp4"></video></div>
-      <div style="border-radius:12px;overflow:hidden;aspect-ratio:9/16;background:#0f0f11;border:1px solid #2a2a2d;margin-top:20px;"><video muted loop playsinline preload="none" poster="/assets/reel-2-poster.webp" style="width:100%;height:100%;object-fit:cover;display:block;"><source src="/assets/reel-2.mp4" type="video/mp4"></video></div>
-      <div style="border-radius:12px;overflow:hidden;aspect-ratio:9/16;background:#0f0f11;border:1px solid #2a2a2d;margin-top:40px;"><video muted loop playsinline preload="none" poster="/assets/reel-3-poster.webp" style="width:100%;height:100%;object-fit:cover;display:block;"><source src="/assets/reel-3.mp4" type="video/mp4"></video></div>
+      <div style="border-radius:12px;overflow:hidden;aspect-ratio:9/16;background:#0f0f11;border:1px solid #2a2a2d;"><video muted loop playsinline preload="none" poster="/assets/reel-1-poster.webp" style="width:100%;height:100%;object-fit:contain;object-position:center;background:#0f0f11;display:block;"><source src="/assets/reel-1.mp4" type="video/mp4"></video></div>
+      <div style="border-radius:12px;overflow:hidden;aspect-ratio:9/16;background:#0f0f11;border:1px solid #2a2a2d;margin-top:20px;"><video muted loop playsinline preload="none" poster="/assets/reel-2-poster.webp" style="width:100%;height:100%;object-fit:contain;object-position:center;background:#0f0f11;display:block;"><source src="/assets/reel-2.mp4" type="video/mp4"></video></div>
+      <div style="border-radius:12px;overflow:hidden;aspect-ratio:9/16;background:#0f0f11;border:1px solid #2a2a2d;margin-top:40px;"><video muted loop playsinline preload="none" poster="/assets/reel-3-poster.webp" style="width:100%;height:100%;object-fit:contain;object-position:center;background:#0f0f11;display:block;"><source src="/assets/reel-3.mp4" type="video/mp4"></video></div>
     </div>
   </section>
 
@@ -53,7 +53,7 @@ export const MOBILE_VIDEO_HTML = `
         <h3 style="font-family:'Archivo';font-weight:800;font-size:28px;line-height:1.05;margin:0;">From raw still-life to ready-to-post video</h3>
       </div>
       <div style="width:auto;height:min(60vh,560px);aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:#2a1234;box-shadow:0 24px 60px rgba(0,0,0,.35);">
-        <video src="/assets/ai-video-raw.mp4" muted loop playsinline preload="none" poster="/assets/ai-video-raw-poster.webp" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+        <video src="/assets/ai-video-raw.mp4" muted loop playsinline preload="none" poster="/assets/ai-video-raw-poster.webp" style="width:100%;height:100%;object-fit:contain;object-position:center;background:#2a1234;display:block;"></video>
       </div>
     </div>
   </div>

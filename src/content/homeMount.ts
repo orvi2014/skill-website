@@ -39,12 +39,22 @@ export function mountHome(): () => void {
   // ---- shared header (nav scroll behavior + mobile menu) ----
   cleanups.push(mountSiteHeader());
 
-  // ---- correct #cases arrivals from other pages. Desktop and mobile
-  // trees both live in the DOM (one hidden via CSS); native hash-scroll
-  // can land on the hidden copy — re-scroll to the visible one. ----
-  if (window.location.hash === "#cases") {
+  // ---- correct hash arrivals from other pages. Desktop and mobile trees
+  // both live in the DOM (one hidden via CSS); native hash-scroll can land
+  // on the hidden copy — re-scroll to the visible one. ----
+  const hash = window.location.hash;
+  if (
+    hash === "#cases" ||
+    hash === "#mm-cases-section" ||
+    hash === "#studio" ||
+    hash === "#mm-ais-section"
+  ) {
+    const ids =
+      hash.includes("cases")
+        ? ["cases", "mm-cases-section"]
+        : ["studio", "mm-ais-section"];
     window.setTimeout(() => {
-      const el = ["cases", "mm-cases-section"]
+      const el = ids
         .flatMap((id) => Array.from(document.querySelectorAll<HTMLElement>(`#${id}`)))
         .find((c) => c.offsetHeight > 0);
       el?.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "start" });
