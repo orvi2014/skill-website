@@ -39,22 +39,12 @@ export function mountHome(): () => void {
   // ---- shared header (nav scroll behavior + mobile menu) ----
   cleanups.push(mountSiteHeader());
 
-  // ---- correct hash arrivals from other pages. Desktop and mobile trees
-  // both live in the DOM (one hidden via CSS); native hash-scroll can land
-  // on the hidden copy — re-scroll to the visible one. ----
-  const hash = window.location.hash;
-  if (
-    hash === "#cases" ||
-    hash === "#mm-cases-section" ||
-    hash === "#studio" ||
-    hash === "#mm-ais-section"
-  ) {
-    const ids =
-      hash.includes("cases")
-        ? ["cases", "mm-cases-section"]
-        : ["studio", "mm-ais-section"];
+  // ---- correct #cases arrivals from other pages. Desktop and mobile
+  // trees both live in the DOM (one hidden via CSS); native hash-scroll
+  // can land on the hidden copy — re-scroll to the visible one. ----
+  if (window.location.hash === "#cases") {
     window.setTimeout(() => {
-      const el = ids
+      const el = ["cases", "mm-cases-section"]
         .flatMap((id) => Array.from(document.querySelectorAll<HTMLElement>(`#${id}`)))
         .find((c) => c.offsetHeight > 0);
       el?.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "start" });
@@ -174,6 +164,51 @@ export function mountHome(): () => void {
     });
   }
 
+  // ---- Testimonials: pinned card flip (3 in, flip to 3 more, exit) ----
+  function tstScroll() {
+    const wrap = document.getElementById("tst");
+    const pin = document.getElementById("tst-pin");
+    const slots = Array.from(document.querySelectorAll<HTMLElement>("#tst-grid .tst-slot"));
+    if (!wrap || !pin || !slots.length) return;
+    if (window.innerWidth < 820) {
+      wrap.style.height = "";
+      return;
+    }
+    const wanted = Math.round(window.innerHeight * 3.1);
+    if (wrap.dataset.h !== String(wanted)) {
+      wrap.style.height = `${wanted}px`;
+      wrap.dataset.h = String(wanted);
+    }
+    const rect = wrap.getBoundingClientRect();
+    if (rect.bottom < -40 || rect.top > window.innerHeight + 40) return;
+    const total = wrap.offsetHeight - window.innerHeight;
+    const p = total > 0 ? Math.min(Math.max(-rect.top / total, 0), 1) : 0;
+    if (wrap.dataset.p === p.toFixed(4)) return;
+    wrap.dataset.p = p.toFixed(4);
+
+    // The flip is a state change, not a scrollbar readout: once the section
+    // passes the trigger each column commits to a full 180 turn and CSS eases
+    // it, so the motion is smooth however fast the user scrolls.
+    const flipped = p > 0.46;
+    slots.forEach((s, i) => {
+      const flip = s.firstElementChild as HTMLElement | null;
+      if (!flip) return;
+      const off = 0; // all three columns move together
+      const inA = vSmooth(0.02 + off, 0.2 + off, p);
+      // Cards enter, flip, then stay: no fade or lift on the way out.
+      const rise = (1 - inA) * 54;
+      s.style.opacity = inA.toFixed(2);
+      s.style.transform =
+        `translateY(${rise.toFixed(1)}px) scale(${(0.95 + 0.05 * inA).toFixed(3)})`;
+      // ...and only the eased rotation is written, once, on state change.
+      const want = flipped ? "1" : "0";
+      if (flip.dataset.flipped !== want) {
+        flip.dataset.flipped = want;
+        flip.style.transform = `rotateY(${flipped ? 180 : 0}deg)`;
+      }
+    });
+  }
+
   // ---- cases: infinite marquee ----
   let casesX = 0;
   let casesPaused = false;
@@ -210,6 +245,7 @@ export function mountHome(): () => void {
   const loop = () => {
     casesMarq();
     visionZoom();
+    tstScroll();
     raf = requestAnimationFrame(loop);
   };
   raf = requestAnimationFrame(loop);

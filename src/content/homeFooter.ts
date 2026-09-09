@@ -27,51 +27,51 @@ export function homeDesktopFooterHtml(opts?: { subpage?: boolean; contactId?: bo
   const subpage = Boolean(opts?.subpage);
   const id = opts?.contactId === false ? "" : ' id="contact"';
   return `<footer${id} style="position:relative;background:#000;color:#fff;overflow:hidden;">
-    <div style="position:relative;max-width:1180px;margin:0 auto;padding:88px 40px 12px;">
-      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap;border-bottom:1px solid #1c1c20;padding-bottom:52px;">
-        <div>
-          <p style="font:600 13px 'Space Grotesk';letter-spacing:.18em;text-transform:uppercase;color:#b98cd0;margin:0 0 18px;">Let's build something worth watching.</p>
+    <div style="position:relative;max-width:1720px;margin:0 auto;padding:clamp(72px,9vh,104px) clamp(28px,3vw,56px) 0;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:clamp(40px,5vw,96px);flex-wrap:wrap;border-bottom:1px solid #1c1c20;padding-bottom:clamp(44px,5vh,64px);">
+        <div style="min-width:0;">
+          <p style="font:600 13px 'Space Grotesk';letter-spacing:.18em;text-transform:uppercase;color:#b98cd0;margin:0 0 18px;">Let's build something worth watching</p>
           <h2 style="font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,6.5vw,5.4rem);line-height:.98;letter-spacing:-.02em;margin:0;">Start a project<br><span style="color:transparent;-webkit-text-stroke:1.4px #7B2C8E;">with Skill</span></h2>
         </div>
       </div>
     </div>
 
-    <div style="position:relative;max-width:1180px;margin:0 auto;padding:52px 40px 60px;">
-      <div class="sg-home-foot-grid" style="display:grid;grid-template-columns:1.6fr 1fr 1.3fr;gap:44px;">
-        <div>
-          <img src="/assets/logo-skill-graphics.png" alt="Skill Graphics" loading="lazy" style="height:28px;filter:brightness(0) invert(1);opacity:.92;margin-bottom:18px;">
-          <p style="font:400 14px/1.65 'Space Grotesk';color:#8f8f96;margin:0 0 22px;max-width:38ch;">A global, AI-powered image &amp; video production company helping brands, retailers, agencies and studios scale visual content — refined by expert teams.</p>
-          ${footerSocialsHtml("on-dark")}
+    <div style="position:relative;max-width:1720px;margin:0 auto;padding:clamp(52px,6vh,76px) clamp(28px,3vw,56px) clamp(52px,6vh,72px);">
+      <div class="sg-home-foot-grid" style="display:grid;grid-template-columns:1.35fr 0.85fr 1.5fr;gap:clamp(44px,4.6vw,104px);align-items:stretch;">
+        <div style="display:flex;flex-direction:column;min-width:0;">
+          <img src="/assets/logo-skill-graphics.png" alt="Skill Graphics" loading="lazy" style="height:34px;width:auto;align-self:flex-start;filter:brightness(0) invert(1);opacity:.92;margin-bottom:22px;">
+          <p style="font:400 16px/1.72 'Space Grotesk';color:#93939a;margin:0 0 32px;max-width:34ch;">A global, AI-powered image &amp; video production company helping brands, retailers, agencies and studios scale visual content — refined by expert teams.</p>
+          <div style="margin-top:auto;">${footerSocialsHtml("on-dark")}</div>
         </div>
-        <div>
-          <p style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#8c8c94;margin:0 0 18px;">Services</p>
-          <div style="display:grid;gap:13px;font:400 15px 'Space Grotesk';">
+        <div style="min-width:0;">
+          <p style="font:600 13px 'Space Grotesk';letter-spacing:.16em;text-transform:uppercase;color:#90909a;margin:0 0 22px;">Services</p>
+          <div style="display:grid;gap:15px;font:400 17px 'Space Grotesk';">
             ${serviceLinks(subpage)}
           </div>
         </div>
         <div>
-          <p style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#8c8c94;margin:0 0 18px;">Studios</p>
+          <p style="font:600 13px 'Space Grotesk';letter-spacing:.16em;text-transform:uppercase;color:#90909a;margin:0 0 22px;">Studios</p>
           <div style="display:grid;gap:14px;">
-            <div class="foot-office" style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;border-bottom:1px solid #1c1c20;padding-bottom:12px;">
-              <div><div class="foot-office-city" style="font-family:'Archivo';font-weight:800;font-size:15px;transition:color .25s ease;">DHAKA</div><div style="font:400 11px 'Space Grotesk';color:#6a6a70;">Bangladesh · HQ</div></div>
-              <div id="clk-dhaka" style="font:600 15px 'Space Grotesk';color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.02em;">--:--</div>
+            <div class="foot-office" style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;border-bottom:1px solid #1c1c20;padding-bottom:14px;">
+              <div style="min-width:0;"><div class="foot-office-city" style="font-family:'Archivo';font-weight:800;font-size:17px;transition:color .25s ease;">DHAKA</div><div style="font:400 12px 'Space Grotesk';color:#6f6f76;">Bangladesh · HQ</div><div style="font:400 11.5px/1.55 'Space Grotesk';color:#93939a;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">H 112, R 06, Mohakhali DOHS, Dhaka, Bangladesh</div></div>
+              <div id="clk-dhaka" style="font:600 16px 'Space Grotesk';color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.02em;white-space:nowrap;flex:0 0 auto;">--:--</div>
             </div>
-            <div class="foot-office" style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;border-bottom:1px solid #1c1c20;padding-bottom:12px;">
-              <div><div class="foot-office-city" style="font-family:'Archivo';font-weight:800;font-size:15px;transition:color .25s ease;">SHARJAH</div><div style="font:400 11px 'Space Grotesk';color:#6a6a70;">United Arab Emirates</div></div>
-              <div id="clk-sharjah" style="font:600 15px 'Space Grotesk';color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.02em;">--:--</div>
+            <div class="foot-office" style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;border-bottom:1px solid #1c1c20;padding-bottom:14px;">
+              <div style="min-width:0;"><div class="foot-office-city" style="font-family:'Archivo';font-weight:800;font-size:17px;transition:color .25s ease;">SHARJAH</div><div style="font:400 12px 'Space Grotesk';color:#6f6f76;">United Arab Emirates</div><div style="font:400 11.5px/1.55 'Space Grotesk';color:#93939a;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Business Center, SPC Free Zone, Sharjah, UAE</div></div>
+              <div id="clk-sharjah" style="font:600 16px 'Space Grotesk';color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.02em;white-space:nowrap;flex:0 0 auto;">--:--</div>
             </div>
-            <div class="foot-office" style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;border-bottom:1px solid #1c1c20;padding-bottom:12px;">
-              <div><div class="foot-office-city" style="font-family:'Archivo';font-weight:800;font-size:15px;transition:color .25s ease;">NEW YORK</div><div style="font:400 11px 'Space Grotesk';color:#6a6a70;">USA · Americas</div></div>
-              <div id="clk-usa" style="font:600 15px 'Space Grotesk';color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.02em;">--:--</div>
+            <div class="foot-office" style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;border-bottom:1px solid #1c1c20;padding-bottom:14px;">
+              <div style="min-width:0;"><div class="foot-office-city" style="font-family:'Archivo';font-weight:800;font-size:17px;transition:color .25s ease;">NEW YORK</div><div style="font:400 12px 'Space Grotesk';color:#6f6f76;">USA · Americas</div><div style="font:400 11.5px/1.55 'Space Grotesk';color:#93939a;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">2248 Broadway, #1619, NY 10024, New York, USA</div></div>
+              <div id="clk-usa" style="font:600 16px 'Space Grotesk';color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.02em;white-space:nowrap;flex:0 0 auto;">--:--</div>
             </div>
-            <div class="foot-office" style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;">
-              <div><div class="foot-office-city" style="font-family:'Archivo';font-weight:800;font-size:15px;transition:color .25s ease;">SINGAPORE</div><div style="font:400 11px 'Space Grotesk';color:#6a6a70;">Asia · APAC</div></div>
-              <div id="clk-singapore" style="font:600 15px 'Space Grotesk';color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.02em;">--:--</div>
+            <div class="foot-office" style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;">
+              <div style="min-width:0;"><div class="foot-office-city" style="font-family:'Archivo';font-weight:800;font-size:17px;transition:color .25s ease;">SINGAPORE</div><div style="font:400 12px 'Space Grotesk';color:#6f6f76;">Asia · APAC</div><div style="font:400 11.5px/1.55 'Space Grotesk';color:#93939a;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">151 Chin Swee Rd, #02-24 Manhattan House, Singapore</div></div>
+              <div id="clk-singapore" style="font:600 16px 'Space Grotesk';color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.02em;white-space:nowrap;flex:0 0 auto;">--:--</div>
             </div>
           </div>
         </div>
       </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:52px;padding-top:26px;border-top:1px solid #1c1c20;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:clamp(40px,4.5vh,58px);padding-top:24px;border-top:1px solid #1c1c20;">
         <span style="font:400 13px 'Space Grotesk';color:#8c8c94;">© 2026 Skill Graphics · A Skill Ventures company.</span>
       </div>
     </div>

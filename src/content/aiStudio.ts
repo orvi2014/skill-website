@@ -58,28 +58,28 @@ function panel(
     .map((src) => frame(src ? img(src) : ph("Retouched")))
     .join("");
   const videoInner = videoSrc
-    ? `<video class="ais-video" src="${videoSrc}" muted loop playsinline autoplay preload="metadata" style="width:100%;height:100%;object-fit:contain;object-position:center;background:#161616;display:block;"></video>`
+    ? `<video class="ais-video" src="${videoSrc}" muted loop playsinline autoplay preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>`
     : `<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#cfcfd4;text-align:center;padding:16px;">
             <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.24);font-size:16px;">▶</span>
             <span style="font:600 11px 'Space Grotesk';letter-spacing:.04em;line-height:1.5;">Video<br>coming soon</span>
           </div>`;
   return `
-    <div class="ais-panel${cat === "relaxed" ? " active" : ""}" data-cat="${cat}" style="grid-template-columns:128px 128px auto auto auto;grid-template-rows:1fr;column-gap:clamp(12px,1.6vw,24px);align-items:stretch;justify-content:center;width:100%;height:min(56vh,500px);">
+    <div class="ais-panel${cat === "relaxed" ? " active" : ""}" data-cat="${cat}" style="grid-template-columns:clamp(150px,11vw,205px) clamp(150px,11vw,205px) auto auto auto;grid-template-rows:1fr;column-gap:clamp(16px,2vw,34px);align-items:stretch;justify-content:center;width:100%;height:min(76vh,800px);">
       <div style="grid-column:1;position:relative;display:flex;flex-direction:column;gap:10px;height:100%;min-height:0;">
-        <p style="position:absolute;top:-20px;left:0;right:0;text-align:center;margin:0;font:600 9.5px 'Space Grotesk';letter-spacing:.16em;text-transform:uppercase;color:#9a9a95;">Raw</p>
+        <p style="position:absolute;top:-26px;left:0;right:0;text-align:center;margin:0;font:600 11.5px 'Space Grotesk';letter-spacing:.18em;text-transform:uppercase;color:#8e8e89;">Raw</p>
         ${rawCol}
       </div>
       <div style="grid-column:2;position:relative;display:flex;flex-direction:column;gap:10px;height:100%;min-height:0;">
-        <p style="position:absolute;top:-20px;left:0;right:0;text-align:center;margin:0;font:600 9.5px 'Space Grotesk';letter-spacing:.16em;text-transform:uppercase;color:#9a9a95;">Retouched</p>
+        <p style="position:absolute;top:-26px;left:0;right:0;text-align:center;margin:0;font:600 11.5px 'Space Grotesk';letter-spacing:.18em;text-transform:uppercase;color:#8e8e89;">Retouched</p>
         ${stillCol}
       </div>
-      <div aria-hidden="true" style="grid-column:3;align-self:center;justify-self:center;color:#7B2C8E;font-size:clamp(18px,2vw,28px);line-height:1;">→</div>
+      <div aria-hidden="true" style="grid-column:3;align-self:center;justify-self:center;color:#7B2C8E;font-size:clamp(24px,2.6vw,38px);line-height:1;">→</div>
       <div style="grid-column:4;position:relative;height:100%;aspect-ratio:9/16;">
         <div style="position:absolute;inset:0;border-radius:18px;overflow:hidden;background:#fff;border:1px solid rgba(20,10,30,.14);box-shadow:0 24px 60px rgba(20,10,30,.12);">
           ${onmodel ? `<img src="${onmodel}" alt="On Model result" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">` : ph("On Model result")}
           <div style="position:absolute;left:12px;top:12px;display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.86);backdrop-filter:blur(6px);padding:6px 12px;border-radius:100px;pointer-events:none;">
             <span style="width:7px;height:7px;border-radius:50%;background:${accentColor};"></span>
-            <span style="font:600 10px 'Space Grotesk';letter-spacing:.08em;text-transform:uppercase;color:#161616;">On Model</span>
+            <span style="font:600 12px 'Space Grotesk';letter-spacing:.08em;text-transform:uppercase;color:#161616;">On Model</span>
           </div>
         </div>
       </div>
@@ -88,7 +88,7 @@ function panel(
           ${videoInner}
           <div style="position:absolute;left:12px;top:12px;display:flex;align-items:center;gap:7px;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);padding:6px 12px;border-radius:100px;pointer-events:none;z-index:2;">
             <span style="width:7px;height:7px;border-radius:50%;background:${accentColor};"></span>
-            <span style="font:600 10px 'Space Grotesk';letter-spacing:.08em;text-transform:uppercase;color:#fff;">Video</span>
+            <span style="font:600 12px 'Space Grotesk';letter-spacing:.08em;text-transform:uppercase;color:#fff;">Video</span>
           </div>
         </div>
       </div>
@@ -96,25 +96,25 @@ function panel(
 }
 
 export const AI_STUDIO_HTML = `
-<section data-screen-label="AI Studio" style="position:relative;background:#EDEDEB;color:#161616;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:clamp(40px,5vh,64px) clamp(20px,3vw,48px);overflow:hidden;">
+<section data-screen-label="AI Studio" style="position:relative;background:#EDEDEB;color:#161616;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:clamp(14px,2vh,26px) clamp(14px,1.6vw,28px);overflow:hidden;">
   <div aria-hidden="true" style="position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:min(1000px,110%);height:520px;background:radial-gradient(ellipse at center,rgba(123,44,142,.10),transparent 64%);pointer-events:none;"></div>
 
-  <div id="ais-card" style="position:relative;overflow:hidden;width:100%;max-width:1780px;margin:0 auto;background:linear-gradient(118deg,rgba(123,44,142,.055) 0%,rgba(123,44,142,0) 30%),radial-gradient(circle at 92% 8%,rgba(123,44,142,.07),transparent 42%),#fff;border-radius:24px;padding:clamp(26px,3vw,48px) clamp(20px,2vw,34px);box-shadow:0 34px 90px rgba(20,10,30,.10),0 2px 0 rgba(255,255,255,.7) inset;border:1px solid #e6e6e2;display:flex;gap:clamp(24px,2.2vw,40px);align-items:stretch;justify-content:center;flex-wrap:nowrap;min-height:min(82vh,780px);padding-top:clamp(40px,5vh,72px);padding-bottom:clamp(40px,5vh,72px);">
+  <div id="ais-card" style="position:relative;overflow:hidden;width:100%;max-width:none;margin:0 auto;background:linear-gradient(118deg,rgba(123,44,142,.055) 0%,rgba(123,44,142,0) 30%),radial-gradient(circle at 92% 8%,rgba(123,44,142,.07),transparent 42%),#fff;border-radius:20px;padding:clamp(18px,2.2vw,38px) clamp(18px,2vw,34px);box-shadow:0 34px 90px rgba(20,10,30,.10),0 2px 0 rgba(255,255,255,.7) inset;border:1px solid #e6e6e2;display:flex;gap:clamp(24px,2.2vw,40px);align-items:center;justify-content:center;flex-wrap:nowrap;min-height:min(90vh,1000px);padding-top:clamp(24px,3.4vh,52px);padding-bottom:clamp(24px,3.4vh,52px);">
     <div id="ais-cursor-glow" aria-hidden="true" style="position:absolute;left:0;top:0;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(123,44,142,.10),rgba(123,44,142,.04) 40%,transparent 70%);transform:translate(-50%,-50%);opacity:0;transition:opacity .6s ease;pointer-events:none;will-change:transform;"></div>
     <div class="ais-blob" aria-hidden="true" style="top:-14%;left:-6%;width:46%;height:70%;background:radial-gradient(circle,rgba(123,44,142,.10),transparent 68%);animation:ais-drift1 22s ease-in-out infinite;"></div>
     <div class="ais-blob" aria-hidden="true" style="bottom:-20%;right:-4%;width:42%;height:66%;background:radial-gradient(circle,rgba(224,34,46,.06),transparent 68%);animation:ais-drift2 27s ease-in-out infinite;"></div>
     <div class="ais-blob" aria-hidden="true" style="top:20%;right:24%;width:34%;height:52%;background:radial-gradient(circle,rgba(123,44,142,.07),transparent 70%);animation:ais-drift3 19s ease-in-out infinite;"></div>
-    <div style="position:relative;flex:0 1 480px;min-width:280px;max-width:520px;display:flex;flex-direction:column;justify-content:center;">
-      <p style="font:600 12px 'Space Grotesk';letter-spacing:.22em;text-transform:uppercase;color:#7B2C8E;margin:0 0 16px;">AI visuals &amp; Virtual try on</p>
-      <h2 style="font-family:'Archivo';font-weight:800;font-size:clamp(1.45rem,1.55vw,2rem);line-height:1.08;letter-spacing:-.02em;margin:0 0 18px;color:#161616;white-space:nowrap;">The right look for <span id="aisb-headword" style="display:inline-block;transform-origin:center;backface-visibility:hidden;transform:perspective(440px) rotateX(0deg);color:transparent;-webkit-text-stroke:1.4px #7B2C8E;transition:transform .52s cubic-bezier(.2,.75,.25,1),opacity .42s ease;">E-commerce</span></h2>
-      <p id="aisb-detail" style="font:400 15px/1.62 'Space Grotesk';color:#5b5b58;margin:0 0 26px;max-width:40ch;height:7.9em;min-height:7.9em;transition:opacity .4s ease;">Your customers aren't all the same — your content shouldn't be either. One product set becomes the right look for every channel, all from your existing images.</p>
-      <div id="aisb-chips" style="display:flex;gap:4px;flex-wrap:wrap;">
-        <button type="button" data-cat="relaxed" class="ais-chip" aria-pressed="true" style="border:1px solid #7B2C8E;background:#7B2C8E;color:#fff;font:600 11px 'Space Grotesk';padding:8px 9px;border-radius:100px;cursor:pointer;white-space:nowrap;">E-commerce</button>
-        <button type="button" data-cat="casual" class="ais-chip" aria-pressed="false" style="border:1px solid #d8d8d3;background:transparent;color:#5b5b58;font:600 11px 'Space Grotesk';padding:8px 9px;border-radius:100px;cursor:pointer;white-space:nowrap;">Editorial</button>
-        <button type="button" data-cat="formal" class="ais-chip" aria-pressed="false" style="border:1px solid #d8d8d3;background:transparent;color:#5b5b58;font:600 11px 'Space Grotesk';padding:8px 9px;border-radius:100px;cursor:pointer;white-space:nowrap;">Campaign</button>
+    <div style="position:relative;flex:0 1 620px;min-width:0;max-width:660px;min-height:0;display:flex;flex-direction:column;justify-content:center;">
+      <p style="font:600 14px 'Space Grotesk';letter-spacing:.24em;text-transform:uppercase;color:#7B2C8E;margin:0 0 20px;">AI visuals &amp; Virtual try on</p>
+      <h2 style="font-family:'Archivo';font-weight:800;font-size:clamp(1.9rem,2.9vw,3.6rem);line-height:1.08;letter-spacing:-.02em;margin:0 0 22px;color:#161616;text-wrap:pretty;">The right look for <span id="aisb-headword" style="display:inline-block;transform-origin:center;backface-visibility:hidden;transform:perspective(440px) rotateX(0deg);color:transparent;-webkit-text-stroke:1.4px #7B2C8E;transition:transform .52s cubic-bezier(.2,.75,.25,1),opacity .42s ease;">E-commerce</span></h2>
+      <p id="aisb-detail" style="font:400 19px/1.6 'Space Grotesk';color:#555552;margin:0 0 34px;max-width:38ch;height:6.6em;min-height:6.6em;transition:opacity .4s ease;">Your customers aren't all the same — your content shouldn't be either. One product set becomes the right look for every channel, all from your existing images.</p>
+      <div id="aisb-chips" style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button type="button" data-cat="relaxed" class="ais-chip" aria-pressed="true" style="border:1px solid #7B2C8E;background:#7B2C8E;color:#fff;font:600 13px 'Space Grotesk';padding:11px 18px;border-radius:100px;cursor:pointer;white-space:nowrap;">E-commerce</button>
+        <button type="button" data-cat="casual" class="ais-chip" aria-pressed="false" style="border:1px solid #d8d8d3;background:transparent;color:#5b5b58;font:600 13px 'Space Grotesk';padding:11px 18px;border-radius:100px;cursor:pointer;white-space:nowrap;">Editorial</button>
+        <button type="button" data-cat="formal" class="ais-chip" aria-pressed="false" style="border:1px solid #d8d8d3;background:transparent;color:#5b5b58;font:600 13px 'Space Grotesk';padding:11px 18px;border-radius:100px;cursor:pointer;white-space:nowrap;">Campaign</button>
       </div>
     </div>
-    <div style="position:relative;flex:0 0 auto;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;">
+    <div style="position:relative;flex:1 1 auto;min-width:0;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;">
       ${panel(
         "relaxed",
         ["/assets/ecom-raw-2.webp", "/assets/ecom-raw-1.webp", "/assets/ecom-raw-3.webp"],

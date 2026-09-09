@@ -1,5 +1,9 @@
+import { mountChatWidget } from "./chatWidgetMount";
+
 export function mountSiteHeader(): () => void {
   const cleanups: Array<() => void> = [];
+
+  cleanups.push(mountChatWidget());
 
   const menu = document.getElementById("sg-menu");
   const burger = document.getElementById("sg-burger");
@@ -105,28 +109,17 @@ export function mountSiteHeader(): () => void {
   }
   const onHashSectionClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement | null;
-    const link = target?.closest<HTMLAnchorElement>("a[href]");
+    const link = target?.closest<HTMLAnchorElement>(
+      'a[href="#cases"], a[href="/#cases"]'
+    );
     if (!link) return;
     const href = link.getAttribute("href") || "";
-    const isCases =
-      href === "#cases" ||
-      href === "/#cases" ||
-      href === "#mm-cases-section" ||
-      href === "/#mm-cases-section";
-    const isStudio =
-      href === "#studio" ||
-      href === "/#studio" ||
-      href === "#mm-ais-section" ||
-      href === "/#mm-ais-section";
-    if (!isCases && !isStudio) return;
     // Only intercept when this resolves to staying on the current page —
     // otherwise let the browser navigate there first (handled on arrival
     // by the home page's own mount script).
     if (location.pathname !== "/" && !href.startsWith("#")) return;
     e.preventDefault();
-    scrollToVisible(
-      isCases ? ["cases", "mm-cases-section"] : ["studio", "mm-ais-section"]
-    );
+    scrollToVisible(["cases", "mm-cases-section"]);
   };
   document.addEventListener("click", onHashSectionClick);
   cleanups.push(() => document.removeEventListener("click", onHashSectionClick));
@@ -224,6 +217,11 @@ export function mountSiteHeader(): () => void {
     return (0.2126 * accR + 0.7152 * accG + 0.0722 * accB) / 255;
   }
 
+  let lastNavY = typeof window !== "undefined" ? window.scrollY : 0;
+  let navHidden = false;
+  let navTravel = 0;
+  let toneY = -1e9;
+  let toneDark = true;
   function navScroll() {
     const nav = document.getElementById("sg-nav");
     // Both the desktop and mobile layouts can have a [data-nav-hero]
@@ -238,23 +236,89 @@ export function mountSiteHeader(): () => void {
     const menuOpen = menuEl && menuEl.getAttribute("data-open") === "1";
     const y = window.scrollY;
     const solid = y > hero.offsetHeight - 90;
+    // Hide on scroll down, reveal on scroll up. Direction is decided on
+    // accumulated travel so it cannot flip frame to frame.
+    const dy = y - lastNavY;
+    lastNavY = y;
+    navTravel = dy * navTravel > 0 ? navTravel + dy : dy;
+    navHidden = false; // nav stays visible at all scroll positions
+
+    // Cheap state first: bail out before any hit-testing or luminance work.
+    const coarse = `${solid ? "s" : "t"}${menuOpen ? "m" : ""}${navHidden ? "h" : ""}`;
+    const toneStale = Math.abs(y - toneY) > 160;
+    if (nav.dataset.navcoarse === coarse && !toneStale) return;
+    nav.dataset.navcoarse = coarse;
+
     // Sample the real background behind the nav on every call, not just once
     // "solid" — pages with a light-colored hero (e.g. case studies fall back
     // to a pale gray) need the correct logo color from the very first paint,
     // not just after scrolling past the hero.
-    const lum = sampleLuminance(Math.round(innerWidth * 0.5), 74);
-    const darkBg = lum < 0.5;
+    // A section can declare its own tone with [data-nav-tone="dark"|"light"];
+    // trust that over the sampler, which cannot read video/canvas pixels.
+    // The nav itself sits over this pixel, so walk the hit stack past it.
+    if (toneStale) {
+      // One cheap probe, at the logo's own centre. A section can declare its
+      // tone with [data-nav-tone] (the sampler cannot read video pixels), and
+      // the nav sits over this pixel, so walk the hit stack past it.
+      const logo = document.getElementById("sg-logo-link");
+      const r = logo ? logo.getBoundingClientRect() : null;
+      const px = Math.round(r ? r.left + r.width * 0.5 : innerWidth * 0.5);
+      const py = Math.round(r ? r.top + r.height * 0.5 : 74);
+      let tone: string | null = null;
+      const stack = (document.elementsFromPoint?.(px, py) || []) as Element[];
+      for (const el of stack) {
+        if (nav.contains(el)) continue;
+        const declared = (el as HTMLElement).closest("[data-nav-tone]");
+        if (declared) tone = declared.getAttribute("data-nav-tone");
+        break;
+      }
+      toneY = y;
+      toneDark = tone ? tone === "dark" : sampleLuminance(px, py) < 0.45;
+    }
+    const darkBg = toneDark;
 
-    const key = `${solid ? "s" : "t"}${menuOpen ? "m" : ""}${darkBg ? "d" : "l"}`;
+    // Hide-on-scroll-down, reveal-on-scroll-up: past the hero the nav gets
+    // out of the way instead of sitting on top of moving copy, and comes
+    // straight back the moment the user scrolls up or stops near the top.
+    const key = coarse + (darkBg ? "d" : "l");
     if (nav.dataset.navstate === key) return;
     nav.dataset.navstate = key;
     if (nav.style.transition.indexOf("transform") < 0) {
-      nav.style.transition = "background .3s ease,padding .3s ease,transform .45s cubic-bezier(.4,0,.2,1)";
+        nav.style.transition =
+        "background .3s ease,padding .3s ease,opacity .3s ease,transform .42s cubic-bezier(.4,0,.2,1)";
     }
-    nav.style.transform = "translateY(0)";
+    nav.style.transform = navHidden ? "translateY(-118%)" : "translateY(0)";
+    nav.style.opacity = navHidden ? "0" : "1";
     const bars = nav.querySelectorAll<HTMLElement>(".sg-bar");
+    // No full-width bar or scrim: instead each nav element carries its own
+    // soft halo so scrolling text never visually merges with it.
     nav.style.background = "transparent";
+    // Masked backdrop-invert marks switch on once the nav floats over content.
+    const blend = false;
+    nav.dataset.invert = solid && !menuOpen ? "1" : "0";
     nav.style.backdropFilter = "none";
+    (nav.style as any).webkitBackdropFilter = "none";
+    (nav.style as any).maskImage = "none";
+    (nav.style as any).webkitMaskImage = "none";
+    // Blend the individual marks, never a wrapper: mix-blend-mode on an
+    // ancestor blends its whole subtree, which would invert the white CTA pill.
+    nav.querySelectorAll<HTMLElement>("[data-nav-chip]").forEach((el) => {
+      el.style.padding = "0";
+      el.style.margin = "0";
+      el.style.background = "transparent";
+      el.style.backdropFilter = "none";
+      (el.style as any).webkitBackdropFilter = "none";
+      (el.style as any).maskImage = "none";
+      (el.style as any).webkitMaskImage = "none";
+      el.style.mixBlendMode = "normal";
+    });
+    nav.querySelectorAll<HTMLElement>("[data-nav-mark]:not(.sg-book)").forEach((el) => {
+      el.style.mixBlendMode = blend ? "difference" : "normal";
+    });
+    nav.querySelectorAll<HTMLElement>(".sg-book").forEach((el) => {
+      el.style.mixBlendMode = "normal";
+    });
+    nav.style.pointerEvents = navHidden ? "none" : "auto";
     nav.style.borderBottom = "none";
     nav.style.padding = "26px 40px";
     nav.dataset.logobg = darkBg ? "dark" : "light";

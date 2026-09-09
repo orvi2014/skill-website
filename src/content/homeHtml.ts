@@ -8,20 +8,22 @@ import {
   mobileNavHtml,
 } from "./homeMobile";
 import { homeDesktopFooterHtml } from "./homeFooter";
+import { TESTIMONIALS_HTML } from "./testimonials";
 
 const BRAND_MARQUEE_ITEMS = [
   "Adidas",
-  "Guess",
-  "Replay",
-  "DKNY",
-  "Tommy&nbsp;Hilfiger",
-  "KappAhl",
-  "CMP",
-  "Amazon",
-  "Walmart",
+  "Furla",
   "Uniqlo",
-  "The&nbsp;North&nbsp;Face",
+  "Tommy&nbsp;Hilfiger",
+  "Walmart",
+  "Guess",
   "Vans",
+  "DKNY",
+  "KappAhl",
+  "The&nbsp;North&nbsp;Face",
+  "CMP",
+  "Replay",
+  "Amazon",
 ].map(
   (n) =>
     `<span style="font:600 13px 'Space Grotesk';letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.92);padding:0 34px;">${n}</span><span style="width:4px;height:4px;border-radius:50%;background:#7B2C8E;"></span>`
@@ -150,7 +152,7 @@ export const HOME_HTML = `
   ${headerHtml()}
 
   <!-- HERO -->
-  <header id="top" data-nav-hero data-nav-bg="dark" style="position:relative;min-height:100vh;height:100vh;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(120% 100% at 50% 0%,#F3F3F1 0%,#E4E4E1 55%,#D7D7D3 100%);overflow:hidden;padding:0 40px;">
+  <header id="top" data-nav-hero data-nav-tone="dark" style="position:relative;min-height:100vh;height:100vh;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(120% 100% at 50% 0%,#F3F3F1 0%,#E4E4E1 55%,#D7D7D3 100%);overflow:hidden;padding:0 40px;">
     <video autoPlay muted loop playsInline data-no-lazy data-no-fullscreen poster="/assets/hero-poster.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;"><source src="/assets/hero.mp4" type="video/mp4"></video>
     <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(12,12,14,.5),rgba(12,12,14,.34) 45%,rgba(12,12,14,.62));"></div>
     <h1 style="position:relative;z-index:3;text-align:center;margin:0;font-family:'Archivo';font-weight:800;text-transform:uppercase;line-height:.95;letter-spacing:-.015em;font-size:clamp(2rem,5.8vw,5.4rem);color:transparent;-webkit-text-stroke:1.6px rgba(255,255,255,.94);">Visual Content for<br>E-commerce by<br>Human and AI</h1>
@@ -162,6 +164,11 @@ export const HOME_HTML = `
       </div>
     </div>
   </header>
+
+  <!-- AI STUDIO -->
+  <section id="studio" data-screen-label="AI Studio" style="position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;">
+    ${AI_STUDIO_HTML}
+  </section>
 
   <!-- PHOTO (teaser -> sub-page) -->
   <section id="photo" data-screen-label="Photo" style="position:relative;background:#EDEDEB;">
@@ -210,11 +217,6 @@ export const HOME_HTML = `
         </div>
       </div>
     </a>
-  </section>
-
-  <!-- AI STUDIO -->
-  <section id="studio" data-screen-label="AI Studio" style="position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;">
-    ${AI_STUDIO_HTML}
   </section>
 
   <!-- CASES -->
@@ -374,48 +376,52 @@ export const HOME_HTML = `
   </section>
 
   <!-- JOIN / ACADEMY -->
-  <section id="join" data-screen-label="Careers" data-nav-bg="dark" style="background:#000;color:#fff;min-height:100vh;display:flex;align-items:center;padding:clamp(90px,12vh,130px) 40px;position:relative;z-index:2;">
-    <div style="max-width:1180px;margin:0 auto;width:100%;">
-      <div style="display:grid;grid-template-columns:1.15fr 0.85fr;gap:64px;align-items:center;">
+  <section id="join" data-screen-label="Careers" data-nav-bg="dark" style="background:#000;color:#fff;min-height:100vh;display:flex;align-items:center;padding:clamp(70px,9vh,110px) clamp(28px,3vw,56px);position:relative;z-index:2;">
+    <div style="max-width:1520px;margin:0 auto;width:100%;">
+      <div style="display:grid;grid-template-columns:1.15fr 0.85fr;gap:clamp(48px,4.6vw,88px);align-items:center;">
         <div style="position:relative;display:flex;flex-direction:column;">
           <div style="display:flex;align-items:center;gap:14px;margin:0 0 14px;">
             <span style="font:600 13px 'Space Grotesk';letter-spacing:.16em;text-transform:uppercase;color:#b98cd0;">Join us</span>
             <span style="flex:1 1 auto;height:1px;background:linear-gradient(90deg,rgba(185,140,208,.5),transparent);"></span>
           </div>
-          <h2 style="font-family:'Archivo';font-weight:800;font-size:clamp(2.1rem,4.6vw,3.6rem);line-height:1.02;margin:0 0 18px;">Grow as a<br><span id="join-rotor" style="color:#b98cd0;display:inline-block;min-height:1.05em;transition:opacity .4s ease,transform .4s ease;">Retoucher.</span></h2>
-          <p style="font:400 17px/1.6 'Space Grotesk';color:#adadb2;margin:0 0 30px;max-width:50ch;">Whether you're launching your career or taking the next big step, Skill is where creativity, technology and ambition come together. Create. Innovate. Grow. Together.</p>
-          <p style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#7a7a80;margin:0 0 14px;">Open positions</p>
+          <h2 style="font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,5vw,4.4rem);line-height:1.02;margin:0 0 22px;">Grow as a<br><span id="join-rotor" style="color:#b98cd0;display:inline-block;min-height:1.05em;transition:opacity .4s ease,transform .4s ease;">Retoucher.</span></h2>
+          <p style="font:400 19px/1.62 'Space Grotesk';color:#b3b3b8;margin:0 0 36px;max-width:52ch;">Whether you're launching your career or taking the next big step, Skill is where creativity, technology and ambition come together. Create. Innovate. Grow. Together.</p>
+          <p style="font:600 13px 'Space Grotesk';letter-spacing:.16em;text-transform:uppercase;color:#84848a;margin:0 0 16px;">Open positions</p>
           <div style="display:flex;flex-wrap:wrap;gap:10px;">
-            <span class="join-chip" style="font:500 13px 'Space Grotesk';border:1px solid #33333a;padding:9px 16px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">Image Editor</span><span class="join-chip" style="font:500 13px 'Space Grotesk';border:1px solid #33333a;padding:9px 16px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">Video Editor</span><span class="join-chip" style="font:500 13px 'Space Grotesk';border:1px solid #33333a;padding:9px 16px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">VFX Artist</span><span class="join-chip" style="font:500 13px 'Space Grotesk';border:1px solid #33333a;padding:9px 16px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">Quality Controller</span><span class="join-chip" style="font:500 13px 'Space Grotesk';border:1px solid #33333a;padding:9px 16px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">Social Media</span><span class="join-chip" style="font:500 13px 'Space Grotesk';border:1px solid #33333a;padding:9px 16px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">Global Marketing</span><span class="join-chip" style="font:500 13px 'Space Grotesk';border:1px solid #33333a;padding:9px 16px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">Business Development</span><span class="join-chip" style="font:500 13px 'Space Grotesk';border:1px solid #33333a;padding:9px 16px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">Finance &amp; HR</span><span class="join-chip" style="font:500 13px 'Space Grotesk';border:1px solid #33333a;padding:9px 16px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">IT &amp; Development</span>
+            <span class="join-chip" style="font:500 14px 'Space Grotesk';border:1px solid #33333a;padding:11px 19px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">Image Editor</span><span class="join-chip" style="font:500 14px 'Space Grotesk';border:1px solid #33333a;padding:11px 19px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">Video Editor</span><span class="join-chip" style="font:500 14px 'Space Grotesk';border:1px solid #33333a;padding:11px 19px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">VFX Artist</span><span class="join-chip" style="font:500 14px 'Space Grotesk';border:1px solid #33333a;padding:11px 19px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">Quality Controller</span><span class="join-chip" style="font:500 14px 'Space Grotesk';border:1px solid #33333a;padding:11px 19px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">Social Media</span><span class="join-chip" style="font:500 14px 'Space Grotesk';border:1px solid #33333a;padding:11px 19px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">Global Marketing</span><span class="join-chip" style="font:500 14px 'Space Grotesk';border:1px solid #33333a;padding:11px 19px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">Business Development</span><span class="join-chip" style="font:500 14px 'Space Grotesk';border:1px solid #33333a;padding:11px 19px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">Finance &amp; HR</span><span class="join-chip" style="font:500 14px 'Space Grotesk';border:1px solid #33333a;padding:11px 19px;border-radius:100px;color:#d8d8dc;transition:border-color .3s ease,color .3s ease,transform .3s ease;">IT &amp; Development</span>
           </div>
-          <a href="#apply" class="join-cta" style="display:inline-flex;align-items:center;gap:10px;align-self:flex-start;margin-top:34px;text-decoration:none;color:#141414;background:#fff;font:600 15px 'Space Grotesk';padding:15px 30px;border-radius:100px;transition:transform .3s ease,box-shadow .3s ease;">Explore open roles <span style="transition:transform .3s ease;">&#8594;</span></a>
+          <a href="#apply" class="join-cta" style="display:inline-flex;align-items:center;gap:10px;align-self:flex-start;margin-top:34px;text-decoration:none;color:#141414;background:#fff;font:600 16px 'Space Grotesk';padding:17px 34px;border-radius:100px;transition:transform .3s ease,box-shadow .3s ease;">Explore open roles <span style="transition:transform .3s ease;">&#8594;</span></a>
         </div>
-        <div class="sa-card" style="position:relative;display:flex;flex-direction:column;justify-content:center;background:#fff;border:1px solid #e7e2ec;border-radius:22px;padding:30px 30px;overflow:hidden;box-shadow:0 18px 44px rgba(20,20,20,.08);transition:background .55s ease,border-color .55s ease,box-shadow .55s ease;">
-          <img class="sa-logo" src="/assets/skill-academy-mark.png" alt="Skill Academy" loading="lazy" style="width:210px;max-width:66%;height:auto;display:block;margin:0 auto 16px;transition:transform .6s cubic-bezier(.2,.72,.2,1);">
-          <p class="sa-desc" style="font:400 14px/1.55 'Space Grotesk';color:#5b5b58;margin:0 auto 20px;text-align:center;max-width:36ch;transition:color .5s ease;">Great talent isn't just hired — it's developed. Real-world training and hands-on production experience with international brands.</p>
+        <div class="sa-card" style="position:relative;display:flex;flex-direction:column;justify-content:center;background:#fff;border:1px solid #e7e2ec;border-radius:24px;padding:clamp(32px,2.8vw,46px) clamp(30px,2.6vw,42px);overflow:hidden;box-shadow:0 18px 44px rgba(20,20,20,.08);transition:background .55s ease,border-color .55s ease,box-shadow .55s ease;">
+          <img class="sa-logo" src="/assets/skill-academy-mark.png" alt="Skill Academy" loading="lazy" style="width:250px;max-width:70%;height:auto;display:block;margin:0 auto 20px;transition:transform .6s cubic-bezier(.2,.72,.2,1);">
+          <p class="sa-desc" style="font:400 16px/1.6 'Space Grotesk';color:#5b5b58;margin:0 auto 26px;text-align:center;max-width:36ch;transition:color .5s ease;">Great talent isn't just hired — it's developed. Real-world training and hands-on production experience with international brands.</p>
           <div style="display:grid;gap:8px;">
-            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 14px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">Image Post-Production</span></div>
-            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 14px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">Video Editing</span></div>
-            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 14px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">Visual Effects (VFX)</span></div>
-            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid #ece9ef;border-bottom:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 14px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">AI-Powered Production</span></div>
+            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-top:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 16px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">Image Post-Production</span></div>
+            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-top:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 16px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">Video Editing</span></div>
+            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-top:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 16px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">Visual Effects (VFX)</span></div>
+            <div class="sa-row" style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-top:1px solid #ece9ef;border-bottom:1px solid #ece9ef;transition:border-color .5s ease;"><span class="sa-t" style="font:500 16px 'Space Grotesk';color:#1c1c1c;transition:color .5s ease;">AI-Powered Production</span></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  ${TESTIMONIALS_HTML}
+
   <!-- FAQ -->
-  <section id="faq" data-screen-label="FAQ" style="background:#EDEDEB;min-height:100vh;display:flex;align-items:center;padding:clamp(90px,12vh,130px) 40px;">
-    <div style="max-width:900px;margin:0 auto;width:100%;">
-      <p style="font:600 13px 'Space Grotesk';letter-spacing:.16em;text-transform:uppercase;color:#7B2C8E;margin:0 0 14px;">FAQ</p>
-      <h2 style="font-family:'Archivo';font-weight:800;font-size:clamp(1.9rem,4vw,3rem);line-height:1.05;margin:0 0 44px;">Frequently asked questions</h2>
-      <div style="display:grid;gap:0;">
-        <details style="border-top:1px solid #d7d7d2;padding:6px 0;"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font:600 18px 'Space Grotesk';">Why choose Skill over other post-production companies?<span class="sg-faq-plus" style="transition:transform .25s;color:#7B2C8E;font-size:24px;flex:none;">+</span></summary><p style="font:400 16px/1.6 'Space Grotesk';color:#5b5b58;margin:0 0 22px;max-width:70ch;">We combine smart automation, experienced creative professionals and structured quality control to deliver fast, consistent, scalable production for brands worldwide.</p></details>
-        <details style="border-top:1px solid #d7d7d2;padding:6px 0;"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font:600 18px 'Space Grotesk';">How fast can you deliver my projects?<span class="sg-faq-plus" style="transition:transform .25s;color:#7B2C8E;font-size:24px;flex:none;">+</span></summary><p style="font:400 16px/1.6 'Space Grotesk';color:#5b5b58;margin:0 0 22px;max-width:70ch;">Turnaround depends on scope and complexity. From urgent deliveries to large-scale production, our workflow is designed to meet your deadlines without compromising quality.</p></details>
-        <details style="border-top:1px solid #d7d7d2;padding:6px 0;"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font:600 18px 'Space Grotesk';">Can you handle high-volume production?<span class="sg-faq-plus" style="transition:transform .25s;color:#7B2C8E;font-size:24px;flex:none;">+</span></summary><p style="font:400 16px/1.6 'Space Grotesk';color:#5b5b58;margin:0 0 22px;max-width:70ch;">Absolutely. Whether you need hundreds or hundreds of thousands of assets, our scalable production ecosystem supports growing brands and enterprise clients.</p></details>
-        <details style="border-top:1px solid #d7d7d2;padding:6px 0;"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font:600 18px 'Space Grotesk';">Do you use AI?<span class="sg-faq-plus" style="transition:transform .25s;color:#7B2C8E;font-size:24px;flex:none;">+</span></summary><p style="font:400 16px/1.6 'Space Grotesk';color:#5b5b58;margin:0 0 22px;max-width:70ch;">Yes. We use AI to accelerate production and automate repetitive tasks, while every project is refined and approved by experienced creative professionals for exceptional quality.</p></details>
-        <details style="border-top:1px solid #d7d7d2;padding:6px 0;"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font:600 18px 'Space Grotesk';">Will I have a dedicated point of contact?<span class="sg-faq-plus" style="transition:transform .25s;color:#7B2C8E;font-size:24px;flex:none;">+</span></summary><p style="font:400 16px/1.6 'Space Grotesk';color:#5b5b58;margin:0 0 22px;max-width:70ch;">Yes. Every client is assigned a dedicated Key Account Manager who oversees communication, project coordination and delivery from start to finish.</p></details>
-        <details style="border-top:1px solid #d7d7d2;border-bottom:1px solid #d7d7d2;padding:6px 0;"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font:600 18px 'Space Grotesk';">How does your pricing work?<span class="sg-faq-plus" style="transition:transform .25s;color:#7B2C8E;font-size:24px;flex:none;">+</span></summary><p style="font:400 16px/1.6 'Space Grotesk';color:#5b5b58;margin:0 0 22px;max-width:70ch;">Flexible and based on complexity, volume, turnaround and workflow. We provide transparent quotations with no hidden costs.</p></details>
+  <section id="faq" data-screen-label="FAQ" style="background:#EDEDEB;min-height:100vh;display:flex;align-items:center;padding:clamp(70px,9vh,110px) clamp(28px,3vw,56px);">
+    <div style="max-width:1720px;margin:0 auto;width:100%;display:grid;grid-template-columns:0.8fr 1.2fr;gap:clamp(48px,5vw,96px);align-items:start;">
+      <div style="min-width:0;">
+        <p style="font:600 13px 'Space Grotesk';letter-spacing:.16em;text-transform:uppercase;color:#7B2C8E;margin:0 0 14px;">FAQ</p>
+        <h2 style="font-family:'Archivo';font-weight:800;font-size:clamp(2.4rem,4.4vw,4.2rem);line-height:1.02;margin:0;">Frequently asked questions</h2>
+      </div>
+      <div style="display:grid;gap:0;min-width:0;">
+        <details style="border-top:1px solid #d7d7d2;padding:6px 0;"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:28px 0;font:600 22px 'Space Grotesk';">Why choose Skill over other post-production companies?<span class="sg-faq-plus" style="transition:transform .25s;color:#7B2C8E;font-size:28px;flex:none;">+</span></summary><p style="font:400 17.5px/1.62 'Space Grotesk';color:#5b5b58;margin:0 0 28px;max-width:64ch;">We combine smart automation, experienced creative professionals and structured quality control to deliver fast, consistent, scalable production for brands worldwide.</p></details>
+        <details style="border-top:1px solid #d7d7d2;padding:6px 0;"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:28px 0;font:600 22px 'Space Grotesk';">How fast can you deliver my projects?<span class="sg-faq-plus" style="transition:transform .25s;color:#7B2C8E;font-size:28px;flex:none;">+</span></summary><p style="font:400 17.5px/1.62 'Space Grotesk';color:#5b5b58;margin:0 0 28px;max-width:64ch;">Turnaround depends on scope and complexity. From urgent deliveries to large-scale production, our workflow is designed to meet your deadlines without compromising quality.</p></details>
+        <details style="border-top:1px solid #d7d7d2;padding:6px 0;"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:28px 0;font:600 22px 'Space Grotesk';">Can you handle high-volume production?<span class="sg-faq-plus" style="transition:transform .25s;color:#7B2C8E;font-size:28px;flex:none;">+</span></summary><p style="font:400 17.5px/1.62 'Space Grotesk';color:#5b5b58;margin:0 0 28px;max-width:64ch;">Absolutely. Whether you need hundreds or hundreds of thousands of assets, our scalable production ecosystem supports growing brands and enterprise clients.</p></details>
+        <details style="border-top:1px solid #d7d7d2;padding:6px 0;"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:28px 0;font:600 22px 'Space Grotesk';">Do you use AI?<span class="sg-faq-plus" style="transition:transform .25s;color:#7B2C8E;font-size:28px;flex:none;">+</span></summary><p style="font:400 17.5px/1.62 'Space Grotesk';color:#5b5b58;margin:0 0 28px;max-width:64ch;">Yes. We use AI to accelerate production and automate repetitive tasks, while every project is refined and approved by experienced creative professionals for exceptional quality.</p></details>
+        <details style="border-top:1px solid #d7d7d2;padding:6px 0;"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:28px 0;font:600 22px 'Space Grotesk';">Will I have a dedicated point of contact?<span class="sg-faq-plus" style="transition:transform .25s;color:#7B2C8E;font-size:28px;flex:none;">+</span></summary><p style="font:400 17.5px/1.62 'Space Grotesk';color:#5b5b58;margin:0 0 28px;max-width:64ch;">Yes. Every client is assigned a dedicated Key Account Manager who oversees communication, project coordination and delivery from start to finish.</p></details>
+        <details style="border-top:1px solid #d7d7d2;border-bottom:1px solid #d7d7d2;padding:6px 0;"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:28px 0;font:600 22px 'Space Grotesk';">How does your pricing work?<span class="sg-faq-plus" style="transition:transform .25s;color:#7B2C8E;font-size:28px;flex:none;">+</span></summary><p style="font:400 17.5px/1.62 'Space Grotesk';color:#5b5b58;margin:0 0 28px;max-width:64ch;">Flexible and based on complexity, volume, turnaround and workflow. We provide transparent quotations with no hidden costs.</p></details>
       </div>
     </div>
   </section>
