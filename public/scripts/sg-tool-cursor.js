@@ -48,6 +48,29 @@
     cur.innerHTML = pen + wheel + dot;
     document.body.appendChild(cur);
 
+    // Echo trail: a few progressively slower ghost rings behind the main one,
+    // each smaller and fainter, so fast movement leaves a comet-like streak.
+    var echoes = [];
+    var ECHO = [
+      { ease: 0.105, size: 22, alpha: 0.5 },
+      { ease: 0.075, size: 17, alpha: 0.3 },
+      { ease: 0.05, size: 12, alpha: 0.17 }
+    ];
+    var old2 = document.getElementById('sg-cursor-echo'); if(old2) old2.remove();
+    var echoWrap = document.createElement('div');
+    echoWrap.id = 'sg-cursor-echo';
+    echoWrap.style.cssText = 'position:fixed;top:0;left:0;width:0;height:0;pointer-events:none;z-index:99998;opacity:0;transition:opacity .18s ease;';
+    ECHO.forEach(function(cfg){
+      var e = document.createElement('div');
+      e.style.cssText = 'position:absolute;left:0;top:0;width:' + cfg.size + 'px;height:' + cfg.size +
+        'px;margin:' + (-cfg.size / 2) + 'px 0 0 ' + (-cfg.size / 2) +
+        'px;border-radius:50%;border:1.5px solid rgba(123,44,142,' + cfg.alpha +
+        ');will-change:transform;';
+      echoWrap.appendChild(e);
+      echoes.push({ el: e, ease: cfg.ease, x: mx, y: my });
+    });
+    document.body.appendChild(echoWrap);
+
     var gPen = cur.querySelector('[data-g="pen"]');
     var gWheel = cur.querySelector('[data-g="wheel"]');
     var gDot = cur.querySelector('[data-g="dot"]');
@@ -57,8 +80,12 @@
     var styleEl = document.getElementById('sg-cursor-style');
     if(!styleEl){
       styleEl = document.createElement('style'); styleEl.id = 'sg-cursor-style';
+      // The OS cursor stays visible everywhere; it is only hidden inside the
+      // image/video tool contexts, where the pen/colour-wheel replaces it.
       styleEl.textContent = '@keyframes sg-wheel-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}'
-        + '@media (pointer:fine){html,body,a,button,summary,[data-tool]{cursor:none !important;}}';
+        + '@media (pointer:fine){html[data-cursor-tool="1"],html[data-cursor-tool="1"] body,'
+        + 'html[data-cursor-tool="1"] a,html[data-cursor-tool="1"] button,'
+        + 'html[data-cursor-tool="1"] summary,html[data-cursor-tool="1"] [data-tool]{cursor:none !important;}}';
       document.head.appendChild(styleEl);
     }
 
@@ -96,25 +123,91 @@
       }
     }
 
+    // The ring trails the real pointer with easing, which reads as depth: the
+    // native cursor leads, the ring catches up. Tool cursors (pen/wheel)
+    // replace the pointer, so those stay locked to it exactly.
+    var tx = mx, ty = my, raf = 0, tool = false;
+    var scaleNow = 1, scaleTarget = 1, pressed = false, hot = false;
+    function frame(){
+      raf = 0;
+      var ease = tool ? 1 : 0.15;
+      var vx = (mx - tx) * ease;
+      var vy = (my - ty) * ease;
+      tx += vx; ty += vy;
+
+      // Velocity-driven squash & stretch: the ring elongates along its
+      // direction of travel and settles back to a circle when it catches up.
+      var speed = Math.min(Math.sqrt(vx * vx + vy * vy), 26);
+      var stretch = tool ? 0 : speed / 26;
+      var ang = speed > 0.6 ? (Math.atan2(vy, vx) * 180) / Math.PI : 0;
+      scaleTarget = pressed ? 0.7 : hot ? 1.85 : 1;
+      scaleNow += (scaleTarget - scaleNow) * 0.2;
+
+      var t = 'translate(' + tx + 'px,' + ty + 'px)';
+      if(!tool){
+        t += ' rotate(' + ang + 'deg) scale(' +
+          (scaleNow * (1 + stretch * 0.55)).toFixed(3) + ',' +
+          (scaleNow * (1 - stretch * 0.3)).toFixed(3) + ') rotate(' + -ang + 'deg)';
+      }
+      cur.style.transform = t;
+
+      var settled = true;
+      for(var i = 0; i < echoes.length; i++){
+        var ec = echoes[i];
+        ec.x += (mx - ec.x) * ec.ease;
+        ec.y += (my - ec.y) * ec.ease;
+        ec.el.style.transform = 'translate(' + ec.x + 'px,' + ec.y + 'px)';
+        if(Math.abs(mx - ec.x) > 0.5 || Math.abs(my - ec.y) > 0.5) settled = false;
+      }
+      echoWrap.style.opacity = tool ? '0' : shown ? '1' : '0';
+
+      var moving = !settled || Math.abs(mx - tx) > 0.4 || Math.abs(my - ty) > 0.4;
+      if(moving || Math.abs(scaleTarget - scaleNow) > 0.01) raf = requestAnimationFrame(frame);
+    }
+    function kick(){ if(!raf) raf = requestAnimationFrame(frame); }
+    function onDown(){ pressed = true; kick(); }
+    function onUp(){ pressed = false; kick(); }
+    function onOver(e){
+      var t = e.target;
+      var next = !!(t && t.closest && t.closest('a,button,summary,input,textarea,[role="button"]'));
+      if(next !== hot){ hot = next; kick(); }
+    }
     function onMove(e){
       mx=e.clientX; my=e.clientY;
-      cur.style.transform='translate('+mx+'px,'+my+'px)';
-      if(!shown){ shown=true; cur.style.opacity='1'; }
+      if(!shown){
+        shown=true; cur.style.opacity='1'; tx=mx; ty=my;
+        for(var j = 0; j < echoes.length; j++){ echoes[j].x = mx; echoes[j].y = my; }
+      }
       var ctx=contextAt(mx,my);
       var key=ctx.m+(ctx.dark?'d':'l');
-      if(key!==mode){ mode=key; apply(ctx); }
+      if(key!==mode){
+        mode=key;
+        apply(ctx);
+        tool = ctx.m==='pen' || ctx.m==='wheel';
+        document.documentElement.setAttribute('data-cursor-tool', tool ? '1' : '0');
+      }
+      kick();
     }
-    function onLeave(){ shown=false; cur.style.opacity='0'; }
+    function onLeave(){ shown=false; cur.style.opacity='0'; echoWrap.style.opacity='0'; }
     function onEnter(){ shown=true; cur.style.opacity='1'; }
     document.addEventListener('mousemove', onMove, {passive:true});
+    document.addEventListener('mouseover', onOver, {passive:true});
+    document.addEventListener('mousedown', onDown, {passive:true});
+    document.addEventListener('mouseup', onUp, {passive:true});
     document.addEventListener('mouseleave', onLeave);
     document.addEventListener('mouseenter', onEnter);
 
     return function(){
+      if(raf) cancelAnimationFrame(raf);
+      document.documentElement.removeAttribute('data-cursor-tool');
       document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseover', onOver);
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('mouseup', onUp);
       document.removeEventListener('mouseleave', onLeave);
       document.removeEventListener('mouseenter', onEnter);
       if(cur) cur.remove();
+      if(echoWrap) echoWrap.remove();
     };
   }
   window.SGToolCursor = { mount: mount };
