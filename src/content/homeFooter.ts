@@ -73,6 +73,9 @@ export function homeDesktopFooterHtml(opts?: { subpage?: boolean; contactId?: bo
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:clamp(40px,4.5vh,58px);padding-top:24px;border-top:1px solid #1c1c20;">
         <span style="font:400 13px 'Space Grotesk';color:#8c8c94;">© 2026 Skill Graphics · A Skill Ventures company.</span>
+        <div style="display:flex;align-items:center;gap:22px;">
+          <a href="/privacy-policy" class="foot-link" style="text-decoration:none;font:400 13px 'Space Grotesk';color:#8c8c94;transition:color .25s ease;">Privacy Policy</a>
+        </div>
       </div>
     </div>
     <div id="foot-wm" aria-hidden="true" style="position:relative;overflow:hidden;line-height:0;padding-bottom:10px;cursor:default;">
@@ -104,6 +107,9 @@ export function homeMobileFooterHtml(variant: "on-light" | "on-dark" = "on-light
     <div style="margin-top:32px;padding-top:22px;border-top:1px solid ${rule};display:flex;justify-content:space-between;align-items:center;gap:12px;">
       <img src="${logo}" alt="Skill Graphics" style="height:20px;width:auto;display:block;">
       <span style="font:400 11px 'Space Grotesk';color:${mute};">&copy; 2026 &middot; Member of Skill Ventures</span>
+    </div>
+    <div style="margin-top:14px;">
+      <a href="/privacy-policy" style="text-decoration:none;font:400 11px 'Space Grotesk';color:${mute};border-bottom:1px solid ${rule};">Privacy Policy</a>
     </div>`;
 }
 

@@ -106,6 +106,8 @@ export function mountChatWidget(): () => void {
   const send = document.getElementById("sgc-send");
   const close = document.getElementById("sgc-close");
   if (!bubble || !panel || !scroll || !input || !send || !close) return () => {};
+  // Hoisted function declarations (ask) don't see the null check above.
+  const inputEl = input;
 
   let thread: Msg[] = [];
   let busy = false;
@@ -264,8 +266,8 @@ export function mountChatWidget(): () => void {
     const q = text.trim();
     if (!q || busy) return;
     thread.push({ role: "user", content: q });
-    input.value = "";
-    input.style.height = "auto";
+    inputEl.value = "";
+    inputEl.style.height = "auto";
     busy = true;
     render();
 
