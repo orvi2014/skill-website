@@ -37,6 +37,15 @@ const ITEMS = [
   },
 ];
 
+// Avatar fallback shown if the portrait fails to load ("E-commerce Director" → "ED").
+const initials = (label: string) =>
+  label
+    .split(/\s+/)
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
 const face = (t: (typeof ITEMS)[number], back: boolean, n: number) => `
           <div class="tst-face" style="grid-area:1/1;position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:26px;padding:clamp(30px,2.5vw,46px);border:1px solid rgba(20,20,20,.09);border-radius:4px;background:linear-gradient(180deg,#fff 0%,#faf9f7 100%);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 26px 60px -28px rgba(28,20,32,.28);box-sizing:border-box;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;transform:rotateY(${back ? "180deg" : "0deg"});">
             <span aria-hidden="true" style="position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,#7B2C8E,rgba(123,44,142,0));"></span>
@@ -46,7 +55,7 @@ const face = (t: (typeof ITEMS)[number], back: boolean, n: number) => `
             </div>
             <p style="font-family:'Archivo';font-weight:500;font-size:clamp(17px,1.35vw,22px);line-height:1.42;letter-spacing:-.008em;color:#1c1c1a;margin:0;text-wrap:pretty;">${t.q}</p>
             <div style="display:flex;align-items:center;gap:14px;padding-top:22px;border-top:1px solid rgba(20,20,20,.08);">
-              <span aria-hidden="true" style="flex:none;position:relative;width:52px;height:52px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;font:700 13px 'Space Grotesk';letter-spacing:.06em;color:#fff;background:linear-gradient(145deg,#7B2C8E,#4d1a5c);box-shadow:0 6px 16px -6px rgba(123,44,142,.55);">${t.i}<img src="${t.p}" alt="" loading="lazy" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></span>
+              <span aria-hidden="true" style="flex:none;position:relative;width:52px;height:52px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;font:700 13px 'Space Grotesk';letter-spacing:.06em;color:#fff;background:linear-gradient(145deg,#7B2C8E,#4d1a5c);box-shadow:0 6px 16px -6px rgba(123,44,142,.55);">${initials(t.n)}<img src="${t.p}" alt="" loading="lazy" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></span>
               <span style="display:flex;flex-direction:column;gap:4px;">
                 <span style="font:600 14.5px 'Space Grotesk';letter-spacing:-.01em;color:#141414;">${t.n}</span>
                 <span style="font:400 12px 'Space Grotesk';letter-spacing:.06em;text-transform:uppercase;color:#8a8a85;">${t.r}</span>
